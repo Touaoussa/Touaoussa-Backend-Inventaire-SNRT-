@@ -7,11 +7,37 @@ public class Supportacquistion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String reference;
+	private Long reference;
+
+	public Supportacquistion() {
+		
+	}
+	
+	public Long getReference() {
+		return reference;
+	}
+
+
+	public void setReference(Long reference) {
+		this.reference = reference;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 	private String type;
 	
 	
-	public Supportacquistion() {
-		
+	public Supportacquistion(String type) {
+		//this.reference=reference;
+		this.type=type;
 	}
 }

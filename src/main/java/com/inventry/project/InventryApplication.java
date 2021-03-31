@@ -1,4 +1,4 @@
-package com.inventry.project.main;
+package com.inventry.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,14 +12,12 @@ import com.inventry.project.usecase.*;
 
 
 
-/*@ComponentScan({"com.inventry.project.usecase"})
+/*@ComponentScan({"com.inventry.project"})*/
 
-//@ComponentScan("com.inventry.main")*/
+
 
 @SpringBootApplication
-@EntityScan("com.inventry.model")
-@EnableJpaRepositories("com.inventry.project.model")
-@ComponentScan({"com.inventry.project"})
+
 public class InventryApplication implements CommandLineRunner {
 
 	@Autowired
@@ -31,7 +29,7 @@ public class InventryApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-	//		initserviceimp.InitDirection();	
+		initserviceimp.InitDirection();	
 	}
 	
 	
