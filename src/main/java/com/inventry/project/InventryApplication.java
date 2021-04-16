@@ -29,7 +29,7 @@ public class InventryApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		initserviceimp.InitDirection();	
+		//initserviceimp.InitDirection();	
 	}
 	
 	
