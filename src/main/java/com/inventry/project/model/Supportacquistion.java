@@ -6,8 +6,13 @@ import javax.persistence.*;
 public class Supportacquistion {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long reference;
+	private String type;
+
+	public Supportacquistion(Long reference, String type) {
+		this.reference = reference;
+		this.type = type;
+	}
 
 	public Supportacquistion() {
 		
@@ -32,12 +37,6 @@ public class Supportacquistion {
 		this.type = type;
 	}
 
+	
 
-	private String type;
-	
-	
-	public Supportacquistion(String type) {
-		//this.reference=reference;
-		this.type=type;
-	}
 }

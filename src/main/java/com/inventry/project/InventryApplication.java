@@ -20,8 +20,8 @@ import com.inventry.project.usecase.*;
 
 public class InventryApplication implements CommandLineRunner {
 
-	@Autowired
-	InitServiceImp initserviceimp;
+	/*@Autowired
+	InitServiceImp initserviceimp;*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(InventryApplication.class, args);	
