@@ -4,18 +4,19 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 
 @Entity
-public class Supportacquistion {
+public class Supportacquistionlocal {
 	
 	@Id
 	private Long reference;
+	@Column
 	private String type;
 
-	public Supportacquistion(Long reference, String type) {
+	public Supportacquistionlocal(Long reference, String type) {
 		this.reference = reference;
 		this.type = type;
 	}
 
-	public Supportacquistion() {
+	public Supportacquistionlocal() {
 		
 	}
 	
@@ -39,5 +40,5 @@ public class Supportacquistion {
 	}
 
 	
-
 }
+

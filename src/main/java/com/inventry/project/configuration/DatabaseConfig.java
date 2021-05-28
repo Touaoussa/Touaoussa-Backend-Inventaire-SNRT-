@@ -11,17 +11,17 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class DatabaseConfig {
 	
-/*	@Bean
+	/*@Bean("datasource1")
 	@Primary
-	@ConfigurationProperties(prefix="spring.datasource")
-	public DataSource primaryDataSource() {
+	@ConfigurationProperties(prefix="app.datasource")
+	public DataSource dataSource() {
 	    return DataSourceBuilder.create().build();
 	}
 
-	@Bean
-	@ConfigurationProperties(prefix="spring.datasource2")
-	public DataSource secondaryDataSource() {
+	@Bean("datasource2")
+	@ConfigurationProperties(prefix="app.datasource2")
+	public DataSource dataSource2() {
 	    return DataSourceBuilder.create().build();
-	}*/
-
+	}
+*/
 }

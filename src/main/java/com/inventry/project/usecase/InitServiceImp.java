@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.inventry.project.direction.repo.DirectionRepository;
 import com.inventry.project.model.Direction;
-import com.inventry.project.model.DirectionRepository;
 import com.inventry.project.model.Supportacquistion;
-import com.inventry.project.model.SupportacquistionRepository;
+import com.inventry.project.support.repo.SupportacquistionRepository;
 
 @Service
 public class InitServiceImp implements InitService {
