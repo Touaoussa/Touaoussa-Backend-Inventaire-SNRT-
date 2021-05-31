@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MyUserDetailsService myUserDeatilsService ;
 	
+	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 	
 	@Override
