@@ -16,7 +16,57 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 
 	
-	private String SECRET_KEY="secret" ;
+	private final String CLAIMS_SUBJECT = "sub";
+	private final String CLAIMS_CREATED = "created";
+
+	private Long TOKEN_VALIDITY = 604800L;
+
+	private String TOKEN_SECRET = "phoenix2020";
+
+	public String generateToken(UserDetails userDetails) {
+		Map<String, Object> claims = new HashMap<>();
+		claims.put(CLAIMS_SUBJECT, userDetails.getUsername());
+		claims.put(CLAIMS_CREATED, new Date());
+		return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate())
+				.signWith(SignatureAlgorithm.HS512, TOKEN_SECRET).compact();
+	}
+
+	public String getUserNameFromToken(String token) {
+		try {
+			Claims claims = getClaims(token);
+
+			return claims.getSubject();
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	private Date generateExpirationDate() {
+		return new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000);
+	}
+
+	public boolean isTokenValid(String token, UserDetails userDetails) {
+		String username = getUserNameFromToken(token);
+		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	}
+
+	private boolean isTokenExpired(String token) {
+		Date expiration = getClaims(token).getExpiration();
+		return expiration.before(new Date());
+	}
+
+	private Claims getClaims(String token) {
+		Claims claims;
+		try {
+			claims = Jwts.parser().setSigningKey(TOKEN_SECRET).parseClaimsJws(token).getBody();
+		} catch (Exception ex) {
+			claims = null;
+		}
+
+		return claims;
+	}
+	
+	/*private String SECRET_KEY="secret" ;
 	
 	public String extractUsername(String token) {
 		return extractClaim(token,Claims::getSubject);
@@ -46,7 +96,7 @@ public class JwtUtil {
 	private String createToken(Map<String,Object> claims , String subject) {
 		
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 *60 * 60))
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 *60 * 60 * 10))
 				.signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
 	}
 	
@@ -54,5 +104,5 @@ public class JwtUtil {
 		final String username = this.extractUsername(token);
 		return (username.equals(userDetails.getUsername()) && isTokenExpired(token));
 	}
-	
+	*/
 }
