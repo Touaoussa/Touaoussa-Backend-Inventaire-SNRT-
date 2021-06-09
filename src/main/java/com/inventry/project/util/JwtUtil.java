@@ -27,8 +27,11 @@ public class JwtUtil {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put(CLAIMS_SUBJECT, userDetails.getUsername());
 		claims.put(CLAIMS_CREATED, new Date());
-		return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate())
-				.signWith(SignatureAlgorithm.HS512, TOKEN_SECRET).compact();
+		return Jwts.builder().
+				setClaims(claims).
+				setExpiration(generateExpirationDate())
+				.signWith(SignatureAlgorithm.HS512, TOKEN_SECRET)
+				.compact();
 	}
 
 	public String getUserNameFromToken(String token) {

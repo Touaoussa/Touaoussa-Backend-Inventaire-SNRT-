@@ -28,6 +28,7 @@ import com.inventry.project.support2.repo.SupportacquistionRepository2;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.configuration.*;
 import com.inventry.project.direction.repo.DirectionRepository;
+import com.inventry.project.security.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/microservice1")
@@ -87,7 +88,7 @@ public class MicroService1 {
 	}*/
 	
 	@RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
-	public ResponseEntity<?> createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception{
+	public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception{
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authenticationrequest.getUsername() ,authenticationrequest.getPassword())
@@ -100,7 +101,7 @@ public class MicroService1 {
 				.loadUserByUsername(authenticationrequest.getUsername());
 		final String jwt = jwtTokenutil.generateToken(userDetails);
 		
-		return ResponseEntity.ok(jwt);
+		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS);
 	}
 	
 	
