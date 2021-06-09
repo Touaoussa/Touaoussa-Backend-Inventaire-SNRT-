@@ -24,6 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 	
+	private final String[] PUBLIC_ENDPOINTS = { 
+	
+			"/microservice1/authenticate",
+			"/microservice1/uploadFile/Support"
+			
+		};
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(myUserDeatilsService);
@@ -39,7 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-					.authorizeRequests().antMatchers("/microservice1/authenticate").permitAll()
+					.authorizeRequests().antMatchers(
+							PUBLIC_ENDPOINTS
+							).permitAll()
 					.anyRequest().authenticated()
 					.and().sessionManagement()
 					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

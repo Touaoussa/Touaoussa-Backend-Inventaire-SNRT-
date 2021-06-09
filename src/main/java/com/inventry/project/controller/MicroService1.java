@@ -1,6 +1,11 @@
 package com.inventry.project.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,11 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.inventry.project.model.*;
 import com.inventry.project.service.MyUserDetailsService;
@@ -103,6 +109,22 @@ public class MicroService1 {
 		
 		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS);
 	}
+	
+	
+	
+	 @PostMapping(path = "/uploadFile/Support") 
+	    public Map<String,Object> uploadPhoto(MultipartFile file) throws Exception{
+	        String name=file.getOriginalFilename();
+	        int i= name.lastIndexOf(".");
+	        if (i<0) throw new Exception();
+	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
+	        Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
+	        Map<String,Object> resp=new HashMap<>();
+	        resp.put("path",name);
+	        return resp;
+	    }
+	 
+	
 	
 	
 }
