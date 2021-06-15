@@ -27,9 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final String[] PUBLIC_ENDPOINTS = { 
 	
 			"/microservice1/authenticate",
-			"/microservice1/uploadFile/Support"
+			"/microservice1/uploadFile/Support",
+			"/microservice1/Supportacquistion/"
 			
-		};
+		}; 
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
