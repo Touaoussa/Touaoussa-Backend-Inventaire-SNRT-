@@ -65,6 +65,8 @@ public class MicroService1 {
 	@Autowired
 	JwtUtil jwtTokenutil;
 	
+	int test;
+	
 	/*@GetMapping("/")
 	public void getAllDirections() {
 		
