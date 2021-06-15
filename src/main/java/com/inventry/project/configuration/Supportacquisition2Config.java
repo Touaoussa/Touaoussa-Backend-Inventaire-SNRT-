@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         entityManagerFactoryRef = "db2EntityMgrFactory",
         transactionManagerRef = "db2TransactionMgr",
         basePackages = {
-                "com.inventry.project.support2.repo"
+                "com.inventry.project.datasource2.repo"
         })
 @EnableTransactionManagement
 public class Supportacquisition2Config {
