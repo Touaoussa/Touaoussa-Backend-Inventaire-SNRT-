@@ -25,7 +25,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         entityManagerFactoryRef = "db1EntityMgrFactory",
         transactionManagerRef = "db1TransactionMgr",
         basePackages = {
-                "com.inventry.project.support.repo"
+                "com.inventry.project.support.repo",
+                "com.inventry.project.articlejde.repo"
         })
 @EnableTransactionManagement
 public class SupportacquisitionConfig {
@@ -54,7 +55,7 @@ public class SupportacquisitionConfig {
 	        		.dataSource(dataSource)
 	                .properties(properties)
 	                .packages("com.inventry.project.model")
-	                .persistenceUnit("Supportacquistion")
+	                //.persistenceUnit("Supportacquistion","")
 	                .build();
 	    }
 	 

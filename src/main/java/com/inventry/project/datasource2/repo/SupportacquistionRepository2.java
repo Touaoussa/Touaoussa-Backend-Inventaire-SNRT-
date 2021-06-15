@@ -1,4 +1,4 @@
-package com.inventry.project.support2.repo;
+package com.inventry.project.datasource2.repo;
 
 import java.util.List;
 

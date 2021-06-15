@@ -30,9 +30,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.inventry.project.model.*;
 import com.inventry.project.service.MyUserDetailsService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
-import com.inventry.project.support2.repo.SupportacquistionRepository2;
 import com.inventry.project.util.JwtUtil;
+import com.inventry.project.articlejde.repo.ArticleJdeRepository;
 import com.inventry.project.configuration.*;
+import com.inventry.project.datasource2.repo.ArticleLocalRepository;
+import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.direction.repo.DirectionRepository;
 import com.inventry.project.security.*;
 @CrossOrigin
@@ -43,12 +45,16 @@ public class MicroService1 {
 	
 	@Autowired
 	DirectionRepository directionrepository ;
-	
 	@Autowired
 	SupportacquistionRepository supportacquistionRepository ;
-	
 	@Autowired
 	SupportacquistionRepository2 supportacquistionRepository2 ;
+	@Autowired
+	ArticleJdeRepository articlejderepository;
+	
+	@Autowired
+	ArticleLocalRepository articlelocalrepository;
+	
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -124,6 +130,21 @@ public class MicroService1 {
 	        return resp;
 	    }
 	 
+	 
+	 @PostMapping(path = "/setarticles") 
+	    public List<Article> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
+		List<Article> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
+		double prix =articles.get(0).getPrixunitaire();
+		//System.out.println(String.format("%1.2f",prix));
+		System.out.println(prix/10000);
+		for(int i=0; i < articles.size();i++) {
+			articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
+			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100000);
+			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/1000);
+		}
+		articlelocalrepository.saveAll(articles);
+		 return articles;
+	    }
 	
 	
 	

@@ -27,7 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final String[] PUBLIC_ENDPOINTS = { 
 	
 			"/microservice1/authenticate",
-			"/microservice1/uploadFile/Support"
+			"/microservice1/uploadFile/Support",
+		    "/microservice1//Supportacquistion",
+		    "/microservice1/setarticles"
 			
 		};
 	
