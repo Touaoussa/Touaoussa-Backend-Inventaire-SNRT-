@@ -1,21 +1,12 @@
 package com.inventry.project.model;
 
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Article {
-	public Article(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
-			double prixtotal, Supportacquistion support) {
-		super();
-		this.numarticle = numarticle;
-		this.nomarticle = nomarticle;
-		this.description = description;
-		this.quantite = quantite;
-		this.prixunitaire = prixunitaire;
-		this.prixtotal = prixtotal;
-		this.support = support;
-	}
+public class ArticleJde {
 	@Id
 	Long numarticle;
 	String nomarticle;
@@ -23,27 +14,19 @@ public class Article {
 	int quantite;
 	double prixunitaire;
 	double prixtotal;
-	//Long support_id;
-	@ManyToOne
-	@JoinColumn(name="support_id", nullable=false)
-	private Supportacquistion support;
-	
-	public Supportacquistion getSupport() {
-		return support;
-	}
-	public void setSupport(Supportacquistion support) {
-		this.support = support;
-	}
-	/*public Long getSupport_id() {
+	Long support_id;
+
+	public Long getSupport_id() {
 		return support_id;
 	}
 	public void setSupport_id(Long support_id) {
 		this.support_id = support_id;
-	}*/
-	public Article() {
+	}
+	
+	public ArticleJde() {
 		
 	}
-	public Article(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
+	public ArticleJde(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
 			double prixtotal) {
 		super();
 		this.numarticle = numarticle;
@@ -91,6 +74,4 @@ public class Article {
 		this.prixtotal = prixtotal;
 	}
 	
-	
-
 }

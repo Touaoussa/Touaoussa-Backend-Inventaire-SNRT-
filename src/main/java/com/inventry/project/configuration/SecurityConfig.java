@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 			"/microservice1/authenticate",
 			"/microservice1/uploadFile/Support",
-			"/microservice1/Supportacquistion/"
+			"/microservice1/Supportacquistion/",
+			"/microservice1/setarticles"
 			
 		}; 
 	

@@ -15,7 +15,7 @@ import com.inventry.project.model.Supportacquistionlocal;
 
 
 @Repository
-public interface SupportacquistionRepository2 extends JpaRepository<Supportacquistionlocal,Long> {
+public interface SupportacquistionRepository2 extends JpaRepository<Supportacquistion,Long> {
 
 	
 }

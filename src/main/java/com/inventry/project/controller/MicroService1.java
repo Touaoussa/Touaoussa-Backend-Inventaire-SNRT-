@@ -43,8 +43,8 @@ import com.inventry.project.security.*;
 @EnableTransactionManagement
 public class MicroService1 {
 	
-	@Autowired
-	DirectionRepository directionrepository ;
+	//@Autowired
+	//DirectionRepository directionrepository ;
 	@Autowired
 	SupportacquistionRepository supportacquistionRepository ;
 	@Autowired
@@ -82,8 +82,8 @@ public class MicroService1 {
 	@GetMapping("/Supportacquistion")
 	public Supportacquistion add_support_acquisition(){
 		Supportacquistion supportacquisition = this.Recupérer_support_acquisition();
-		Supportacquistionlocal supportacquisitionlocal = new Supportacquistionlocal(supportacquisition.getReference(),supportacquisition.getType());
-		supportacquistionRepository2.save(supportacquisitionlocal);
+		//Supportacquistion supportacquisition = new Supportacquistionlocal(supportacquisition.getReference(),supportacquisition.getType());
+		supportacquistionRepository2.save(supportacquisition);
 		return supportacquisition;		
 	}
 	
@@ -134,8 +134,8 @@ public class MicroService1 {
 	 
 	 
 	 @PostMapping(path = "/setarticles") 
-	    public List<Article> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
-		List<Article> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
+	    public List<ArticleJde> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
+		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
 		double prix =articles.get(0).getPrixunitaire();
 		//System.out.println(String.format("%1.2f",prix));
 		System.out.println(prix/10000);
@@ -144,7 +144,18 @@ public class MicroService1 {
 			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100000);
 			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/1000);
 		}
-		articlelocalrepository.saveAll(articles);
+		
+		for(int i=0; i < articles.size();i++) {
+		Article article = new Article(articles.get(i).getNumarticle(),
+				articles.get(i).getNomarticle(),
+				articles.get(i).getDescription(),
+				articles.get(i).getQuantite(),
+				articles.get(i).getPrixunitaire(),
+				articles.get(i).getPrixtotal(),
+				new Supportacquistion(articles.get(i).getSupport_id())
+				);
+		articlelocalrepository.save(article);
+		}
 		 return articles;
 	    }
 	
