@@ -154,6 +154,7 @@ public class MicroService1 {
 				articles.get(i).getPrixtotal(),
 				new Supportacquistion(articles.get(i).getSupport_id())
 				);
+		this.supportacquistionRepository2.save(supportacquisition);
 		articlelocalrepository.save(article);
 		}
 		 return articles;
