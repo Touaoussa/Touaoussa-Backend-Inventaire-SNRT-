@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.inventry.project.model.*;
 import com.inventry.project.service.MyUserDetailsService;
+import com.inventry.project.service.SupportService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.articlejde.repo.ArticleJdeRepository;
@@ -61,6 +62,9 @@ public class MicroService1 {
 	
 	@Autowired
 	MyUserDetailsService myUserDetailsService ;
+	
+	@Autowired
+	SupportService supportservice;
 	
 	@Autowired
 	JwtUtil jwtTokenutil;
@@ -118,9 +122,9 @@ public class MicroService1 {
 		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS);
 	}
 	
+
 	
-	
-	 @PostMapping(path = "/uploadFile/Support") 
+	 @PostMapping(path = "/uploadfile/support/") 
 	    public Map<String,Object> uploadPhoto(MultipartFile file) throws Exception{
 	        String name=file.getOriginalFilename();
 	        int i= name.lastIndexOf(".");
@@ -133,7 +137,8 @@ public class MicroService1 {
 	    }
 	 
 	 
-	 @PostMapping(path = "/setarticles") 
+	 
+	 /*@PostMapping(path = "/setarticles") 
 	    public List<ArticleJde> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
 		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
 		double prix =articles.get(0).getPrixunitaire();
@@ -158,8 +163,31 @@ public class MicroService1 {
 		articlelocalrepository.save(article);
 		}
 		 return articles;
+	    }*/
+	
+	 
+	 
+	
+	
+	 @PostMapping(path = "/setarticles") 
+	    public Supportacquistion AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
+		
+		return this.supportacquistionRepository2.save(supportacquisition);
 	    }
+	 
+	 
+	 @PostMapping(path = "/setarticles2") 
+	    public Article AddArticle(@RequestBody Article article) throws Exception{	
+		return articlelocalrepository.save(article);
+		}
+	 
+	 @GetMapping("/getarticles") 
+	    public List<Supportacquistion> GetAllArticles() throws Exception{	
+		//return this.supportacquistionRepository2.findAll();
+		 return this.supportservice.findsupports();
+		}
+		
+	    
 	
-	
-	
+	 
 }

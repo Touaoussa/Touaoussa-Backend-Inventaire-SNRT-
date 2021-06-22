@@ -1,10 +1,29 @@
 package com.inventry.project.model;
 
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-public class Article {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Article implements Serializable {
+	
+	@Id
+	Long numarticle;
+	String nomarticle;
+	String description;
+	int quantite;
+	double prixunitaire;
+	double prixtotal;
+	//Long support_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="support_id", nullable=false)
+	private Supportacquistion support;
+	
+	
 	public Article(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
 			double prixtotal, Supportacquistion support) {
 		super();
@@ -16,17 +35,7 @@ public class Article {
 		this.prixtotal = prixtotal;
 		this.support = support;
 	}
-	@Id
-	Long numarticle;
-	String nomarticle;
-	String description;
-	int quantite;
-	double prixunitaire;
-	double prixtotal;
-	//Long support_id;
-	@ManyToOne
-	@JoinColumn(name="support_id", nullable=false)
-	private Supportacquistion support;
+	
 	
 	public Supportacquistion getSupport() {
 		return support;

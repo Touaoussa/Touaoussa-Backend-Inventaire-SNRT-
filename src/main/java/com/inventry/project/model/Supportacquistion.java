@@ -1,36 +1,56 @@
 package com.inventry.project.model;
 
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Data;
+
+
+
 @Entity
-public class Supportacquistion {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Supportacquistion implements Serializable {
 	
 	@Id
 	private Long reference;
 	private String type;
-	 @OneToMany(mappedBy="support")
-	  private Set<Article> articles;
+	private String path;
+	
+	
+	@OneToMany(mappedBy="support", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Article> articles;
 
-	public Supportacquistion(Long reference, String type, Set<Article> articles) {
+
+	
+	
+
+	public Supportacquistion(Long reference, String type, String path, List<Article> articles) {
 		super();
 		this.reference = reference;
 		this.type = type;
+		this.path = path;
 		this.articles = articles;
 	}
+
+
 
 	public Supportacquistion(Long reference) {
 		super();
 		this.reference = reference;
 	}
 
-	public Set<Article> getArticles() {
+	public List<Article> getArticles() {
 		return articles;
 	}
 
-	public void setArticles(Set<Article> articles) {
+	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
 
@@ -62,6 +82,12 @@ public class Supportacquistion {
 		this.type = type;
 	}
 
-	
+	 public String getPath() {
+			return path;
+		}
+
+		public void setPath(String path) {
+			this.path = path;
+		}
 
 }
