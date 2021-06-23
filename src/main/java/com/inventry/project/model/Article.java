@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -21,6 +22,7 @@ public class Article implements Serializable {
 	//Long support_id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="support_id", nullable=false)
+	@JsonIgnore
 	private Supportacquistion support;
 	
 	

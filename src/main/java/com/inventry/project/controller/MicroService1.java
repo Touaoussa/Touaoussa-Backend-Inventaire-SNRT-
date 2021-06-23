@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.inventry.project.model.*;
 import com.inventry.project.service.MyUserDetailsService;
-import com.inventry.project.service.SupportService;
+//import com.inventry.project.service.SupportService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.articlejde.repo.ArticleJdeRepository;
@@ -63,8 +63,8 @@ public class MicroService1 {
 	@Autowired
 	MyUserDetailsService myUserDetailsService ;
 	
-	@Autowired
-	SupportService supportservice;
+//	@Autowired
+	//SupportService supportservice;
 	
 	@Autowired
 	JwtUtil jwtTokenutil;
@@ -138,7 +138,7 @@ public class MicroService1 {
 	 
 	 
 	 
-	 /*@PostMapping(path = "/setarticles") 
+	 @PostMapping(path = "/setarticles") 
 	    public List<ArticleJde> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
 		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
 		double prix =articles.get(0).getPrixunitaire();
@@ -163,17 +163,17 @@ public class MicroService1 {
 		articlelocalrepository.save(article);
 		}
 		 return articles;
-	    }*/
+	    }
 	
 	 
 	 
 	
 	
-	 @PostMapping(path = "/setarticles") 
+	 /*@PostMapping(path = "/setarticles") 
 	    public Supportacquistion AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
 		
 		return this.supportacquistionRepository2.save(supportacquisition);
-	    }
+	    }*/
 	 
 	 
 	 @PostMapping(path = "/setarticles2") 
@@ -182,9 +182,9 @@ public class MicroService1 {
 		}
 	 
 	 @GetMapping("/getarticles") 
-	    public List<Supportacquistion> GetAllArticles() throws Exception{	
-		//return this.supportacquistionRepository2.findAll();
-		 return this.supportservice.findsupports();
+	    public List<Article> GetAllArticles() throws Exception{	
+		return this.articlelocalrepository.findAll();
+		 //return this.supportservice.findsupports();
 		}
 		
 	    
