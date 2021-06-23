@@ -6,6 +6,8 @@ import java.util.*;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
+import org.hibernate.annotations.Proxy;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,6 +17,7 @@ import lombok.Data;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Supportacquistion implements Serializable {
 	
 	@Id
@@ -23,8 +26,8 @@ public class Supportacquistion implements Serializable {
 	private String path;
 	
 	
-	@OneToMany(mappedBy="support", cascade = CascadeType.ALL)
-	@JsonIgnore
+	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	//@JsonIgnore
 	private List<Article> articles;
 
 

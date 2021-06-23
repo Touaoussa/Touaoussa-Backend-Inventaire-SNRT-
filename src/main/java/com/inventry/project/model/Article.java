@@ -5,11 +5,14 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Proxy;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Proxy(lazy = false)
 public class Article implements Serializable {
 	
 	@Id
@@ -17,8 +20,8 @@ public class Article implements Serializable {
 	String nomarticle;
 	String description;
 	int quantite;
-	double prixunitaire;
-	double prixtotal;
+	float prixunitaire;
+	float prixtotal;
 	//Long support_id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="support_id", nullable=false)
@@ -26,8 +29,8 @@ public class Article implements Serializable {
 	private Supportacquistion support;
 	
 	
-	public Article(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
-			double prixtotal, Supportacquistion support) {
+	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
+			float prixtotal, Supportacquistion support) {
 		super();
 		this.numarticle = numarticle;
 		this.nomarticle = nomarticle;
@@ -54,8 +57,8 @@ public class Article implements Serializable {
 	public Article() {
 		
 	}
-	public Article(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
-			double prixtotal) {
+	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
+			float prixtotal) {
 		super();
 		this.numarticle = numarticle;
 		this.nomarticle = nomarticle;
@@ -92,13 +95,13 @@ public class Article implements Serializable {
 	public double getPrixunitaire() {
 		return prixunitaire;
 	}
-	public void setPrixunitaire(double prixunitaire) {
+	public void setPrixunitaire(float prixunitaire) {
 		this.prixunitaire = prixunitaire;
 	}
 	public double getPrixtotal() {
 		return prixtotal;
 	}
-	public void setPrixtotal(double prixtotal) {
+	public void setPrixtotal(float prixtotal) {
 		this.prixtotal = prixtotal;
 	}
 	

@@ -60,7 +60,7 @@ public class SupportacquisitionConfig {
 	    }
 	 
 	 @Bean(name = "db1TransactionMgr")
-	    @Primary
+	   // @Primary
 	    public PlatformTransactionManager db1TransactionMgr(
 	            @Qualifier("db1EntityMgrFactory") final EntityManagerFactory entityManagerFactory) {
 	        return new JpaTransactionManager(entityManagerFactory);

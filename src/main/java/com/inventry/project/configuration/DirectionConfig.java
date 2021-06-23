@@ -58,7 +58,7 @@ public class DirectionConfig {
 	    }
 	 
 	 @Bean(name = "db3TransactionMgr")
-	    @Primary
+	 
 	    public PlatformTransactionManager db1TransactionMgr(
 	            @Qualifier("db3EntityMgrFactory") final EntityManagerFactory entityManagerFactory) {
 	        return new JpaTransactionManager(entityManagerFactory);

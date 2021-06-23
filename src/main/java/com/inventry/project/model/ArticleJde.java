@@ -12,8 +12,8 @@ public class ArticleJde {
 	String nomarticle;
 	String description;
 	int quantite;
-	double prixunitaire;
-	double prixtotal;
+	float prixunitaire;
+	float prixtotal;
 	Long support_id;
 
 	public Long getSupport_id() {
@@ -26,8 +26,8 @@ public class ArticleJde {
 	public ArticleJde() {
 		
 	}
-	public ArticleJde(Long numarticle, String nomarticle, String description, int quantite, double prixunitaire,
-			double prixtotal) {
+	public ArticleJde(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
+			float prixtotal) {
 		super();
 		this.numarticle = numarticle;
 		this.nomarticle = nomarticle;
@@ -61,16 +61,16 @@ public class ArticleJde {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-	public double getPrixunitaire() {
+	public float getPrixunitaire() {
 		return prixunitaire;
 	}
-	public void setPrixunitaire(double prixunitaire) {
+	public void setPrixunitaire(float prixunitaire) {
 		this.prixunitaire = prixunitaire;
 	}
-	public double getPrixtotal() {
+	public float getPrixtotal() {
 		return prixtotal;
 	}
-	public void setPrixtotal(double prixtotal) {
+	public void setPrixtotal(float prixtotal) {
 		this.prixtotal = prixtotal;
 	}
 	

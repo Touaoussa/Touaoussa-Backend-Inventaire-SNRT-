@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.inventry.project.model.*;
 import com.inventry.project.service.MyUserDetailsService;
-//import com.inventry.project.service.SupportService;
+import com.inventry.project.service.SupportService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.articlejde.repo.ArticleJdeRepository;
@@ -63,13 +63,14 @@ public class MicroService1 {
 	@Autowired
 	MyUserDetailsService myUserDetailsService ;
 	
-//	@Autowired
-	//SupportService supportservice;
+	@Autowired
+	SupportService supportservice;
 	
 	@Autowired
 	JwtUtil jwtTokenutil;
 	
 	int test3;
+
 	
 	/*@GetMapping("/")
 	public void getAllDirections() {
@@ -144,11 +145,13 @@ public class MicroService1 {
 		double prix =articles.get(0).getPrixunitaire();
 		//System.out.println(String.format("%1.2f",prix));
 		System.out.println(prix/10000);
+		
 		for(int i=0; i < articles.size();i++) {
 			articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
+			System.out.println(articles.get(i).getQuantite()/100);
 			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100000);
 			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/1000);
-		}
+		} 
 		
 		for(int i=0; i < articles.size();i++) {
 		Article article = new Article(articles.get(i).getNumarticle(),
@@ -182,9 +185,9 @@ public class MicroService1 {
 		}
 	 
 	 @GetMapping("/getarticles") 
-	    public List<Article> GetAllArticles() throws Exception{	
-		return this.articlelocalrepository.findAll();
-		 //return this.supportservice.findsupports();
+	    public List<Supportacquistion> GetAllArticles() throws Exception{	
+		//return this.articlelocalrepository.findAll();
+		 return this.supportservice.findsupports();
 		}
 		
 	    
