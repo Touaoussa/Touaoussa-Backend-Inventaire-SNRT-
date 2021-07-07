@@ -31,8 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/microservice1/Supportacquistion/",
 			"/microservice1/setarticles",
 			"/microservice1/setarticles2",
-			"/microservice1/getarticles"
-			
+			"/microservice1/getarticles",
+			"/sites/getsites",
+			"/sites/setsite"
 		}; 
 	
 	@Override

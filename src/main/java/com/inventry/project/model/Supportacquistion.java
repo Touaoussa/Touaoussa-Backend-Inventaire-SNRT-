@@ -26,13 +26,38 @@ public class Supportacquistion implements Serializable {
 	private String path;
 	
 	
+	
 	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	//@JsonIgnore
 	private List<Article> articles;
 
+	@ManyToMany
+	@JsonIgnore
+	private List<Site> sites;
+	
 
-	
-	
+	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites) {
+		super();
+		this.reference = reference;
+		this.type = type;
+		this.path = path;
+		this.articles = articles;
+		this.sites = sites;
+	}
+
+
+
+	public List<Site> getSites() {
+		return sites;
+	}
+
+
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
+	}
+
+
 
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles) {
 		super();

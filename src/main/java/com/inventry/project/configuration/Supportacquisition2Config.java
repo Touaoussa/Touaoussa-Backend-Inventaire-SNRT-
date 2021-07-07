@@ -33,18 +33,20 @@ public class Supportacquisition2Config {
 	
 	 @Bean(name = "datasource2")
 	    @ConfigurationProperties(prefix = "spring.db2.datasource")
-	    // setting up the data source for the beer database.
+	  @Primary  
+	 // setting up the data source for the beer database.
 	    public DataSource dataSource() {
 	        return DataSourceBuilder.create().build();
 	    }
 	 
 	 @Bean(name = "db2EntityMgrFactory")
+	 @Primary
 	    public LocalContainerEntityManagerFactoryBean db1EntityMgrFactory(
 	            final EntityManagerFactoryBuilder builder,
 	            @Qualifier("datasource2") final DataSource dataSource) {
 	        // dynamically setting up the hibernate properties for each of the datasource.
 	        final Map<String, String> properties = new HashMap<>();
-	        properties.put("hibernate.hbm2dll.auto", "update");
+	        properties.put("spring.jpa.hibernate.ddl-auto", "create");
 	        // in springboot2 the dialect can be automatically detected.
 	        // we are setting up here just to avoid any incident.
 	        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
@@ -52,7 +54,7 @@ public class Supportacquisition2Config {
 	        		.dataSource(dataSource)
 	                .properties(properties)
 	                .packages("com.inventry.project.model")
-	                .persistenceUnit("Supportacquistionlocal")
+	               // .persistenceUnit("Supportacquistion","Site")
 	                .build();
 	    }
 	 

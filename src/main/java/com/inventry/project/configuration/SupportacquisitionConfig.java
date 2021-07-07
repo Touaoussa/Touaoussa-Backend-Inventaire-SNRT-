@@ -34,14 +34,14 @@ public class SupportacquisitionConfig {
 	
 	 @Bean(name = "datasource1")
 	    @ConfigurationProperties(prefix = "spring.db1.datasource")
-	    @Primary
+	   // @Primary
 	    // setting up the data source for the beer database.
 	    public DataSource dataSource() {
 	        return DataSourceBuilder.create().build();
 	    }
 	 
 	 @Bean(name = "db1EntityMgrFactory")
-	    @Primary
+	   // @Primary
 	    public LocalContainerEntityManagerFactoryBean db1EntityMgrFactory(
 	            final EntityManagerFactoryBuilder builder,
 	            @Qualifier("datasource1") final DataSource dataSource) {
