@@ -17,6 +17,7 @@ public class Site implements Serializable {
 	private String adresse;
 	private String cordonneesgps;
 	@ManyToMany(mappedBy="sites",cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<Supportacquistion> supports;
 	
 

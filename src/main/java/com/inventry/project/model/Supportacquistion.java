@@ -32,9 +32,16 @@ public class Supportacquistion implements Serializable {
 	private List<Article> articles;
 
 	@ManyToMany
-	@JsonIgnore
+	//@JsonIgnore
 	private List<Site> sites;
 	
+
+	public Supportacquistion() {
+		super();
+		this.sites= new ArrayList<Site>();
+	}
+
+
 
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites) {
 		super();
@@ -87,10 +94,7 @@ public class Supportacquistion implements Serializable {
 		this.type = type;
 	}
 
-	public Supportacquistion() {
-		
-	}
-	
+
 	public Long getReference() {
 		return reference;
 	}
