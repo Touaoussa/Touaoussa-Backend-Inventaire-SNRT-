@@ -23,7 +23,7 @@ public class Article implements Serializable {
 	float prixunitaire;
 	float prixtotal;
 	//Long support_id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="support_id", nullable=false)
 	@JsonIgnore
 	private Supportacquistion support;

@@ -33,6 +33,9 @@ public class SiteService {
 	}
 	
 	public Supportacquistion affectersite(Supportacquistion supportacquistion) {
+		for(int i=0;i < supportacquistion.getArticles().size();i++) {
+			supportacquistion.getArticles().get(i).setSupport(supportacquistion);
+		}
 		return this.supportacquistionRepository2.save(supportacquistion);
 	}
 	

@@ -21,6 +21,12 @@ public class Site implements Serializable {
 	private List<Supportacquistion> supports;
 	
 
+	/*@ManyToOne
+	@JoinColumn(name="region_id", nullable=false)
+	@JsonIgnore
+	private Region region;*/
+	
+
 
 
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
@@ -85,5 +91,14 @@ public class Site implements Serializable {
 	public void setSupports(List<Supportacquistion> supports) {
 		this.supports = supports;
 	}
+	
+	/*public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+*/
 	
 }
