@@ -21,13 +21,25 @@ public class Site implements Serializable {
 	private List<Supportacquistion> supports;
 	
 
-	/*@ManyToOne
+	@ManyToOne
 	@JoinColumn(name="region_id", nullable=false)
 	@JsonIgnore
-	private Region region;*/
+	private Region region;
 	
 
 
+
+	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
+			List<Supportacquistion> supports, Region region) {
+		super();
+		this.codification = codification;
+		this.intitule = intitule;
+		this.localite = localite;
+		this.adresse = adresse;
+		this.cordonneesgps = cordonneesgps;
+		this.supports = supports;
+		this.region = region;
+	}
 
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
 			List<Supportacquistion> supports) {
@@ -92,13 +104,13 @@ public class Site implements Serializable {
 		this.supports = supports;
 	}
 	
-	/*public Region getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
 	public void setRegion(Region region) {
 		this.region = region;
 	}
-*/
+
 	
 }

@@ -25,6 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtRequestFilter jwtRequestFilter;
 	
 	private final String[] PUBLIC_ENDPOINTS = { 
+			"/*",
+			"/*/*",
+			"/*/*/*",
+			"/*/*/*/*",
+			"/*/*/*/*/*",
 			"/microservice1/authenticate",
 			"/microservice1/pp",
 			"/microservice1/uploadfile/support/",
@@ -35,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/sites/getsites",
 			"/sites/setsite",
 			"/sites/affectersite",
-			"/sites/getsitessupport"
+			"/sites/getsitessupport",
+			"*/*"
 		}; 
 	
 	@Override

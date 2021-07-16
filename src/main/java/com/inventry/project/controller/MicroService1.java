@@ -1,6 +1,8 @@
 package com.inventry.project.controller;
 
+import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -191,6 +194,14 @@ public class MicroService1 {
 		}
 		
 	    
+	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	    public byte[] File(@PathVariable (name ="reference")Long reference)throws Exception{
+		 Supportacquistion supportacquistion=supportacquistionRepository2.findById(reference).get();
+	        String FileName=supportacquistion.getPath();
+	        File file=new File(System.getProperty("user.home")+"/upload/support/"+FileName);
+	        Path path= Paths.get(file.toURI());
+	        return Files.readAllBytes(path);
+	    }
 	
 	 
 }
