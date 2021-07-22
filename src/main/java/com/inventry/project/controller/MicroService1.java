@@ -1,6 +1,7 @@
 package com.inventry.project.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +12,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -194,13 +198,26 @@ public class MicroService1 {
 		}
 		
 	    
-	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	    public byte[] File(@PathVariable (name ="reference")Long reference)throws Exception{
+	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_PDF_VALUE)
+	    public ResponseEntity<InputStreamResource>  File(@PathVariable (name ="reference")Long reference)throws Exception{
 		 Supportacquistion supportacquistion=supportacquistionRepository2.findById(reference).get();
-	        String FileName=supportacquistion.getPath();
+	       /* String FileName=supportacquistion.getPath();
 	        File file=new File(System.getProperty("user.home")+"/upload/support/"+FileName);
 	        Path path= Paths.get(file.toURI());
-	        return Files.readAllBytes(path);
+	        System.out.println(path);
+	        return Files.readAllBytes(path);*/
+		 String FileName=supportacquistion.getPath();
+		 String filepath =System.getProperty("user.home")+"/upload/support/"+ FileName;
+		 File file = new File(filepath);
+	      HttpHeaders headers = new HttpHeaders();      
+	      headers.add("content-disposition", "inline;filename=" +FileName);
+	        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+	        return ResponseEntity.ok()
+	                .headers(headers)
+	                .contentLength(file.length())
+	                .contentType(MediaType.parseMediaType("application/pdf"))
+	                .body(resource);
+		
 	    }
 	
 	 
