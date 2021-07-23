@@ -14,8 +14,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Proxy(lazy = false)
 public class Article implements Serializable {
-	
+	 
 	@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	Long numarticle;
 	String nomarticle;
 	String description;

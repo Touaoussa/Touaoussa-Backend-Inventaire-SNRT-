@@ -154,10 +154,16 @@ public class MicroService1 {
 		System.out.println(prix/10000);
 		
 		for(int i=0; i < articles.size();i++) {
+			
+			/*articles.get(i).setQuantite(articles.get(i).getQuantite());
+			System.out.println(articles.get(i).getQuantite());
+			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire());
+			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal());
+			*/
 			articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
 			System.out.println(articles.get(i).getQuantite()/100);
-			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100000);
-			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/1000);
+			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/10000);
+			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/100);
 		} 
 		
 		for(int i=0; i < articles.size();i++) {
