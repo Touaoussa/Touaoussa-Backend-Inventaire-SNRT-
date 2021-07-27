@@ -43,6 +43,8 @@ public class SiteService {
 		return this.supportacquistionRepository2.findById(reference);
 	}
 	
-	
+	public List<Site> findsitebyresponsable(Long matricule){
+		return this.siterepository.getsitebyresponsable(matricule);
+	}
 
 }

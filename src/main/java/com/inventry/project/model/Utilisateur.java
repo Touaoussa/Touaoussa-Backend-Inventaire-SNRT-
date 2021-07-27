@@ -1,5 +1,6 @@
 package com.inventry.project.model;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,9 +19,16 @@ public class Utilisateur implements UserDetails{
 	private Long tele;
 	private String mdps;
 	
+	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	private List<Site> sites;
 	
+	
+	public Utilisateur(Long matricule) {
+		super();
+		this.matricule = matricule;
+	}
+
 	public Utilisateur() {
-		
 	}
 	
 	public Utilisateur(Long matricule, String nom, String prenom, Long tele, String mdps) {
@@ -33,8 +41,19 @@ public class Utilisateur implements UserDetails{
 	}
 	
 	
-	
-	
+
+	public Utilisateur(Long matricule, String identifiant, String nom, String prenom, Long tele, String mdps,
+			List<Site> sites) {
+		super();
+		this.matricule = matricule;
+		this.identifiant = identifiant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tele = tele;
+		this.mdps = mdps;
+		this.sites = sites;
+	}
+
 	public Utilisateur(Long matricule, String nom, String prenom, Long tele, String mdps, String identifiant) {
 		super();
 		this.matricule = matricule;
@@ -126,6 +145,14 @@ public class Utilisateur implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
 	}
 	
 }

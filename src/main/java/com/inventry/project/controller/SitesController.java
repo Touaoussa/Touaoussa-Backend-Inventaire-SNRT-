@@ -16,7 +16,9 @@ import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.model.Article;
 import com.inventry.project.model.Site;
 import com.inventry.project.model.Supportacquistion;
+import com.inventry.project.model.Utilisateur;
 import com.inventry.project.service.SiteService;
+import com.inventry.project.service.SupportService;
 
 @CrossOrigin
 @RestController
@@ -29,6 +31,9 @@ public class SitesController {
 	
 	@Autowired
 	SupportacquistionRepository2 supportacquistionRepository2 ;
+	
+	@Autowired 
+	SupportService supportservice;
 	
 	 @GetMapping("/getsites") 
 	    public List<Site> GetAllSites() throws Exception{	
@@ -48,5 +53,15 @@ public class SitesController {
 	 @PostMapping(path = "/affectersite") 
 	    public Supportacquistion AffecterSite(@RequestBody Supportacquistion supportacquisition) throws Exception{			 
 		return this.siteservice.affectersite(supportacquisition);
+		}
+	 
+	 @PostMapping("/getsiteresponsable") 
+	    public List<Site> GetSitesResponsable(@RequestBody Utilisateur utilisateur) throws Exception{
+		 return this.siteservice.findsitebyresponsable(utilisateur.getMatricule());
+		}
+	 
+	 @PostMapping("/getsitesupport") 
+	    public List<Supportacquistion> GetSitesSupports(@RequestBody Site site) throws Exception{
+		 return this.supportservice.findsupportbysite(site.getCodification());
 		}
 }

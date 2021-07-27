@@ -30,5 +30,9 @@ public class SupportService {
 		System.out.println(this.supportacquistionRepository2.findAll());
 		return this.supportacquistionRepository2.findAll();
 	}
+	
+	public List<Supportacquistion> findsupportbysite(Long codesite){
+		return this.supportacquistionRepository2.getsupportsbysite(codesite);
+	}
 
 }

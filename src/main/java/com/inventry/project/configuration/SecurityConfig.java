@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/sites/setsite",
 			"/sites/affectersite",
 			"/sites/getsitessupport",
+			"/site/getsiteresponsable",
 			"/microservice1/FileSupport/{{reference}}"
 		}; 
 	

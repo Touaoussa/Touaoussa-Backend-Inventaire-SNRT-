@@ -27,7 +27,28 @@ public class Site implements Serializable {
 	private Region region;
 	
 
+	@ManyToOne
+	@JoinColumn(name="responsable_id")
+	@JsonIgnore
+	private Utilisateur utilisateur;
+	
+	
+	
 
+	
+
+	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
+			List<Supportacquistion> supports, Region region, Utilisateur utilisateur) {
+		super();
+		this.codification = codification;
+		this.intitule = intitule;
+		this.localite = localite;
+		this.adresse = adresse;
+		this.cordonneesgps = cordonneesgps;
+		this.supports = supports;
+		this.region = region;
+		this.utilisateur = utilisateur;
+	}
 
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
 			List<Supportacquistion> supports, Region region) {
@@ -110,6 +131,14 @@ public class Site implements Serializable {
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	

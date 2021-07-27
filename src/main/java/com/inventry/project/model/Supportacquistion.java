@@ -1,4 +1,4 @@
-package com.inventry.project.model;
+ package com.inventry.project.model;
 
 import java.io.Serializable;
 import java.util.*;
@@ -24,9 +24,7 @@ public class Supportacquistion implements Serializable {
 	private Long reference;
 	private String type;
 	private String path;
-	
-	
-	
+		
 	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	//@JsonIgnore
 	private List<Article> articles;

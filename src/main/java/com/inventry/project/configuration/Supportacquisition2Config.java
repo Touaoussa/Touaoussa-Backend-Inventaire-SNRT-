@@ -46,7 +46,7 @@ public class Supportacquisition2Config {
 	            @Qualifier("datasource2") final DataSource dataSource) {
 	        // dynamically setting up the hibernate properties for each of the datasource.
 	        final Map<String, String> properties = new HashMap<>();
-	        properties.put("spring.jpa.hibernate.ddl-auto", "create");
+	        properties.put("spring.jpa.hibernate.ddl-auto", "create-update");
 	        // in springboot2 the dialect can be automatically detected.
 	        // we are setting up here just to avoid any incident.
 	        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
