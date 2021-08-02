@@ -26,18 +26,41 @@ public class Supportacquistion implements Serializable {
 	private String path;
 		
 	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-	//@JsonIgnore
 	private List<Article> articles;
 
 	@ManyToMany
-	//@JsonIgnore
 	private List<Site> sites;
+	
+	
+	@OneToMany(mappedBy="supportacqisition" ,  cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	
+	private List<Reception> Receptions;
+	
 	
 
 	public Supportacquistion() {
 		super();
 		this.sites= new ArrayList<Site>();
 	}
+	
+	
+	
+
+
+
+	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
+			List<Reception> receptions) {
+		super();
+		this.reference = reference;
+		this.type = type;
+		this.path = path;
+		this.articles = articles;
+		this.sites = sites;
+		Receptions = receptions;
+	}
+
+
+
 
 
 
@@ -119,5 +142,19 @@ public class Supportacquistion implements Serializable {
 		public void setPath(String path) {
 			this.path = path;
 		}
+
+
+
+		public List<Reception> getReceptions() {
+			return Receptions;
+		}
+
+
+
+		public void setReceptions(List<Reception> receptions) {
+			Receptions = receptions;
+		}
+		
+		
 
 }

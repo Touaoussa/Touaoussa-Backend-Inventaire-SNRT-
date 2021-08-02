@@ -64,6 +64,8 @@ public class MicroService1 {
 	ArticleLocalRepository articlelocalrepository;
 	
 	
+	
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
@@ -225,6 +227,8 @@ public class MicroService1 {
 	                .body(resource);
 		
 	    }
+	 
+	
 	
 	 
 }
