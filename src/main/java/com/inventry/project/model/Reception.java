@@ -9,6 +9,7 @@ import org.hibernate.annotations.Proxy;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -24,7 +25,7 @@ public class Reception implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="support_id", nullable=false)
-	@JsonIgnore
+	@JsonProperty
 	private Supportacquistion supportacqisition;
 	
 	
@@ -77,7 +78,7 @@ public class Reception implements Serializable {
 		this.type_reception = type_reception;
 	}
 	
-	
+	@JsonIgnore
 	public Supportacquistion getSupportacqisition() {
 		return supportacqisition;
 	}

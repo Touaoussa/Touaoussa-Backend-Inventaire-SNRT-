@@ -15,6 +15,7 @@ import com.inventry.project.datasource2.repo.ReceptionRepository;
 import com.inventry.project.model.Article;
 import com.inventry.project.model.Reception;
 import com.inventry.project.model.Site;
+import com.inventry.project.model.Supportacquistion;
 import com.inventry.project.service.ReceptionService;
 
 @CrossOrigin
@@ -36,8 +37,13 @@ public class ReceptionController {
 		}
 	 
 	 @PostMapping(path = "/setreception") 
-	    public Reception AddReception(@RequestBody Reception reception) throws Exception{	
+	    public Reception AffecterReception(@RequestBody Reception supportacquisition) throws Exception{			 
+		return this.receptionservice.affecterReception(supportacquisition);
+		}
+	 
+	 /*   public Reception AddReception(@RequestBody Reception reception) throws Exception{	
 		return this.receptionservice.addreception(reception);
 		}
+	 */
 	 
 }

@@ -33,7 +33,6 @@ public class Supportacquistion implements Serializable {
 	
 	
 	@OneToMany(mappedBy="supportacqisition" ,  cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	
 	private List<Reception> Receptions;
 	
 	
@@ -41,6 +40,7 @@ public class Supportacquistion implements Serializable {
 	public Supportacquistion() {
 		super();
 		this.sites= new ArrayList<Site>();
+		this.Receptions= new ArrayList<Reception>();
 	}
 	
 	
@@ -56,7 +56,7 @@ public class Supportacquistion implements Serializable {
 		this.path = path;
 		this.articles = articles;
 		this.sites = sites;
-		Receptions = receptions;
+		this.Receptions = receptions;
 	}
 
 

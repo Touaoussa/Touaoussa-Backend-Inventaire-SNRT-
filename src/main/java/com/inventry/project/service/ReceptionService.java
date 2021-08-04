@@ -21,13 +21,26 @@ import com.inventry.project.support.repo.SupportacquistionRepository;
 
 public class ReceptionService {
 	
+	
 	@Autowired
 	ReceptionRepository receptionrepository;
+	
+	@Autowired
+	SupportacquistionRepository2 supportacquistionRepository2 ;
 	
 	public Reception addreception(Reception reception )
 	{
 		return this.receptionrepository.save(reception);
 	}
+	
+	public Reception affecterReception(Reception reception) {
+		/*for(int i=0;i < supportacquistion.getReceptions().size();i++) {
+			supportacquistion.getReceptions().get(i).setSupportacqisition(supportacquistion);
+		}
+		return this.supportacquistionRepository2.save(supportacquistion);*/
+		return this.receptionrepository.save(reception);
+	}
+	
 	
 	public List<Reception> findallreceptions(){
 		return this.receptionrepository.findAll();
