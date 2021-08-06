@@ -37,7 +37,7 @@ public class ReceptionController {
 		}
 	 
 	 @PostMapping(path = "/setreception") 
-	    public Reception AffecterReception(@RequestBody Reception supportacquisition) throws Exception{			 
+	    public Supportacquistion AffecterReception(@RequestBody Supportacquistion supportacquisition) throws Exception{			 
 		return this.receptionservice.affecterReception(supportacquisition);
 		}
 	 

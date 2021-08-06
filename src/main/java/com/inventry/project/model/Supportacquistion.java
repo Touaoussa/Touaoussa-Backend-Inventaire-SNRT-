@@ -32,15 +32,15 @@ public class Supportacquistion implements Serializable {
 	private List<Site> sites;
 	
 	
-	@OneToMany(mappedBy="supportacqisition" ,  cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	private List<Reception> Receptions;
+	@OneToMany(mappedBy="supportacqisition" )
+	private List<Reception> receptions;
 	
 	
 
 	public Supportacquistion() {
 		super();
 		this.sites= new ArrayList<Site>();
-		this.Receptions= new ArrayList<Reception>();
+		this.receptions= new ArrayList<Reception>();
 	}
 	
 	
@@ -56,9 +56,15 @@ public class Supportacquistion implements Serializable {
 		this.path = path;
 		this.articles = articles;
 		this.sites = sites;
-		this.Receptions = receptions;
+		this.receptions = receptions;
 	}
 
+	public Supportacquistion(Long reference ,List<Reception> receptions) {
+		super();
+		this.reference = reference;
+	
+		this.receptions = receptions;
+	}
 
 
 
@@ -146,13 +152,13 @@ public class Supportacquistion implements Serializable {
 
 
 		public List<Reception> getReceptions() {
-			return Receptions;
+			return this.receptions;
 		}
 
 
 
 		public void setReceptions(List<Reception> receptions) {
-			Receptions = receptions;
+			this.receptions = receptions;
 		}
 		
 		

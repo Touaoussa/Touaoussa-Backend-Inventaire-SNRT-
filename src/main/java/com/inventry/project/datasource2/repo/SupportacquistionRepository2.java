@@ -31,5 +31,7 @@ public interface SupportacquistionRepository2 extends JpaRepository<Supportacqui
 	List<Supportacquistion> getsupportsbysite(@Param("code")Long codesite);
 	
 	
+	Supportacquistion findByReference(Long reference);
+	
 	
 }

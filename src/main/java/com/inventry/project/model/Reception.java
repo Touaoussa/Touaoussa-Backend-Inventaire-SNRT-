@@ -25,9 +25,8 @@ public class Reception implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="support_id", nullable=false)
-	@JsonProperty
+	@JsonIgnore
 	private Supportacquistion supportacqisition;
-	
 	
 	
 	public Reception() {
@@ -53,6 +52,14 @@ public class Reception implements Serializable {
 		this.type_reception = type_reception;
 		this.supportacqisition = supportacqisition;
 	}
+	
+	public Reception( Date date_reception, String type_reception,Supportacquistion supportacqisition) {
+	
+		this.date_reception = date_reception;
+		this.type_reception = type_reception;
+		this.supportacqisition = supportacqisition;
+	}
+
 
 	public Long getId_reception() {
 		return id_reception;
@@ -78,7 +85,7 @@ public class Reception implements Serializable {
 		this.type_reception = type_reception;
 	}
 	
-	@JsonIgnore
+	
 	public Supportacquistion getSupportacqisition() {
 		return supportacqisition;
 	}

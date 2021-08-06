@@ -33,12 +33,21 @@ public class ReceptionService {
 		return this.receptionrepository.save(reception);
 	}
 	
-	public Reception affecterReception(Reception reception) {
-		/*for(int i=0;i < supportacquistion.getReceptions().size();i++) {
-			supportacquistion.getReceptions().get(i).setSupportacqisition(supportacquistion);
-		}
-		return this.supportacquistionRepository2.save(supportacquistion);*/
+	/*public Reception affecterReception(Reception reception) {
 		return this.receptionrepository.save(reception);
+	}*/
+	
+	
+	public Supportacquistion affecterReception(Supportacquistion supportacquistion) {
+      Supportacquistion supportacquistion2 =  this.supportacquistionRepository2.findByReference(supportacquistion.getReference());
+		System.out.println("****************"+supportacquistion.getReceptions().get(0).getType_reception());
+		List<Reception> receptions = supportacquistion.getReceptions();
+		
+		for(int i=0;i < receptions.size();i++) {
+			Reception reception = new Reception(receptions.get(i).getDate_reception(), receptions.get(i).getType_reception() , supportacquistion2);		
+			this.receptionrepository.save(reception);
+		}
+		return this.supportacquistionRepository2.save(supportacquistion2);	
 	}
 	
 	
