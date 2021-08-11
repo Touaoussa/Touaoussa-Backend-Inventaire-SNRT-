@@ -17,10 +17,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Reception implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id_reception;
 	@JsonFormat(pattern="dd-MM-yyyy")
-	private Date date_reception;
+	private String date_reception;
 	private String type_reception;
 	
 	@ManyToOne
@@ -35,7 +35,7 @@ public class Reception implements Serializable {
 	
 	
 
-	public Reception(Long id_reception, Date date_reception, String type_reception) {
+	public Reception(Long id_reception, String date_reception, String type_reception) {
 		super();
 		this.id_reception = id_reception;
 		this.date_reception = date_reception;
@@ -44,7 +44,7 @@ public class Reception implements Serializable {
 
 
 
-	public Reception(Long id_reception, Date date_reception, String type_reception,
+	public Reception(Long id_reception, String date_reception, String type_reception,
 			Supportacquistion supportacqisition) {
 		super();
 		this.id_reception = id_reception;
@@ -53,7 +53,7 @@ public class Reception implements Serializable {
 		this.supportacqisition = supportacqisition;
 	}
 	
-	public Reception( Date date_reception, String type_reception,Supportacquistion supportacqisition) {
+	public Reception( String date_reception, String type_reception,Supportacquistion supportacqisition) {
 	
 		this.date_reception = date_reception;
 		this.type_reception = type_reception;
@@ -69,11 +69,11 @@ public class Reception implements Serializable {
 		this.id_reception = id_reception;
 	}
 
-	public Date getDate_reception() {
+	public String getDate_reception() {
 		return date_reception;
 	}
 
-	public void setDate_reception(Date date_reception) {
+	public void setDate_reception(String date_reception) {
 		this.date_reception = date_reception;
 	}
 

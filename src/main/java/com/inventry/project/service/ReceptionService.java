@@ -1,6 +1,8 @@
 package com.inventry.project.service;
 
+import java.text.DateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -39,11 +41,20 @@ public class ReceptionService {
 	
 	
 	public Supportacquistion affecterReception(Supportacquistion supportacquistion) {
-      Supportacquistion supportacquistion2 =  this.supportacquistionRepository2.findByReference(supportacquistion.getReference());
+     
+		DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
+		        DateFormat.SHORT,
+		        DateFormat.SHORT);
+		
+		
+		Supportacquistion supportacquistion2 =  this.supportacquistionRepository2.findByReference(supportacquistion.getReference());
 		System.out.println("****************"+supportacquistion.getReceptions().get(0).getType_reception());
 		List<Reception> receptions = supportacquistion.getReceptions();
 		
+		//this.receptionrepository.deleteBysupportreference(supportacquistion.getReference());
+		 
 		for(int i=0;i < receptions.size();i++) {
+			//receptions.get(i).setDate_reception(shortDateFormat.format(receptions.get(i).getDate_reception()));
 			Reception reception = new Reception(receptions.get(i).getDate_reception(), receptions.get(i).getType_reception() , supportacquistion2);		
 			this.receptionrepository.save(reception);
 		}
@@ -51,8 +62,15 @@ public class ReceptionService {
 	}
 	
 	
+	
 	public List<Reception> findallreceptions(){
 		return this.receptionrepository.findAll();
 	}
+	
+	public List<Reception> findabySupport(Long ref){
+	return this.receptionrepository.findBysupportreference(ref);
+	 }
+	
+	
 
 }

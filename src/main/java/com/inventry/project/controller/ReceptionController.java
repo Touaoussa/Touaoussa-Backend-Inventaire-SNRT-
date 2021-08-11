@@ -41,6 +41,12 @@ public class ReceptionController {
 		return this.receptionservice.affecterReception(supportacquisition);
 		}
 	 
+	 @PostMapping("/getreceptionsbysupport") 
+	    public List<Reception> GetReceptionbySupport(@RequestBody Supportacquistion supportacquisition) throws Exception{	
+		 return this.receptionservice.findabySupport(supportacquisition.getReference());
+		}
+	 
+	 
 	 /*   public Reception AddReception(@RequestBody Reception reception) throws Exception{	
 		return this.receptionservice.addreception(reception);
 		}
