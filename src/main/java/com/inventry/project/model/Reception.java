@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Reception implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id_reception;
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private String date_reception;

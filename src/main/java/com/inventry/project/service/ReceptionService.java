@@ -67,6 +67,11 @@ public class ReceptionService {
 		return this.receptionrepository.findAll();
 	}
 	
+	/*public Reception updatereceptions(Reception reception){
+		//Reception reception2 = (Reception) this.receptionrepository.findById(reception.getId_reception());		 
+		reception2 =reception ;
+	}
+	*/
 	public List<Reception> findabySupport(Long ref){
 	return this.receptionrepository.findBysupportreference(ref);
 	 }
