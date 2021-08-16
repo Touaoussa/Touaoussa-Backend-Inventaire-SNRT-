@@ -67,14 +67,20 @@ public class ReceptionService {
 		return this.receptionrepository.findAll();
 	}
 	
-	/*public Reception updatereceptions(Reception reception){
-		//Reception reception2 = (Reception) this.receptionrepository.findById(reception.getId_reception());		 
-		reception2 =reception ;
+	public Reception updatereceptions(Reception reception){
+		System.out.println(reception.getId_reception());
+		Reception reception2 =  this.receptionrepository.findById(reception.getId_reception()).get();		 
+		reception2.setType_reception(reception.getType_reception());
+		reception2.setDate_reception(reception.getDate_reception()); 
+		return this.receptionrepository.save(reception2); 
 	}
-	*/
+	
+	public void DeleteReception(Reception reception) {
+		 this.receptionrepository.deleteById(reception.getId_reception());
+	}
 	public List<Reception> findabySupport(Long ref){
 	return this.receptionrepository.findBysupportreference(ref);
-	 }
+	 } 
 	
 	
 

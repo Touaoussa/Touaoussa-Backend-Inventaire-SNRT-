@@ -41,6 +41,16 @@ public class ReceptionController {
 		return this.receptionservice.affecterReception(supportacquisition);
 		}
 	 
+	 @PostMapping(path = "/updatereception") 
+	    public Reception ModifierReception(@RequestBody Reception reception) throws Exception{			 
+		return this.receptionservice.updatereceptions(reception);
+		}
+	 
+	 @PostMapping(path = "/deleteereception") 
+	    public void SupprimerReception(@RequestBody Reception reception) throws Exception{			 
+		 this.receptionservice.DeleteReception(reception);
+		}
+	 
 	 @PostMapping("/getreceptionsbysupport") 
 	    public List<Reception> GetReceptionbySupport(@RequestBody Supportacquistion supportacquisition) throws Exception{	
 		 return this.receptionservice.findabySupport(supportacquisition.getReference());

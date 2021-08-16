@@ -19,4 +19,5 @@ public interface ReceptionRepository extends JpaRepository<Reception,Long> {
 			"where r.support_id =:ref "  ,nativeQuery = true)
 	List<Reception> deleteBysupportreference(@Param("ref")Long reference);
 	
+		
 }
