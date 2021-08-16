@@ -72,7 +72,7 @@ public class ReceptionService {
 		Reception reception2 =  this.receptionrepository.findById(reception.getId_reception()).get();		 
 		reception2.setType_reception(reception.getType_reception());
 		reception2.setDate_reception(reception.getDate_reception()); 
-		return this.receptionrepository.save(reception2);  
+		return this.receptionrepository.save(reception2);   
 	}
 	 
 	public void DeleteReception(Reception reception) {
