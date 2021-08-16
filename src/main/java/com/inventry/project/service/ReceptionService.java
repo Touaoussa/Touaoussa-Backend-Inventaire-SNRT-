@@ -62,7 +62,7 @@ public class ReceptionService {
 	}
 	
 	
-	
+	 
 	public List<Reception> findallreceptions(){
 		return this.receptionrepository.findAll();
 	}

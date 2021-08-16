@@ -41,11 +41,11 @@ public class ReceptionController {
 		return this.receptionservice.affecterReception(supportacquisition);
 		}
 	 
-	 @PostMapping(path = "/updatereception") 
+	 @PostMapping(path = "/updatereception")  
 	    public Reception ModifierReception(@RequestBody Reception reception) throws Exception{			 
 		return this.receptionservice.updatereceptions(reception);
 		}
-	 
+	   
 	 @PostMapping(path = "/deleteereception") 
 	    public void SupprimerReception(@RequestBody Reception reception) throws Exception{			 
 		 this.receptionservice.DeleteReception(reception);

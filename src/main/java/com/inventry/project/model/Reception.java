@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 public class Reception implements Serializable {
-	
+	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id_reception;
