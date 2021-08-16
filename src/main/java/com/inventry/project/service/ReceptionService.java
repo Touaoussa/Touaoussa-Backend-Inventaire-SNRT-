@@ -74,7 +74,7 @@ public class ReceptionService {
 		reception2.setDate_reception(reception.getDate_reception()); 
 		return this.receptionrepository.save(reception2); 
 	}
-	
+	 
 	public void DeleteReception(Reception reception) {
 		 this.receptionrepository.deleteById(reception.getId_reception());
 	}
