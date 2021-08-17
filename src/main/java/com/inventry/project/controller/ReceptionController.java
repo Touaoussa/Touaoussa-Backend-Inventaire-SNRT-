@@ -32,7 +32,7 @@ public class ReceptionController {
 	ReceptionService receptionservice;
 
 	 @GetMapping("/getreceptions") 
-	    public List<Reception> GetAllSites() throws Exception{	
+	    public List<Reception> GetAllReceptions() throws Exception{	
 		 return this.receptionservice.findallreceptions();
 		}
 	 
