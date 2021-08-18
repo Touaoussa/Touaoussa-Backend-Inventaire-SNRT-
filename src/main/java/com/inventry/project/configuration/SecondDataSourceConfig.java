@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
                 "com.inventry.project.datasource2.repo"
         })
 @EnableTransactionManagement
-public class Supportacquisition2Config {
+public class SecondDataSourceConfig {
 
 	
 	 @Bean(name = "datasource2")

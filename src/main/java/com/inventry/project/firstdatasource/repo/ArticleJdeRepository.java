@@ -1,4 +1,4 @@
-package com.inventry.project.articlejde.repo;
+package com.inventry.project.firstdatasource.repo;
 
 import java.util.List;
 

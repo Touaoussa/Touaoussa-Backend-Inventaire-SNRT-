@@ -39,11 +39,11 @@ import com.inventry.project.service.MyUserDetailsService;
 import com.inventry.project.service.SupportService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
-import com.inventry.project.articlejde.repo.ArticleJdeRepository;
 import com.inventry.project.configuration.*;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
 import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.direction.repo.DirectionRepository;
+import com.inventry.project.firstdatasource.repo.ArticleJdeRepository;
 import com.inventry.project.security.*;
 @CrossOrigin
 @RestController
