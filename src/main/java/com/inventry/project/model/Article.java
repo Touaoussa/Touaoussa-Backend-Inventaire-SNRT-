@@ -2,6 +2,7 @@ package com.inventry.project.model;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -29,7 +30,20 @@ public class Article implements Serializable {
 	@JsonIgnore
 	private Supportacquistion support;
 	
+	@OneToMany(mappedBy = "article")
+	List<Livraison> livraisons;
 	
+	
+	public List<Livraison> getLivraisons() {
+		return livraisons;
+	}
+
+
+	public void setLivraisons(List<Livraison> livraisons) {
+		this.livraisons = livraisons;
+	}
+
+
 	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
 			float prixtotal, Supportacquistion support) {
 		super();
@@ -43,6 +57,12 @@ public class Article implements Serializable {
 	}
 	
 	
+	public Article(Long numarticle) {
+		super();
+		this.numarticle = numarticle;
+	}
+
+
 	public Supportacquistion getSupport() {
 		return support;
 	}

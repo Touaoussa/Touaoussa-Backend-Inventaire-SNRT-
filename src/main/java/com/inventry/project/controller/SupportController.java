@@ -49,7 +49,7 @@ import com.inventry.project.security.*;
 @RestController
 @RequestMapping("/microservice1")
 @EnableTransactionManagement
-public class MicroService1 {
+public class SupportController {
 	
 	//@Autowired
 	//DirectionRepository directionrepository ;

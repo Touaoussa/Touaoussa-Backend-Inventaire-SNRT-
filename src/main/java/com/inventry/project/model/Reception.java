@@ -29,6 +29,9 @@ public class Reception implements Serializable {
 	private Supportacquistion supportacqisition;
 	
 	
+	@OneToMany(mappedBy = "reception")
+    List<Livraison> livraisons;
+	
 	public Reception() {
 		
 	}
@@ -40,6 +43,19 @@ public class Reception implements Serializable {
 		this.id_reception = id_reception;
 		this.date_reception = date_reception;
 		this.type_reception = type_reception;
+	}
+
+	
+
+
+	public List<Livraison> getLivraisons() {
+		return livraisons;
+	}
+
+
+
+	public void setLivraisons(List<Livraison> livraisons) {
+		this.livraisons = livraisons;
 	}
 
 
