@@ -21,8 +21,13 @@ public class LivraisonController {
 	LivraisonService livraisonservice;
 	
 	 @PostMapping(path = "/setlivraison") 
-	    public Livraison AddSite(@RequestBody Livraison livraison) throws Exception{	
+	    public Livraison AddLivraison(@RequestBody Livraison livraison) throws Exception{	
 		return this.livraisonservice.addLivraison(livraison);
+		}
+	 
+	 @PostMapping(path = "/deletelivraison") 
+	    public void RemoveLivraison(@RequestBody Livraison livraison) throws Exception{	
+		 this.livraisonservice.deleteLivraison(livraison);
 		}
 	 
 	 /*@PostMapping(path = "/setlivraison") 

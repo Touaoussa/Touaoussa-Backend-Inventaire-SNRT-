@@ -32,6 +32,10 @@ public class LivraisonService {
 		livraison.setReception(reception);*/
 		return this.livraisonrpository.save(livraison);
 	}
+	
+	public void deleteLivraison(Livraison livraison) {
+		 this.livraisonrpository.de(livraison);
+	}
 
 	
 	/*public Reception addLivraison(Reception reception) {
