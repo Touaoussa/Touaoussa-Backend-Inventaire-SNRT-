@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
+import com.inventry.project.datasource2.repo.IHistoriqueLivraison;
 import com.inventry.project.datasource2.repo.LivraisonRepository;
 import com.inventry.project.datasource2.repo.ReceptionRepository;
 import com.inventry.project.model.Article;
+import com.inventry.project.model.HistoriqueLivraison;
 import com.inventry.project.model.Livraison;
 import com.inventry.project.model.LvraisonKey;
 import com.inventry.project.model.Reception;
@@ -54,9 +56,13 @@ public class LivraisonService {
 			Livraison livraison = new Livraison(livraisons.get(i).getReception()
 					,livraisons.get(i).getArticle(),
 					livraisons.get(i).getQuantite());
-			this.livraisonrpository.save(livraison);
+			this.livraisonrpository.save(livraison);;
 		}
 		return receptionrepository.save(reception2);
 	} */
 	
+	public List<IHistoriqueLivraison> gethstoriquelivraison(Long reference){
+		
+		return this.livraisonrpository.gethstoriquelivraison(reference);
+	}
 }
