@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -16,10 +19,14 @@ public class Site implements Serializable {
 	private String localite;
 	private String adresse;
 	private String cordonneesgps;
-	@ManyToMany(mappedBy="sites",cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="sites",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Supportacquistion> supports;
 	
+	
+	@OneToMany(mappedBy="site",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	private List<Reception> receptions;
+
 
 	@ManyToOne
 	@JoinColumn(name="region_id", nullable=false)
@@ -33,9 +40,30 @@ public class Site implements Serializable {
 	private Utilisateur utilisateur;
 	
 	
-	
+	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
+			List<Supportacquistion> supports, Region region, Utilisateur utilisateur, List<Reception> receptions) {
+		super();
+		this.codification = codification;
+		this.intitule = intitule;
+		this.localite = localite;
+		this.adresse = adresse;
+		this.cordonneesgps = cordonneesgps;
+		this.supports = supports;
+		this.region = region;
+		this.utilisateur = utilisateur;
+		this.receptions = receptions;
+	}
 
 	
+	
+
+	public List<Reception> getReceptions() {
+		return receptions;
+	}
+
+	public void setReceptions(List<Reception> receptions) {
+		this.receptions = receptions;
+	}
 
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
 			List<Supportacquistion> supports, Region region, Utilisateur utilisateur) {

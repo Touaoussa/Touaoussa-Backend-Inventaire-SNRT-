@@ -28,9 +28,44 @@ public class Reception implements Serializable {
 	@JsonIgnore
 	private Supportacquistion supportacqisition;
 	
+	@ManyToOne
+	@JoinColumn(name="site_id", nullable=false)
+	@JsonIgnore
+	private Site site;
+	
 	
 	@OneToMany(mappedBy = "reception")
     List<Livraison> livraisons;
+	
+
+	
+	
+	public Reception(Long id_reception, String date_reception, String type_reception,
+			Supportacquistion supportacqisition, Site site, List<Livraison> livraisons) {
+		super();
+		this.id_reception = id_reception;
+		this.date_reception = date_reception;
+		this.type_reception = type_reception;
+		this.supportacqisition = supportacqisition;
+		this.site = site;
+		this.livraisons = livraisons;
+	}
+
+
+
+	public Site getSite() {
+		return site;
+	}
+
+
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+	
+	
+	
+	
 	
 	public Reception() {
 		
