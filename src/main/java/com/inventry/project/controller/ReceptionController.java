@@ -36,6 +36,12 @@ public class ReceptionController {
 		 return this.receptionservice.findallreceptions();
 		}
 	 
+	 
+	 @PostMapping(path = "/addreception") 
+	    public Reception AddReception(@RequestBody Reception reception) throws Exception{			 
+		return this.receptionservice.addreception(reception);
+		}
+	 
 	 @PostMapping(path = "/setreception") 
 	    public Supportacquistion AffecterReception(@RequestBody Supportacquistion supportacquisition) throws Exception{			 
 		return this.receptionservice.affecterReception(supportacquisition);

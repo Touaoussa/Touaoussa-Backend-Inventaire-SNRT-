@@ -19,8 +19,11 @@ public class Utilisateur implements UserDetails{
 	private Long tele;
 	private String mdps;
 	
-	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private List<Site> sites;
+	
+	@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	private List<Pvreception> pvs;
 	
 	
 	public Utilisateur(Long matricule) {
@@ -31,6 +34,30 @@ public class Utilisateur implements UserDetails{
 	public Utilisateur() {
 	}
 	
+	
+	
+	
+	public Utilisateur(Long matricule, String identifiant, String nom, String prenom, Long tele, String mdps,
+			List<Site> sites, List<Pvreception> pvs) {
+		super();
+		this.matricule = matricule;
+		this.identifiant = identifiant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tele = tele;
+		this.mdps = mdps;
+		this.sites = sites;
+		this.pvs = pvs;
+	}
+
+	public List<Pvreception> getPvs() {
+		return pvs;
+	}
+
+	public void setPvs(List<Pvreception> pvs) {
+		this.pvs = pvs;
+	}
+
 	public Utilisateur(Long matricule, String nom, String prenom, Long tele, String mdps) {
 		super();
 		this.matricule = matricule;

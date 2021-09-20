@@ -25,17 +25,20 @@ public class Reception implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="support_id", nullable=false)
-	@JsonIgnore
+	
 	private Supportacquistion supportacqisition;
 	
 	@ManyToOne
 	@JoinColumn(name="site_id", nullable=false)
-	@JsonIgnore
+	
 	private Site site;
 	
 	
-	@OneToMany(mappedBy = "reception")
+	@OneToMany(mappedBy = "reception", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     List<Livraison> livraisons;
+	
+	@OneToMany(mappedBy = "reception" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    List<Pvreception> pvs;
 	
 
 	
@@ -52,13 +55,32 @@ public class Reception implements Serializable {
 	}
 
 
+	
+	
+	
+	public Reception(Long id_reception, String date_reception, String type_reception,
+			Supportacquistion supportacqisition, Site site, List<Livraison> livraisons, List<Pvreception> pvs) {
+		super();
+		this.id_reception = id_reception;
+		this.date_reception = date_reception;
+		this.type_reception = type_reception;
+		this.supportacqisition = supportacqisition;
+		this.site = site;
+		this.livraisons = livraisons;
+		this.pvs = pvs;
+	}
 
+
+
+
+
+	@JsonIgnore
 	public Site getSite() {
 		return site;
 	}
 
 
-
+	@JsonProperty
 	public void setSite(Site site) {
 		this.site = site;
 	}
@@ -136,11 +158,11 @@ public class Reception implements Serializable {
 		this.type_reception = type_reception;
 	}
 	
-	
+	@JsonIgnore
 	public Supportacquistion getSupportacqisition() {
 		return supportacqisition;
 	}
-
+	@JsonProperty
 	public void setSupportacqisition(Supportacquistion supportacqisition) {
 		this.supportacqisition = supportacqisition;
 	}

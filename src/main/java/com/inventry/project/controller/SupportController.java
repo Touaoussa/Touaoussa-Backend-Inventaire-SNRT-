@@ -129,7 +129,7 @@ public class SupportController {
 				.loadUserByUsername(authenticationrequest.getUsername());
 		final String jwt = jwtTokenutil.generateToken(userDetails);
 		
-		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS);
+		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS,userDetails.getUsername());
 	}
 	
 
