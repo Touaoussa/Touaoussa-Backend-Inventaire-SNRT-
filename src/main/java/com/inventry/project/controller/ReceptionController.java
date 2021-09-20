@@ -42,11 +42,11 @@ public class ReceptionController {
 		return this.receptionservice.addreception(reception);
 		}
 	 
-	 @PostMapping(path = "/setreception") 
+	/* @PostMapping(path = "/setreception") 
 	    public Supportacquistion AffecterReception(@RequestBody Supportacquistion supportacquisition) throws Exception{			 
 		return this.receptionservice.affecterReception(supportacquisition);
 		}
-	 
+	 */
 	 @PostMapping(path = "/updatereception")  
 	    public Reception ModifierReception(@RequestBody Reception reception) throws Exception{			 
 		return this.receptionservice.updatereceptions(reception);
