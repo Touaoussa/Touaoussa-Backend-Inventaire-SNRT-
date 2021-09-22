@@ -22,7 +22,7 @@ import com.inventry.project.service.PvService;
 public class PvController {
 
 	@Autowired
-	PvService pvservice;
+	PvService pvservice; 
 	
 	 @PostMapping(path = "/setpv") 
 	    public Pvreception AddPv(@RequestBody Pvreception pvreception) throws Exception{	
