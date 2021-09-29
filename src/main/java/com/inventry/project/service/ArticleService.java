@@ -20,6 +20,7 @@ public class ArticleService {
 	public void updatearticles(List<Article> articles) {
 		for(int i=0 ; i< articles.size() ; i++) {
 			Article article = this.articleLocalrepository.findById(articles.get(i).getNumarticle()).get();
+			article.setLot(articles.get(i).getLot());
 			article.setCodebare(articles.get(i).getCodebare());
 			article.setComplement_intitule(articles.get(i).getComplement_intitule());
 			article.setDescription(articles.get(i).getDescription());

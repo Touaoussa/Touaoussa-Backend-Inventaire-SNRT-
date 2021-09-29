@@ -22,5 +22,6 @@ String getType();
 String getobservation();
 String getri();
 String getcomplement_intitule();
-
+Double getLot();
+String getCaracteristiques();
 }

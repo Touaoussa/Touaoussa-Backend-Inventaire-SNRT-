@@ -28,12 +28,12 @@ public class Article implements Serializable {
 	String codebare;
 	String complement_intitule;
 	String RI ;
-	String caractéristiques;
+	String caracteristiques;
 	String marque;
 	String type;
 	String nsr;
 	String observation;
-	String Lot;
+	Double lot;
 	
 	//Long support_id;
 	@ManyToOne
@@ -147,7 +147,7 @@ public class Article implements Serializable {
 
 	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
 			float prixtotal, String codebare, String complement_intitule, String rI, String caractéristiques,
-			String marque, String type, String nsr, String observation, String lot, Supportacquistion support,
+			String marque, String type, String nsr, String observation, Double lot, Supportacquistion support,
 			List<Livraison> livraisons) {
 		super();
 		this.numarticle = numarticle;
@@ -158,13 +158,13 @@ public class Article implements Serializable {
 		this.prixtotal = prixtotal;
 		this.codebare = codebare;
 		this.complement_intitule = complement_intitule;
-		RI = rI;
-		this.caractéristiques = caractéristiques;
+		this.RI = rI;
+		this.caracteristiques = caractéristiques;
 		this.marque = marque;
 		this.type = type;
 		this.nsr = nsr;
 		this.observation = observation;
-		Lot = lot;
+		this.lot = lot;
 		this.support = support;
 		this.livraisons = livraisons;
 	}
@@ -198,13 +198,13 @@ public class Article implements Serializable {
 	}
 
 
-	public String getCaractéristiques() {
-		return caractéristiques;
+	public String getCaracteristiques() {
+		return caracteristiques;
 	}
 
 
-	public void setCaractéristiques(String caractéristiques) {
-		this.caractéristiques = caractéristiques;
+	public void setCaracteristiques(String caractéristiques) {
+		this.caracteristiques = caractéristiques;
 	}
 
 
@@ -248,13 +248,13 @@ public class Article implements Serializable {
 	}
 
 
-	public String getLot() {
-		return Lot;
+	public Double getLot() {
+		return lot;
 	}
 
 
-	public void setLot(String lot) {
-		Lot = lot;
+	public void setLot(Double lot) {
+		lot = lot;
 	}
 	
 	
