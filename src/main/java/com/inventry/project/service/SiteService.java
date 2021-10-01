@@ -32,13 +32,26 @@ public class SiteService {
 		return this.siterepository.save(site);
 	}
 	
+	
 	public Supportacquistion affectersite(Supportacquistion supportacquistion) {
+		Supportacquistion supportacquistion2 = this.supportacquistionRepository2.findByReference(supportacquistion.getReference());
+		supportacquistion2.setSites(supportacquistion.getSites());
+		return this.supportacquistionRepository2.save(supportacquistion2);
+		/*for(int i=0;i < supportacquistion.getArticles().size();i++) {
+			supportacquistion.getArticles().get(i).setSupport(supportacquistion);
+		}
+		return this.supportacquistionRepository2.save(supportacquistion);*/
+		//supportacquistion.setSites();
+	}
+	
+	
+	/*public Supportacquistion affectersite(Supportacquistion supportacquistion) {
 		for(int i=0;i < supportacquistion.getArticles().size();i++) {
 			supportacquistion.getArticles().get(i).setSupport(supportacquistion);
 		}
 		return this.supportacquistionRepository2.save(supportacquistion);
 	}
-	
+	*/
 	public Optional<Supportacquistion> findsupportbyrefernce(Long reference) {
 		return this.supportacquistionRepository2.findById(reference);
 	}
