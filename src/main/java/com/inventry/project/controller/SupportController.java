@@ -204,7 +204,7 @@ public class SupportController {
 	    public List<Supportacquistion> GetAllArticles() throws Exception{	
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupports();
-		}
+		} 
 		
 	    
 	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_PDF_VALUE)
