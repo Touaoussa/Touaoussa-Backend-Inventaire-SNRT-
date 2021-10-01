@@ -216,7 +216,7 @@ public class SupportController {
 	        System.out.println(path);
 	        return Files.readAllBytes(path);*/
 		 String FileName=supportacquistion.getPath();
-		 String filepath =System.getProperty("user.home")+"/upload/support/"+ FileName;
+		 String filepath =System.getProperty("user.dir")+"/upload/support/"+ FileName;
 		 File file = new File(filepath);
 	      HttpHeaders headers = new HttpHeaders();      
 	      headers.add("content-disposition", "inline;filename=" +FileName);
