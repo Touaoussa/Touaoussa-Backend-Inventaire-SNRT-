@@ -24,13 +24,11 @@ public class Reception implements Serializable {
 	private String type_reception;
 	
 	@ManyToOne
-	@JoinColumn(name="support_id", nullable=false)
-	
+	@JoinColumn(name="support_id", nullable=true)
 	private Supportacquistion supportacqisition;
 	
 	@ManyToOne
-	@JoinColumn(name="site_id", nullable=false)
-	
+	@JoinColumn(name="site_id", nullable=true)
 	private Site site;
 	
 	

@@ -140,7 +140,8 @@ public class SupportController {
 	        int i= name.lastIndexOf(".");
 	        if (i<0) throw new Exception();
 	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
-	        Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
+	       // Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
+	        Files.write(Paths.get(System.getProperty("user.dir")+"/upload/support/"+name),file.getBytes());
 	        Map<String,Object> resp=new HashMap<>();
 	        resp.put("path",name);
 	        return resp;
@@ -203,7 +204,7 @@ public class SupportController {
 	    public List<Supportacquistion> GetAllArticles() throws Exception{	
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupports();
-		}
+		} 
 		
 	    
 	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_PDF_VALUE)
@@ -215,7 +216,7 @@ public class SupportController {
 	        System.out.println(path);
 	        return Files.readAllBytes(path);*/
 		 String FileName=supportacquistion.getPath();
-		 String filepath =System.getProperty("user.home")+"/upload/support/"+ FileName;
+		 String filepath =System.getProperty("user.dir")+"/upload/support/"+ FileName;
 		 File file = new File(filepath);
 	      HttpHeaders headers = new HttpHeaders();      
 	      headers.add("content-disposition", "inline;filename=" +FileName);
