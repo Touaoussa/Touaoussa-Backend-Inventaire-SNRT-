@@ -18,6 +18,7 @@ public class JwtUtil {
 	
 	private final String CLAIMS_SUBJECT = "sub";
 	private final String CLAIMS_CREATED = "created";
+	private final String CLAIMS_AUTHORITY = "authorization";
 
 	private Long TOKEN_VALIDITY = 604800L;
 
@@ -27,6 +28,7 @@ public class JwtUtil {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put(CLAIMS_SUBJECT, userDetails.getUsername());
 		claims.put(CLAIMS_CREATED, new Date());
+		claims.put(CLAIMS_AUTHORITY, userDetails.getAuthorities());
 		return Jwts.builder().
 				setClaims(claims).
 				setExpiration(generateExpirationDate())

@@ -1,10 +1,14 @@
 package com.inventry.project.model;
 
+import java.util.Collection;
+import java.util.List;
+
 public class AuthenticationResponse {
 private final String jwt ;
 private long expiration ;
 private String username;
 private Long matricule;
+private Collection<?> roles;
 
 
 public AuthenticationResponse(String jwt , long expiration) {
@@ -34,6 +38,17 @@ public AuthenticationResponse(String jwt, long expiration, String username, Long
 
 
 
+
+
+
+public AuthenticationResponse(String jwt, long expiration, String username, Long matricule, Collection<?> roles) {
+	super();
+	this.jwt = jwt;
+	this.expiration = expiration;
+	this.username = username;
+	this.matricule = matricule;
+	this.roles = roles;
+}
 
 
 
@@ -67,6 +82,18 @@ public Long getMatricule() {
 
 public void setMatricule(Long matricule) {
 	this.matricule = matricule;
+}
+
+
+
+public Collection<?> getRoles() {
+	return roles;
+}
+
+
+
+public void setRoles(List<String> roles) {
+	this.roles = roles;
 }
 
 

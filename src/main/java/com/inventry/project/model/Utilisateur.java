@@ -3,10 +3,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -157,7 +159,10 @@ public class Utilisateur implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		List<GrantedAuthority> authorities = this.roles.stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName().name()) ) 
+				.collect(Collectors.toList() );
+		return authorities;
 	}
 
 	@Override
