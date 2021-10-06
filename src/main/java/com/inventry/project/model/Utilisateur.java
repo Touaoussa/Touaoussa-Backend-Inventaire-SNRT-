@@ -1,6 +1,8 @@
 package com.inventry.project.model;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -25,6 +27,12 @@ public class Utilisateur implements UserDetails{
 	@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private List<Pvreception> pvs;
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="user_roles",
+	joinColumns = @JoinColumn(name="matricule"),
+	inverseJoinColumns= @JoinColumn(name ="role_id")
+			)
+	private Set<Role> roles = new HashSet<>();
 	
 	public Utilisateur(Long matricule) {
 		super();
@@ -37,6 +45,20 @@ public class Utilisateur implements UserDetails{
 	
 	
 	
+	public Utilisateur(Long matricule, String identifiant, String nom, String prenom, Long tele, String mdps,
+			List<Site> sites, List<Pvreception> pvs, Set<Role> roles) {
+		super();
+		this.matricule = matricule;
+		this.identifiant = identifiant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tele = tele;
+		this.mdps = mdps;
+		this.sites = sites;
+		this.pvs = pvs;
+		this.roles = roles;
+	}
+
 	public Utilisateur(Long matricule, String identifiant, String nom, String prenom, Long tele, String mdps,
 			List<Site> sites, List<Pvreception> pvs) {
 		super();
@@ -181,5 +203,15 @@ public class Utilisateur implements UserDetails{
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	
 	
 }

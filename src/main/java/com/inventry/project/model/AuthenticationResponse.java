@@ -4,6 +4,8 @@ public class AuthenticationResponse {
 private final String jwt ;
 private long expiration ;
 private String username;
+private Long matricule;
+
 
 public AuthenticationResponse(String jwt , long expiration) {
 	this.jwt = jwt;
@@ -18,6 +20,20 @@ public AuthenticationResponse(String jwt, long expiration, String username) {
 	this.expiration = expiration;
 	this.username = username;
 }
+
+
+
+
+public AuthenticationResponse(String jwt, long expiration, String username, Long matricule) {
+	super();
+	this.jwt = jwt;
+	this.expiration = expiration;
+	this.username = username;
+	this.matricule = matricule;
+}
+
+
+
 
 
 
@@ -39,6 +55,18 @@ public String getUsername() {
 
 public void setUsername(String username) {
 	this.username = username;
+}
+
+
+
+public Long getMatricule() {
+	return matricule;
+}
+
+
+
+public void setMatricule(Long matricule) {
+	this.matricule = matricule;
 }
 
 

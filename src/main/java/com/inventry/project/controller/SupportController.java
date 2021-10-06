@@ -125,11 +125,11 @@ public class SupportController {
 			throw new Exception("le login ou le mot de passe est erroné",e);
 		}
 		
-		final UserDetails userDetails = myUserDetailsService
+		final Utilisateur userDetails =(Utilisateur) myUserDetailsService
 				.loadUserByUsername(authenticationrequest.getUsername());
 		final String jwt = jwtTokenutil.generateToken(userDetails);
 		
-		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS,userDetails.getUsername());
+		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS,userDetails.getUsername(), userDetails.getMatricule());
 	}
 	
 
