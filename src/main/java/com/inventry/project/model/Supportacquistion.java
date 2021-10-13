@@ -27,22 +27,26 @@ public class Supportacquistion implements Serializable {
 		
 	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<Article> articles;
+	
+	@OneToMany(mappedBy="support")
+	private List<BonLivraison> bonlivraisons;
+	
+	@OneToMany(mappedBy="supportacqisition" )
+	private List<Reception> receptions;
 
 	@ManyToMany
 	private List<Site> sites;
 	
-	@ManyToMany
-	private List<Fournisseur> fournisseurs;
-	
-	
-	@OneToMany(mappedBy="supportacqisition" )
-	private List<Reception> receptions;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name="direction_id", nullable=false)
 	@JsonIgnore
-	private Supportacquistion direction;
+	private Direction direction;
+	
+	@ManyToOne
+	@JoinColumn(name="fournisseur_id", nullable=false)
+	@JsonIgnore
+	private Fournisseur fournisseur;
 
 	public Supportacquistion() {
 		super();
@@ -50,15 +54,12 @@ public class Supportacquistion implements Serializable {
 		this.receptions= new ArrayList<Reception>();
 	}
 	
-	
-	
-	
-	
 
+	
 
 
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
-			List<Reception> receptions, Supportacquistion direction) {
+			List<Reception> receptions, Direction direction, Fournisseur fournisseur) {
 		super();
 		this.reference = reference;
 		this.type = type;
@@ -67,33 +68,8 @@ public class Supportacquistion implements Serializable {
 		this.sites = sites;
 		this.receptions = receptions;
 		this.direction = direction;
+		this.fournisseur = fournisseur;
 	}
-
-
-
-
-
-
-
-
-	public Supportacquistion getDirection() {
-		return direction;
-	}
-
-
-
-
-
-
-
-
-	public void setDirection(Supportacquistion direction) {
-		this.direction = direction;
-	}
-
-
-
-
 
 
 
@@ -131,15 +107,7 @@ public class Supportacquistion implements Serializable {
 
 
 
-	public List<Site> getSites() {
-		return sites;
-	}
-
-
-
-	public void setSites(List<Site> sites) {
-		this.sites = sites;
-	}
+	
 
 
 
@@ -156,6 +124,16 @@ public class Supportacquistion implements Serializable {
 	public Supportacquistion(Long reference) {
 		super();
 		this.reference = reference;
+	}
+	
+	public List<Site> getSites() {
+		return sites;
+	}
+
+
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
 	}
 
 	public List<Article> getArticles() {
@@ -210,6 +188,40 @@ public class Supportacquistion implements Serializable {
 		public void setReceptions(List<Reception> receptions) {
 			this.receptions = receptions;
 		}
+
+
+
+
+
+		public Direction getDirection() {
+			return direction;
+		}
+
+
+
+
+
+		public void setDirection(Direction direction) {
+			this.direction = direction;
+		}
+
+
+
+
+
+		public Fournisseur getFournisseur() {
+			return fournisseur;
+		}
+
+
+
+
+
+		public void setFournisseur(Fournisseur fournisseur) {
+			this.fournisseur = fournisseur;
+		}
+		
+		
 		
 		
 

@@ -14,8 +14,7 @@ public class Fournisseur {
 	private Long idfournisseur ;
 	private String nomfournisseur;
 	
-	@ManyToMany(mappedBy="fournisseurs",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	@JsonIgnore
+	@OneToMany(mappedBy="fournisseur")
 	private List<Supportacquistion> supports;
 	
 	
