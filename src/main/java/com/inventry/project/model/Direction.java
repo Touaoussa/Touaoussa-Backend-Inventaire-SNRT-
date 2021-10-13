@@ -1,30 +1,34 @@
 package com.inventry.project.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
 public class Direction {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long iddirection;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long iddirection;	
 	private String intitule;
-	private int nombrepersonnel; 
+	
+	@OneToMany(mappedBy="direction", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	private List<Supportacquistion> listsupport  ;
+
 	public Direction() {
 		
 	}
-	public  Direction(String intitule,int nombrepersonnel ) {
-		this.intitule=intitule;
-		this.nombrepersonnel =nombrepersonnel ; 
+
+	public Direction(Long iddirection, String intitule, List<Supportacquistion> listsupport) {
+		super();
+		this.iddirection = iddirection;
+		this.intitule = intitule;
+		this.listsupport = listsupport;
 	}
 
-	public int getNombrepersonnel() {
-		return nombrepersonnel;
-	}
-	public void setNombrepersonnel(int nombrepersonnel) {
-		this.nombrepersonnel = nombrepersonnel;
-	}
+
+
+
 	public Long getIddirection() {
 		return iddirection;
 	}
@@ -40,4 +44,17 @@ public class Direction {
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
 	}
+
+	public List<Supportacquistion> getListsupport() {
+		return listsupport;
+	}
+
+	public void setListsupport(List<Supportacquistion> listsupport) {
+		this.listsupport = listsupport;
+	}
+	
+	
+	
+	
+
 }

@@ -31,11 +31,18 @@ public class Supportacquistion implements Serializable {
 	@ManyToMany
 	private List<Site> sites;
 	
+	@ManyToMany
+	private List<Fournisseur> fournisseurs;
+	
 	
 	@OneToMany(mappedBy="supportacqisition" )
 	private List<Reception> receptions;
 	
 	
+	@ManyToOne
+	@JoinColumn(name="direction_id", nullable=false)
+	@JsonIgnore
+	private Supportacquistion direction;
 
 	public Supportacquistion() {
 		super();
@@ -45,6 +52,49 @@ public class Supportacquistion implements Serializable {
 	
 	
 	
+	
+	
+
+
+
+	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
+			List<Reception> receptions, Supportacquistion direction) {
+		super();
+		this.reference = reference;
+		this.type = type;
+		this.path = path;
+		this.articles = articles;
+		this.sites = sites;
+		this.receptions = receptions;
+		this.direction = direction;
+	}
+
+
+
+
+
+
+
+
+	public Supportacquistion getDirection() {
+		return direction;
+	}
+
+
+
+
+
+
+
+
+	public void setDirection(Supportacquistion direction) {
+		this.direction = direction;
+	}
+
+
+
+
+
 
 
 
