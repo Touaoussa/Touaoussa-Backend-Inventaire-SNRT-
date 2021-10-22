@@ -39,7 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			jwt = authorizationHeader.substring(7);
 			username = jwtTokenUtil.getUserNameFromToken(jwt);
 			System.out.println("header valid");
-		}
+		} 
 		else System.out.println("pas de header");
 		
 		if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
