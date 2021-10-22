@@ -29,7 +29,7 @@ public class Utilisateur implements UserDetails{
 	@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private List<Pvreception> pvs;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_roles",
 	joinColumns = @JoinColumn(name="matricule"),
 	inverseJoinColumns= @JoinColumn(name ="role_id")
