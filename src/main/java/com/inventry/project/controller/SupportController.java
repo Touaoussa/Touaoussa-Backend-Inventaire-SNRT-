@@ -63,9 +63,6 @@ public class SupportController {
 	@Autowired
 	ArticleLocalRepository articlelocalrepository;
 	
-	
-	
-	
 	@Autowired
 	AuthenticationManager authenticationManager;
 	

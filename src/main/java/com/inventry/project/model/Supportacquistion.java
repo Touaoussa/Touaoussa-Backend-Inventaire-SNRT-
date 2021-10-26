@@ -28,12 +28,14 @@ public class Supportacquistion implements Serializable {
 	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<Article> articles;
 	
-	@OneToMany(mappedBy="support")
+	@OneToMany(mappedBy="support" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private List<BonLivraison> bonlivraisons;
+	
 	
 	@OneToMany(mappedBy="supportacqisition" )
 	private List<Reception> receptions;
 
+	
 	@ManyToMany
 	private List<Site> sites;
 	
@@ -55,8 +57,25 @@ public class Supportacquistion implements Serializable {
 	}
 	
 
-	
+	public Supportacquistion(Long reference, String type, String path, List<Article> articles,
+			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, Direction direction,
+			Fournisseur fournisseur) {
+		super();
+		this.reference = reference;
+		this.type = type;
+		this.path = path;
+		this.articles = articles;
+		this.bonlivraisons = bonlivraisons;
+		this.receptions = receptions;
+		this.sites = sites;
+		this.direction = direction;
+		this.fournisseur = fournisseur;
+	}
 
+	public Supportacquistion(Long reference) {
+		super();
+		this.reference = reference;
+	}
 
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
 			List<Reception> receptions, Direction direction, Fournisseur fournisseur) {
@@ -92,10 +111,6 @@ public class Supportacquistion implements Serializable {
 		this.receptions = receptions;
 	}
 
-
-
-
-
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites) {
 		super();
 		this.reference = reference;
@@ -104,12 +119,6 @@ public class Supportacquistion implements Serializable {
 		this.articles = articles;
 		this.sites = sites;
 	}
-
-
-
-	
-
-
 
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles) {
 		super();
@@ -121,30 +130,7 @@ public class Supportacquistion implements Serializable {
 
 
 
-	public Supportacquistion(Long reference) {
-		super();
-		this.reference = reference;
-	}
-	
-	public List<Site> getSites() {
-		return sites;
-	}
-
-
-
-	public void setSites(List<Site> sites) {
-		this.sites = sites;
-	}
-
-	public List<Article> getArticles() {
-		return articles;
-	}
-
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
-	}
-
-	public Supportacquistion(Long reference, String type) {
+public Supportacquistion(Long reference, String type) {
 		this.reference = reference;
 		this.type = type;
 	}
@@ -159,70 +145,77 @@ public class Supportacquistion implements Serializable {
 		this.reference = reference;
 	}
 
+	
+	
 
 	public String getType() {
 		return type;
 	}
 
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	 public String getPath() {
-			return path;
+		public void setType(String type) {
+			this.type = type;
 		}
+	
+		 public String getPath() {
+				return path;
+			}
 
 		public void setPath(String path) {
 			this.path = path;
 		}
+		
+		
+		public List<Site> getSites() {
+			return sites;
+		}
 
 
+
+		public void setSites(List<Site> sites) {
+			this.sites = sites;
+		}
+
+		public List<Article> getArticles() {
+			return articles;
+		}
+
+		public void setArticles(List<Article> articles) {
+			this.articles = articles;
+		}
 
 		public List<Reception> getReceptions() {
 			return this.receptions;
 		}
 
-
-
 		public void setReceptions(List<Reception> receptions) {
 			this.receptions = receptions;
 		}
-
-
-
-
 
 		public Direction getDirection() {
 			return direction;
 		}
 
-
-
-
-
 		public void setDirection(Direction direction) {
 			this.direction = direction;
 		}
 
-
-
-
-
 		public Fournisseur getFournisseur() {
 			return fournisseur;
 		}
-
-
-
-
 
 		public void setFournisseur(Fournisseur fournisseur) {
 			this.fournisseur = fournisseur;
 		}
 		
 		
-		
+		public List<BonLivraison> getBonlivraisons() {
+			return bonlivraisons;
+		}
+
+		public void setBonlivraisons(List<BonLivraison> bonlivraisons) {
+			this.bonlivraisons = bonlivraisons;
+		}
 		
 
 }

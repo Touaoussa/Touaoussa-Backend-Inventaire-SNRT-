@@ -2,35 +2,52 @@ package com.inventry.project.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class BonLivraison {
 	@Id
-	private Long reference;
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy=GenerationType.TABLE)
+	private String numbl;
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer ordre;
 	private String datebl;
 	
-	@ManyToOne
-	@JoinColumn(name="supportr_id", nullable=false)
-	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="support_id", nullable=false)
+	
 	private Supportacquistion support;
+	
+	public BonLivraison() {
+		
+	}
 
-	public BonLivraison(Long reference, Integer ordre, String datebl, Supportacquistion support) {
+	public BonLivraison(String numbl, Integer ordre, String datebl, Supportacquistion support) {
 		super();
-		this.reference = reference;
+		this.numbl = numbl;
 		this.ordre = ordre;
 		this.datebl = datebl;
 		this.support = support;
 	}
-
-	public Long getReference() {
-		return reference;
+	
+	
+	public BonLivraison(String numbl, Integer ordre, String datebl) {
+		super();
+		this.numbl = numbl;
+		this.ordre = ordre;
+		this.datebl = datebl;
 	}
 
-	public void setReference(Long reference) {
-		this.reference = reference;
+	public String getNumbl() {
+		return numbl;
+	}
+
+	public void setNumBl(String numbl) {
+		this.numbl = numbl;
 	}
 
 	public Integer getOrdre() {
@@ -49,10 +66,12 @@ public class BonLivraison {
 		this.datebl = datebl;
 	}
 
+	@JsonIgnore
 	public Supportacquistion getSupport() {
 		return support;
 	}
 
+	@JsonProperty
 	public void setSupport(Supportacquistion support) {
 		this.support = support;
 	}
