@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String identifiant) throws UsernameNotFoundException {
 		//Utilisateur utilisateur = utilisateurrepo.findByIdentifiant(identifiant);
-		//return new User("snrt","snrt1234",new ArrayList<>());
+		//return new User("snrt","snrt1234",new ArrayList<>());    
 		
 		Utilisateur utilisateur = utilisateurrepo.findByIdentifiant(identifiant);
 		if(utilisateur == null){
