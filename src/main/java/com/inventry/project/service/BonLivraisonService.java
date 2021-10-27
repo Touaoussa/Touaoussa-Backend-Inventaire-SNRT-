@@ -1,5 +1,7 @@
 package com.inventry.project.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +19,9 @@ public class BonLivraisonService {
 	
 	public BonLivraison addBonLivraison(BonLivraison bonlivraison) {
 		return this.bonlivraisonrepository.save(bonlivraison);
+	}
+	
+	public List<BonLivraison> getallbonlivraison(){
+		return this.bonlivraisonrepository.findAll();
 	}
 }

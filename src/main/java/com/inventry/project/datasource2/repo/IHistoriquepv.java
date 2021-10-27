@@ -1,14 +1,14 @@
 package com.inventry.project.datasource2.repo;
 
 public interface IHistoriquepv {
-public Long getNumpv();
+public String getNumpv();
 public Long getSupport_id();
 public String getNom();
 public String getIntitule();
 public String getcodification();
 public String getUtilisateur();
 public String getDatepv();
-
+public String getNumBl();
 
 int getquantite();
 Long getnumarticle();

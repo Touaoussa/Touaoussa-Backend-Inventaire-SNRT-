@@ -25,12 +25,14 @@ public class Article implements Serializable {
 	float prixunitaire;
 	float prixtotal;
 	/*****new attributes********/
+	@Column(unique=true)
 	String codebare;
 	String complement_intitule;
 	String RI ;
 	String caracteristiques;
 	String marque;
 	String type;
+	@Column(unique=true)
 	String nsr;
 	String observation;
 	Double lot;

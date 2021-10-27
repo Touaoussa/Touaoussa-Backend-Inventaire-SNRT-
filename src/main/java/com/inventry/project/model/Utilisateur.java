@@ -26,7 +26,8 @@ public class Utilisateur implements UserDetails{
 	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private List<Site> sites;
 	
-	@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	//@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@ManyToMany
 	private List<Pvreception> pvs;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

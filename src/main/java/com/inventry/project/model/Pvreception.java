@@ -1,8 +1,13 @@
 package com.inventry.project.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,14 +18,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Pvreception {
 	
 	@Id
-	private Long numpv;
+	private String numpv;
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private String date_pv;
 	private String utilisateur;
 	
-	@ManyToOne
-	@JoinColumn(name="agent_id", nullable=false)	
-	private Utilisateur agent;
+	@ManyToMany(mappedBy="pvs",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	private List<Utilisateur> agents;
 	
 	
 	
@@ -28,45 +32,53 @@ public class Pvreception {
 	@JoinColumn(name="reception_id", nullable=false)	
 	private Reception reception;
 	
-	
+	@ManyToOne
+	@JoinColumn(name="bonlivraison_id", nullable=false)	
+	private BonLivraison bonlivraison;
 	
 	public Pvreception() {
 		
 	}
 	
-	public Pvreception(Long numpv, String date_pv, String utilisateur, Utilisateur agent, Reception reception) {
+	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents, Reception reception) {
 		super();
 		this.numpv = numpv;
 		this.date_pv = date_pv;
 		this.utilisateur = utilisateur;
-		this.agent = agent;
+		this.agents = agents;
 		this.reception = reception;
 	}
 
 
 
 
+	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents, Reception reception,
+			BonLivraison bonlivraison) {
+		super();
+		this.numpv = numpv;
+		this.date_pv = date_pv;
+		this.utilisateur = utilisateur;
+		this.agents = agents;
+		this.reception = reception;
+		this.bonlivraison = bonlivraison;
+	}
 
-
-
-
-
-	public Long getNumpv() {
+	public String getNumpv() {
 		return numpv;
 	}
 
-	public void setNumpv(Long numpv) {
+	public void setNumpv(String numpv) {
 		this.numpv = numpv;
 	}
 
 	@JsonIgnore
-	public Utilisateur getAgent() {
-		return agent;
+	public List<Utilisateur> getAgents() {
+		return agents;
 	}
 
 	@JsonProperty
-	public void setAgent(Utilisateur agent) {
-		this.agent = agent;
+	public void setAgents(List<Utilisateur> agents) {
+		this.agents = agents;
 	}
 
 
@@ -94,5 +106,17 @@ public class Pvreception {
 	public void setReception(Reception reception) {
 		this.reception = reception;
 	}
+
+	@JsonIgnore
+	public BonLivraison getBonlivraison() {
+		return bonlivraison;
+	}
+
+	@JsonProperty
+	public void setBonlivraison(BonLivraison bonlivraison) {
+		this.bonlivraison = bonlivraison;
+	}
+	
+	
 	
 }

@@ -1,5 +1,7 @@
 package com.inventry.project.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.NotFound;
@@ -22,6 +24,9 @@ public class BonLivraison {
 	
 	private Supportacquistion support;
 	
+	@OneToMany(mappedBy="bonlivraison" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	private List<Pvreception> pvs;
+	
 	public BonLivraison() {
 		
 	}
@@ -40,6 +45,17 @@ public class BonLivraison {
 		this.numbl = numbl;
 		this.ordre = ordre;
 		this.datebl = datebl;
+	}
+	
+	
+
+	public BonLivraison(String numbl, Integer ordre, String datebl, Supportacquistion support, List<Pvreception> pvs) {
+		super();
+		this.numbl = numbl;
+		this.ordre = ordre;
+		this.datebl = datebl;
+		this.support = support;
+		this.pvs = pvs;
 	}
 
 	public String getNumbl() {
@@ -75,6 +91,15 @@ public class BonLivraison {
 	public void setSupport(Supportacquistion support) {
 		this.support = support;
 	}
+
+	public List<Pvreception> getPvs() {
+		return pvs;
+	}
+
+	public void setPvs(List<Pvreception> pvs) {
+		this.pvs = pvs;
+	}
+	
 	
 	
 	
