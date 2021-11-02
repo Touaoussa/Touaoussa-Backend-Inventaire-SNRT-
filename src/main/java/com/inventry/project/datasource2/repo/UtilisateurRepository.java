@@ -13,9 +13,9 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 	Utilisateur findByIdentifiant(String identifiant);
 	 
 
-	@Query(value="select * from utilisateur u ,roles r ,user_roles ur\r\n"
+	@Query(value="select u.matricule , u.nom , u.prenom, u.identifiant  from utilisateur u ,roles r ,user_roles ur\r\n"
 			+ "where u.matricule=ur.matricule\r\n"
 			+ "and ur.role_id = r.id\r\n"
 			+ "and r.name='AGENT_INVENTAIRE'",nativeQuery = true )
-	List<Utilisateur> getAgents();
+	List<IUtilisateur> getAgents();
 }

@@ -29,6 +29,7 @@ public class Reception implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="site_id", nullable=true)
+	@JsonIgnore
 	private Site site;
 	
 	
@@ -72,13 +73,13 @@ public class Reception implements Serializable {
 
 
 
-	@JsonIgnore
+	
 	public Site getSite() {
 		return site;
 	}
 
 
-	@JsonProperty
+	
 	public void setSite(Site site) {
 		this.site = site;
 	}

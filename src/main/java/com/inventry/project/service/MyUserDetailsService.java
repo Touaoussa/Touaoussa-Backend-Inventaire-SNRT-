@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.inventry.project.datasource2.repo.IUtilisateur;
 import com.inventry.project.datasource2.repo.UtilisateurRepository;
 import com.inventry.project.model.Utilisateur;
 
@@ -35,7 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	} 
 	
 	
-	public List<Utilisateur> FindAllAgents(){
+	public List<IUtilisateur> FindAllAgents(){
 		return this.utilisateurrepo.getAgents();
 	}
 

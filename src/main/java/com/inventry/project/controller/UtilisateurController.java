@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.datasource2.repo.IUtilisateur;
 import com.inventry.project.datasource2.repo.UtilisateurRepository;
 import com.inventry.project.model.Site;
 import com.inventry.project.model.Utilisateur;
@@ -24,7 +25,7 @@ public class UtilisateurController {
 	MyUserDetailsService utilisateurservice;
 	
 	 @GetMapping("/getagents") 
-	    public List<Utilisateur> GetAgents() throws Exception{	
+	    public List<IUtilisateur> GetAgents() throws Exception{	
 		 return this.utilisateurservice.FindAllAgents();
 		}
 	 

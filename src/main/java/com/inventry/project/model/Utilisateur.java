@@ -96,6 +96,12 @@ public class Utilisateur implements UserDetails{
 		this.mdps = mdps;
 	}
 	
+	public Utilisateur(Long matricule, String nom, String prenom) {
+		super();
+		this.matricule = matricule;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
 	
 
 	public Utilisateur(Long matricule, String identifiant, String nom, String prenom, Long tele, String mdps,
