@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -23,7 +24,11 @@ public class Pvreception {
 	private String date_pv;
 	private String utilisateur;
 	
-	@ManyToMany(mappedBy="pvs",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@ManyToMany
+	@JoinTable(
+			  name = "agentspv", 
+			  joinColumns = @JoinColumn(name = "pv_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "agent_id"))
 	private List<Utilisateur> agents;
 	
 	
@@ -71,7 +76,7 @@ public class Pvreception {
 		this.numpv = numpv;
 	}
 
-	@JsonIgnore
+	
 	public List<Utilisateur> getAgents() {
 		return agents;
 	}
@@ -98,7 +103,7 @@ public class Pvreception {
 		this.date_pv = date_pv;
 	}
 	
-	@JsonIgnore
+
 	public Reception getReception() {
 		return reception;
 	}

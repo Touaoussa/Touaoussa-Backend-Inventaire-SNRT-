@@ -37,6 +37,7 @@ public class Reception implements Serializable {
     List<Livraison> livraisons;
 	
 	@OneToMany(mappedBy = "reception" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
     List<Pvreception> pvs;
 	
 

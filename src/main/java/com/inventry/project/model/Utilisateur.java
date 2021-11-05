@@ -32,6 +32,7 @@ public class Utilisateur implements UserDetails{
 	
 	//@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	@ManyToMany
+	@JsonIgnore
 	private List<Pvreception> pvs;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
