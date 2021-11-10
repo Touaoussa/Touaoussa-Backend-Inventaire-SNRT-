@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inventry.project.datasource2.repo.IAgents;
 import com.inventry.project.datasource2.repo.IHistoriquepv;
 import com.inventry.project.datasource2.repo.IUtilisateur;
 import com.inventry.project.datasource2.repo.PvRepository;
@@ -30,7 +31,7 @@ public class PvService {
 		return this.pvrepository.gethstoriquepv();
 	}
 	
-	public List<IUtilisateur> getagents(String numpv){
-		return this.pvrepository.getagents(numpv);
+	public List<IAgents> getagents(){
+		return this.pvrepository.getagents();
 	}
 }

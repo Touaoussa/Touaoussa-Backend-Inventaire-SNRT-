@@ -17,9 +17,8 @@ public interface PvRepository extends JpaRepository<Pvreception ,Long> {
 			"and st.codification=r.site_id",nativeQuery = true )
 	List<IHistoriquepv> gethstoriquepv();
 	
-	@Query(value="select  ut.nom , ut.prenom from utilisateur ut , agentspv agpv , pvreception pv \r\n"
+	@Query(value="select pv.numpv, ut.nom , ut.prenom from utilisateur ut , agentspv agpv , pvreception pv \r\n"
 			+ "where pv.numpv=agpv.pv_id \r\n"
-			+ "and agpv.agent_id=ut.matricule \r\n"
-			+ "and pv.numpv =:numpv",nativeQuery = true )
-	List<IUtilisateur> getagents(@Param("numpv")String numpv);
+			+ "and agpv.agent_id=ut.matricule",nativeQuery = true )
+	List<IAgents> getagents();
 }

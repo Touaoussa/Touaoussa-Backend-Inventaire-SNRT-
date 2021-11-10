@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.datasource2.repo.IAgents;
 import com.inventry.project.datasource2.repo.IHistoriquepv;
 import com.inventry.project.datasource2.repo.IUtilisateur;
 import com.inventry.project.model.Pvreception;
@@ -31,6 +32,11 @@ public class PvController {
 		return this.pvservice.getallpv();
 	}
 	
+	 @GetMapping(path = "/getagents") 
+	 public List<IAgents> getagents() throws Exception{
+		 return this.pvservice.getagents();
+	 }
+	
 	@PostMapping(path = "/setpv") 
 	    public Pvreception AddPv(@RequestBody Pvreception pvreception) throws Exception{	
 		return this.pvservice.addpv(pvreception);
@@ -41,9 +47,6 @@ public class PvController {
 	 public List<IHistoriquepv> gethistoriquepv() throws Exception{
 		 return this.pvservice.gethistoriquepv();
 	 }
-	 
-	 @PostMapping(path = "/getagents") 
-	 public List<IUtilisateur> getagents(@RequestBody Pvreception pvreception) throws Exception{
-		 return this.pvservice.getagents(pvreception.getNumpv());
-	 }
+
+	
 }

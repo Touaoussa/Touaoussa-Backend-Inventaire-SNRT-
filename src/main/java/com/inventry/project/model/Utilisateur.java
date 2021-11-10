@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,7 @@ public class Utilisateur implements UserDetails{
 	private List<Site> sites;
 	
 	//@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Pvreception> pvs;
 	
