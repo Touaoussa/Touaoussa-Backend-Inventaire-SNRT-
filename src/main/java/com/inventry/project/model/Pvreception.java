@@ -24,7 +24,7 @@ public class Pvreception {
 	private String date_pv;
 	private String utilisateur;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
 			  name = "agentspv", 
 			  joinColumns = @JoinColumn(name = "pv_id"), 
