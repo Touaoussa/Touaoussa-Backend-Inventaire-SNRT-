@@ -22,5 +22,8 @@ public interface ArticleJdeRepository  extends JpaRepository<ArticleJde,Long> {
 	List<ArticleJde> getarticles(@Param("numsupport") Long numsupport,
 			@Param("type") String type
 			);
+	
+	
+	
 
 }
