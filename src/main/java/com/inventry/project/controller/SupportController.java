@@ -175,6 +175,14 @@ public class SupportController {
 				articles.get(i).getPrixtotal(),
 				new Supportacquistion(articles.get(i).getSupport_id())
 				);
+		Direction d= new Direction();
+		d.setIddirection(Long.valueOf(1));
+		supportacquisition.setDirection(d);
+		
+		Fournisseur f =new Fournisseur();
+		f.setIdfournisseur(Long.valueOf(1));
+		supportacquisition.setFournisseur(f);
+		
 		this.supportacquistionRepository2.save(supportacquisition);
 		articlelocalrepository.save(article);
 		}

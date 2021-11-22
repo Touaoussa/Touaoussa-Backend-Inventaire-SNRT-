@@ -25,6 +25,7 @@ public class Site implements Serializable {
 	
 	
 	@OneToMany(mappedBy="site",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Reception> receptions;
 
 
