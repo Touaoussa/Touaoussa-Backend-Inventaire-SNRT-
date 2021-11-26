@@ -30,4 +30,5 @@ String getri();
 String getcomplement_intitule();
 Double getLot();
 String getCaracteristiques();
+String getNsr();
 }

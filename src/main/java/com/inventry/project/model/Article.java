@@ -205,8 +205,8 @@ public class Article implements Serializable {
 	}
 
 
-	public void setCaracteristiques(String caractéristiques) {
-		this.caracteristiques = caractéristiques;
+	public void setCaracteristiques(String  caracteristiques) {
+		this.caracteristiques = caracteristiques;
 	}
 
 
@@ -256,7 +256,7 @@ public class Article implements Serializable {
 
 
 	public void setLot(Double lot) {
-		lot = lot;
+		this.lot = lot;
 	}
 	
 	

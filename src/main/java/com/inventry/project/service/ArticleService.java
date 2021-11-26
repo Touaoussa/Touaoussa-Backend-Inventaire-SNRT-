@@ -19,6 +19,7 @@ public class ArticleService {
 	ArticleLocalRepository articleLocalrepository ;
 	
 	public void updatearticles(List<Article> articles) {
+		
 		for(int i=0 ; i< articles.size() ; i++) {
 			Article article = this.articleLocalrepository.findById(articles.get(i).getNumarticle()).get();
 			article.setLot(articles.get(i).getLot());
@@ -28,6 +29,7 @@ public class ArticleService {
 			article.setMarque(articles.get(i).getMarque());
 			article.setType(articles.get(i).getType());
 			article.setNsr(articles.get(i).getNsr());
+			System.out.println("nsr= "+articles.get(i).getNsr());
 			article.setObservation(articles.get(i).getObservation());
 			article.setRI(articles.get(i).getRI());
 			this.articleLocalrepository.save(article);

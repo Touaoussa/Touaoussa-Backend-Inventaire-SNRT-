@@ -11,7 +11,7 @@ import com.inventry.project.model.ArticleJde;
 
 public interface ArticleLocalRepository extends JpaRepository<Article,Long> {
 	
-	@Query(value="select a.numarticle, a.nomarticle , a.description ,a.type , a.codebare , a.support_id, s.intitule , pv.numpv from article a, livraison l , reception r ,site s ,pvreception pv\r\n" + 
+	@Query(value="select a.numarticle, a.nomarticle , a.description ,a.type , a.codebare,a.nsr as nsr , a.support_id, s.intitule , pv.numpv from article a, livraison l , reception r ,site s ,pvreception pv\r\n" + 
 			"where a.numarticle=l.article_id\r\n" + 
 			"and l.reception_id=r.id_reception\r\n" + 
 			"and r.site_id=s.codification\r\n" + 
