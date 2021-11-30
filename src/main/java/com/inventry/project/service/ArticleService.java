@@ -29,9 +29,11 @@ public class ArticleService {
 			article.setMarque(articles.get(i).getMarque());
 			article.setType(articles.get(i).getType());
 			article.setNsr(articles.get(i).getNsr());
+			article.setCaracteristiques(articles.get(i).getCaracteristiques());
 			System.out.println("nsr= "+articles.get(i).getNsr());
 			article.setObservation(articles.get(i).getObservation());
 			article.setRI(articles.get(i).getRI());
+			article.setImmobilisation(articles.get(i).getImmobilisation());
 			this.articleLocalrepository.save(article);
 		}
 	}

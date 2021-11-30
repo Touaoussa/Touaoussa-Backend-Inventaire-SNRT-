@@ -36,7 +36,34 @@ public class Article implements Serializable {
 	String nsr;
 	String observation;
 	Double lot;
+	Boolean immobilisation;
 	
+	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
+			float prixtotal, String codebare, String complement_intitule, String rI, String caracteristiques,
+			String marque, String type, String nsr, String observation, Double lot, Boolean immobilisation,
+			Supportacquistion support, List<Livraison> livraisons) {
+		super();
+		this.numarticle = numarticle;
+		this.nomarticle = nomarticle;
+		this.description = description;
+		this.quantite = quantite;
+		this.prixunitaire = prixunitaire;
+		this.prixtotal = prixtotal;
+		this.codebare = codebare;
+		this.complement_intitule = complement_intitule;
+		RI = rI;
+		this.caracteristiques = caracteristiques;
+		this.marque = marque;
+		this.type = type;
+		this.nsr = nsr;
+		this.observation = observation;
+		this.lot = lot;
+		this.immobilisation = immobilisation;
+		this.support = support;
+		this.livraisons = livraisons;
+	}
+
+
 	//Long support_id;
 	@ManyToOne
 	@JoinColumn(name="support_id", nullable=false)
@@ -257,6 +284,16 @@ public class Article implements Serializable {
 
 	public void setLot(Double lot) {
 		this.lot = lot;
+	}
+
+
+	public Boolean getImmobilisation() {
+		return immobilisation;
+	}
+
+
+	public void setImmobilisation(Boolean immobilisation) {
+		this.immobilisation = immobilisation;
 	}
 	
 	

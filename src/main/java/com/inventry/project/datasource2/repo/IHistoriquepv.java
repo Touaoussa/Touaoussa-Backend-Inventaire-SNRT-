@@ -31,4 +31,6 @@ String getcomplement_intitule();
 Double getLot();
 String getCaracteristiques();
 String getNsr();
+String getImmobilisation();
+
 }
