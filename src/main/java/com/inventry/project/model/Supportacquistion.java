@@ -91,8 +91,6 @@ public class Supportacquistion implements Serializable {
 	}
 
 
-
-
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
 			List<Reception> receptions) {
 		super();
@@ -107,7 +105,6 @@ public class Supportacquistion implements Serializable {
 	public Supportacquistion(Long reference ,List<Reception> receptions) {
 		super();
 		this.reference = reference;
-	
 		this.receptions = receptions;
 	}
 

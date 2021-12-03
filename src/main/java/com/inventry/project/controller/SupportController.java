@@ -153,28 +153,20 @@ public class SupportController {
 		//System.out.println(String.format("%1.2f",prix));
 		System.out.println(prix/10000);
 		
-		for(int i=0; i < articles.size();i++) {
+		/*for(int i=0; i < articles.size();i++) {
 			
 			/*articles.get(i).setQuantite(articles.get(i).getQuantite());
 			System.out.println(articles.get(i).getQuantite());
 			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire());
 			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal());
 			*/
-			articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
-			System.out.println(articles.get(i).getQuantite()/100);
-			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/10000);
-			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/100);
-		} 
+			//articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
+			//System.out.println(articles.get(i).getQuantite()/10);
+			//articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100);
+			//articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/100);
+		//} 
+		System.out.println("size= "+ articles.size());
 		
-		for(int i=0; i < articles.size();i++) {
-		Article article = new Article(articles.get(i).getNumarticle(),
-				articles.get(i).getNomarticle(),
-				articles.get(i).getDescription(),
-				articles.get(i).getQuantite(),
-				articles.get(i).getPrixunitaire(),
-				articles.get(i).getPrixtotal(),
-				new Supportacquistion(articles.get(i).getSupport_id())
-				);
 		Direction d= new Direction();
 		d.setIddirection(Long.valueOf(1));
 		supportacquisition.setDirection(d);
@@ -184,6 +176,17 @@ public class SupportController {
 		supportacquisition.setFournisseur(f);
 		
 		this.supportacquistionRepository2.save(supportacquisition);
+		for(int i=0; i < articles.size();i++) {
+			//System.out.println("num article= "+articles.get(i).getNumarticle());
+		Article article = new Article(
+				articles.get(i).getNumarticle(),
+				articles.get(i).getNomarticle(),
+				articles.get(i).getDescription(),
+				articles.get(i).getQuantite(),
+				articles.get(i).getPrixunitaire(),
+				articles.get(i).getPrixtotal(),
+				supportacquisition
+				);
 		articlelocalrepository.save(article);
 		}
 		 return articles;

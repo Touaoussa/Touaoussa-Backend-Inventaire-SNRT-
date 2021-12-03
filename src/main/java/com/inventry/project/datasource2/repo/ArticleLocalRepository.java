@@ -16,7 +16,7 @@ public interface ArticleLocalRepository extends JpaRepository<Article,Long> {
 			"and l.reception_id=r.id_reception\r\n" + 
 			"and r.site_id=s.codification\r\n" + 
 			"and pv.reception_id=r.id_reception "
-			+ "GROUP BY a.codebare",nativeQuery = true)
+			+ "GROUP BY a.numarticle,a.codebare",nativeQuery = true)
 	List<IArticle> getallarticles();
 
 }
