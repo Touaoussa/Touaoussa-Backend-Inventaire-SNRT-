@@ -17,7 +17,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Article implements Serializable {
 	 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long idarticle;
+	
+
+
 	Long numarticle;
 	String nomarticle;
 	String description;
@@ -63,6 +67,37 @@ public class Article implements Serializable {
 		this.livraisons = livraisons;
 	}
 
+	
+	
+
+	public Article(Long idarticle, Long numarticle, String nomarticle, String description, int quantite,
+			float prixunitaire, float prixtotal, String codebare, String complement_intitule, String rI,
+			String caracteristiques, String marque, String type, String nsr, String observation, Double lot,
+			Boolean immobilisation, Supportacquistion support, List<Livraison> livraisons) {
+		super();
+		this.idarticle = idarticle;
+		this.numarticle = numarticle;
+		this.nomarticle = nomarticle;
+		this.description = description;
+		this.quantite = quantite;
+		this.prixunitaire = prixunitaire;
+		this.prixtotal = prixtotal;
+		this.codebare = codebare;
+		this.complement_intitule = complement_intitule;
+		RI = rI;
+		this.caracteristiques = caracteristiques;
+		this.marque = marque;
+		this.type = type;
+		this.nsr = nsr;
+		this.observation = observation;
+		this.lot = lot;
+		this.immobilisation = immobilisation;
+		this.support = support;
+		this.livraisons = livraisons;
+	}
+
+
+
 
 	//Long support_id;
 	@ManyToOne
@@ -73,6 +108,14 @@ public class Article implements Serializable {
 	@OneToMany(mappedBy = "article")
 	List<Livraison> livraisons;
 	
+	public Long getIdarticle() {
+		return idarticle;
+	}
+
+
+	public void setIdarticle(Long idarticle) {
+		this.idarticle = idarticle;
+	}
 	
 	public List<Livraison> getLivraisons() {
 		return livraisons;

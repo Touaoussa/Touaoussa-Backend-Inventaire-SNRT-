@@ -17,7 +17,7 @@ public interface ArticleJdeRepository  extends JpaRepository<ArticleJde,Long> {
 	/*@Query(value=""
 			+ "select PDAN8 as numarticle  from proddta.F4311 \r\n"
 			,nativeQuery = true)*/
-	@Query(value="select UNIQUE  PDITM as numarticle, PDLITM as nomarticle, PDDSC1 as description, PDUORG as quantite, PDPRRC as prixunitaire, PDAEXP as prixtotal , PDDOCO as support_id from proddta.F4311 where PDDCTO=:type and  PDDOCO= :numsupport "
+	@Query(value="select   PDITM as numarticle, PDLITM as nomarticle, PDDSC1 as description, PDUORG /100 as quantite, PDPRRC /10000 as prixunitaire, PDAEXP /10000 as prixtotal , PDDOCO as support_id from proddta.F4311 where PDDCTO=:type and  PDDOCO= :numsupport "
 			,nativeQuery = true)
 	List<ArticleJde> getarticles(@Param("numsupport") Long numsupport,
 			@Param("type") String type
