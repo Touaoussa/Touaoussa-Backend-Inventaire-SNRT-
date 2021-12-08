@@ -151,7 +151,7 @@ public class SupportController {
 		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
 		double prix =articles.get(0).getPrixunitaire();
 		//System.out.println(String.format("%1.2f",prix));
-		System.out.println(prix/10000);
+		System.out.println(prix/100);
 		
 		for(int i=0; i < articles.size();i++) {
 			
@@ -160,9 +160,9 @@ public class SupportController {
 			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire());
 			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal());
 			*/
-			articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
-			System.out.println(articles.get(i).getQuantite()/100);
-			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/10000);
+			articles.get(i).setQuantite(articles.get(i).getQuantite());
+			System.out.println(articles.get(i).getQuantite());
+			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100);
 			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/100);
 		} 
 		

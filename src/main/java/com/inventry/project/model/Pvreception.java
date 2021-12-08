@@ -34,8 +34,12 @@ public class Pvreception {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="reception_id", nullable=false)	
-	private Reception reception;
+	@JoinColumn(name="support_id", nullable=false)	
+	private Supportacquistion support;
+	
+	@ManyToOne
+	@JoinColumn(name="site_id", nullable=false)	
+	private Site site;
 	
 	@ManyToOne
 	@JoinColumn(name="bonlivraison_id", nullable=false)	
@@ -45,28 +49,25 @@ public class Pvreception {
 		
 	}
 	
-	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents, Reception reception) {
+
+	
+
+
+	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents,
+			Supportacquistion support, Site site, BonLivraison bonlivraison) {
 		super();
 		this.numpv = numpv;
 		this.date_pv = date_pv;
 		this.utilisateur = utilisateur;
 		this.agents = agents;
-		this.reception = reception;
-	}
-
-
-
-
-	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents, Reception reception,
-			BonLivraison bonlivraison) {
-		super();
-		this.numpv = numpv;
-		this.date_pv = date_pv;
-		this.utilisateur = utilisateur;
-		this.agents = agents;
-		this.reception = reception;
+		this.support = support;
+		this.site = site;
 		this.bonlivraison = bonlivraison;
 	}
+
+
+
+
 
 	public String getNumpv() {
 		return numpv;
@@ -104,13 +105,7 @@ public class Pvreception {
 	}
 	
 
-	public Reception getReception() {
-		return reception;
-	}
-	@JsonProperty
-	public void setReception(Reception reception) {
-		this.reception = reception;
-	}
+
 
 	@JsonIgnore
 	public BonLivraison getBonlivraison() {
@@ -121,6 +116,32 @@ public class Pvreception {
 	public void setBonlivraison(BonLivraison bonlivraison) {
 		this.bonlivraison = bonlivraison;
 	}
+
+
+
+	@JsonIgnore
+
+	public Supportacquistion getSupport() {
+		return support;
+	}
+
+	@JsonProperty
+	public void setSupport(Supportacquistion support) {
+		this.support = support;
+	}
+
+
+	@JsonIgnore
+	public Site getSite() {
+		return site;
+	}
+
+
+	@JsonProperty
+	public void setSite(Site site) {
+		this.site = site;
+	}
+	
 	
 	
 	

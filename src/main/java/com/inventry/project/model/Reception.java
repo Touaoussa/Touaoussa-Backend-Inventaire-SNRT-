@@ -35,10 +35,7 @@ public class Reception implements Serializable {
 	@OneToMany(mappedBy = "reception", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     List<Livraison> livraisons;
 	
-	@OneToMany(mappedBy = "reception" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	@JsonIgnore
-    List<Pvreception> pvs;
-	
+
 
 	
 	
@@ -57,18 +54,6 @@ public class Reception implements Serializable {
 	
 	
 	
-	public Reception(Long id_reception, String date_reception, String type_reception,
-			Supportacquistion supportacqisition, Site site, List<Livraison> livraisons, List<Pvreception> pvs) {
-		super();
-		this.id_reception = id_reception;
-		this.date_reception = date_reception;
-		this.type_reception = type_reception;
-		this.supportacqisition = supportacqisition;
-		this.site = site;
-		this.livraisons = livraisons;
-		this.pvs = pvs;
-	}
-
 
 
 

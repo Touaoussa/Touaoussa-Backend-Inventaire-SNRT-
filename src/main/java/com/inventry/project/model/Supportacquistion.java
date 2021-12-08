@@ -39,6 +39,10 @@ public class Supportacquistion implements Serializable {
 	@ManyToMany
 	private List<Site> sites;
 	
+	@OneToMany(mappedBy = "support" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
+    List<Pvreception> pvs;
+	
 
 	@ManyToOne
 	@JoinColumn(name="direction_id", nullable=false)
@@ -56,6 +60,29 @@ public class Supportacquistion implements Serializable {
 		this.receptions= new ArrayList<Reception>();
 	}
 	
+	
+	
+	
+
+	public Supportacquistion(Long reference, String type, String path, List<Article> articles,
+			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, List<Pvreception> pvs,
+			Direction direction, Fournisseur fournisseur) {
+		super();
+		this.reference = reference;
+		this.type = type;
+		this.path = path;
+		this.articles = articles;
+		this.bonlivraisons = bonlivraisons;
+		this.receptions = receptions;
+		this.sites = sites;
+		this.pvs = pvs;
+		this.direction = direction;
+		this.fournisseur = fournisseur;
+	}
+
+
+
+
 
 	public Supportacquistion(Long reference, String type, String path, List<Article> articles,
 			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, Direction direction,
@@ -216,6 +243,17 @@ public Supportacquistion(Long reference, String type) {
 		public void setBonlivraisons(List<BonLivraison> bonlivraisons) {
 			this.bonlivraisons = bonlivraisons;
 		}
+
+
+		public List<Pvreception> getPvs() {
+			return pvs;
+		}
+
+		public void setPvs(List<Pvreception> pvs) {
+			this.pvs = pvs;
+		}
+		
+		
 		
 
 }

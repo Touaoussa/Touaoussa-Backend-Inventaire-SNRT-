@@ -40,6 +40,10 @@ public class Site implements Serializable {
 	@JsonIgnore
 	private Utilisateur utilisateur;
 	
+	@OneToMany(mappedBy = "site" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
+    List<Pvreception> pvs;
+	
 	
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
 			List<Supportacquistion> supports, Region region, Utilisateur utilisateur, List<Reception> receptions) {
@@ -57,6 +61,25 @@ public class Site implements Serializable {
 
 	
 	
+
+	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
+			List<Supportacquistion> supports, List<Reception> receptions, Region region, Utilisateur utilisateur,
+			List<Pvreception> pvs) {
+		super();
+		this.codification = codification;
+		this.intitule = intitule;
+		this.localite = localite;
+		this.adresse = adresse;
+		this.cordonneesgps = cordonneesgps;
+		this.supports = supports;
+		this.receptions = receptions;
+		this.region = region;
+		this.utilisateur = utilisateur;
+		this.pvs = pvs;
+	}
+
+
+
 
 	public List<Reception> getReceptions() {
 		return receptions;
@@ -170,5 +193,15 @@ public class Site implements Serializable {
 		this.utilisateur = utilisateur;
 	}
 
+
+	public List<Pvreception> getPvs() {
+		return pvs;
+	}
+
+	public void setPvs(List<Pvreception> pvs) {
+		this.pvs = pvs;
+	}
+
+	
 	
 }
