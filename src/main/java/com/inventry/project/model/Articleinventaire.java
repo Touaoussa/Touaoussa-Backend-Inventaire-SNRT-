@@ -1,24 +1,19 @@
 package com.inventry.project.model;
 
-
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.Proxy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Proxy(lazy = false)
-public class Article implements Serializable {
-	 
+public class Articleinventaire implements Serializable{
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long idarticle;
 	Long numarticle;
 	String nomarticle;
@@ -40,19 +35,49 @@ public class Article implements Serializable {
 	Double lot;
 	Boolean immobilisation;
 	
-	//Long support_id;
 	@ManyToOne
-	@JoinColumn(name="support_id", nullable=false)
-	private Supportacquistion support;
-		
-	@OneToMany(mappedBy = "article")
-	@JsonIgnore
-	List<Livraison> livraisons;
-	
-	@ManyToOne
-	@JoinColumn(name="pv_id")
+	@JoinColumn(name="pv_id", nullable=false)
 	private Pvreception pv;
+
 	
+	
+	
+	
+	public Articleinventaire() {
+		super();
+	}
+
+
+
+
+
+	public Articleinventaire(Long idarticle, Long numarticle, String nomarticle, String description, int quantite,
+			float prixunitaire, float prixtotal, String codebare, String complement_intitule, String rI,
+			String caracteristiques, String marque, String type, String nsr, String observation, Double lot,
+			Boolean immobilisation, Pvreception pv) {
+		super();
+		this.idarticle = idarticle;
+		this.numarticle = numarticle;
+		this.nomarticle = nomarticle;
+		this.description = description;
+		this.quantite = quantite;
+		this.prixunitaire = prixunitaire;
+		this.prixtotal = prixtotal;
+		this.codebare = codebare;
+		this.complement_intitule = complement_intitule;
+		RI = rI;
+		this.caracteristiques = caracteristiques;
+		this.marque = marque;
+		this.type = type;
+		this.nsr = nsr;
+		this.observation = observation;
+		this.lot = lot;
+		this.immobilisation = immobilisation;
+		this.pv = pv;
+	}
+
+
+
 
 
 	public Long getIdarticle() {
@@ -60,142 +85,127 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setIdarticle(Long idarticle) {
 		this.idarticle = idarticle;
 	}
-	
-	public List<Livraison> getLivraisons() {
-		return livraisons;
-	}
 
 
-	public void setLivraisons(List<Livraison> livraisons) {
-		this.livraisons = livraisons;
-	}
 
 
-	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
-			float prixtotal, Supportacquistion support) {
-		super();
-		this.numarticle = numarticle;
-		this.nomarticle = nomarticle;
-		this.description = description;
-		this.quantite = quantite;
-		this.prixunitaire = prixunitaire;
-		this.prixtotal = prixtotal;
-		this.support = support;
-	}
-	
-	
-	public Article(Long numarticle) {
-		super();
-		this.numarticle = numarticle;
-	}
 
-	@JsonIgnore
-	public Supportacquistion getSupport() {
-		return support;
-	}
-	@JsonProperty
-	public void setSupport(Supportacquistion support) {
-		this.support = support;
-	}
-	/*public Long getSupport_id() {
-		return support_id;
-	}
-	public void setSupport_id(Long support_id) {
-		this.support_id = support_id;
-	}*/
-	public Article() {
-		
-	}
-	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
-			float prixtotal) {
-		super();
-		this.numarticle = numarticle;
-		this.nomarticle = nomarticle;
-		this.description = description;
-		this.quantite = quantite;
-		this.prixunitaire = prixunitaire;
-		this.prixtotal = prixtotal;
-	}
-	
 	public Long getNumarticle() {
 		return numarticle;
 	}
+
+
+
+
+
 	public void setNumarticle(Long numarticle) {
 		this.numarticle = numarticle;
 	}
+
+
+
+
+
 	public String getNomarticle() {
 		return nomarticle;
 	}
+
+
+
+
+
 	public void setNomarticle(String nomarticle) {
 		this.nomarticle = nomarticle;
 	}
+
+
+
+
+
 	public String getDescription() {
 		return description;
 	}
+
+
+
+
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+
+
+
 	public int getQuantite() {
 		return quantite;
 	}
+
+
+
+
+
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-	public double getPrixunitaire() {
+
+
+
+
+
+	public float getPrixunitaire() {
 		return prixunitaire;
 	}
+
+
+
+
+
 	public void setPrixunitaire(float prixunitaire) {
 		this.prixunitaire = prixunitaire;
 	}
-	public double getPrixtotal() {
+
+
+
+
+
+	public float getPrixtotal() {
 		return prixtotal;
 	}
+
+
+
+
+
 	public void setPrixtotal(float prixtotal) {
 		this.prixtotal = prixtotal;
 	}
 
-	
-	/******************************** new attributes ********************************/
-
-	
-	
-	
 
 
-	public Article(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
-			float prixtotal, String codebare, String complement_intitule, String rI, String caractéristiques,
-			String marque, String type, String nsr, String observation, Double lot, Supportacquistion support,
-			List<Livraison> livraisons) {
-		super();
-		this.numarticle = numarticle;
-		this.nomarticle = nomarticle;
-		this.description = description;
-		this.quantite = quantite;
-		this.prixunitaire = prixunitaire;
-		this.prixtotal = prixtotal;
-		this.codebare = codebare;
-		this.complement_intitule = complement_intitule;
-		this.RI = rI;
-		this.caracteristiques = caractéristiques;
-		this.marque = marque;
-		this.type = type;
-		this.nsr = nsr;
-		this.observation = observation;
-		this.lot = lot;
-		this.support = support;
-		this.livraisons = livraisons;
-	}
+
 
 	public String getCodebare() {
 		return codebare;
 	}
 
+
+
+
+
 	public void setCodebare(String codebare) {
 		this.codebare = codebare;
 	}
+
+
+
 
 
 	public String getComplement_intitule() {
@@ -203,9 +213,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setComplement_intitule(String complement_intitule) {
 		this.complement_intitule = complement_intitule;
 	}
+
+
+
 
 
 	public String getRI() {
@@ -213,9 +229,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setRI(String rI) {
 		RI = rI;
 	}
+
+
+
 
 
 	public String getCaracteristiques() {
@@ -223,9 +245,15 @@ public class Article implements Serializable {
 	}
 
 
-	public void setCaracteristiques(String  caracteristiques) {
+
+
+
+	public void setCaracteristiques(String caracteristiques) {
 		this.caracteristiques = caracteristiques;
 	}
+
+
+
 
 
 	public String getMarque() {
@@ -233,9 +261,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setMarque(String marque) {
 		this.marque = marque;
 	}
+
+
+
 
 
 	public String getType() {
@@ -243,9 +277,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
+
+
 
 
 	public String getNsr() {
@@ -253,9 +293,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setNsr(String nsr) {
 		this.nsr = nsr;
 	}
+
+
+
 
 
 	public String getObservation() {
@@ -263,9 +309,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setObservation(String observation) {
 		this.observation = observation;
 	}
+
+
+
 
 
 	public Double getLot() {
@@ -273,9 +325,15 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setLot(Double lot) {
 		this.lot = lot;
 	}
+
+
+
 
 
 	public Boolean getImmobilisation() {
@@ -283,16 +341,25 @@ public class Article implements Serializable {
 	}
 
 
+
+
+
 	public void setImmobilisation(Boolean immobilisation) {
 		this.immobilisation = immobilisation;
 	}
 
-	@JsonIgnore
+
+
+
+
 	public Pvreception getPv() {
 		return pv;
 	}
 
-	@JsonProperty
+
+
+
+
 	public void setPv(Pvreception pv) {
 		this.pv = pv;
 	}
@@ -300,5 +367,7 @@ public class Article implements Serializable {
 	
 	
 	
-
+	
+	
+	
 }

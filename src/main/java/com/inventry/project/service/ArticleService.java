@@ -21,7 +21,7 @@ public class ArticleService {
 	public void updatearticles(List<Article> articles) {
 		
 		for(int i=0 ; i< articles.size() ; i++) {
-			Article article = this.articleLocalrepository.findById(articles.get(i).getNumarticle()).get();
+			Article article = this.articleLocalrepository.findById(articles.get(i).getIdarticle()).get();
 			article.setLot(articles.get(i).getLot());
 			article.setCodebare(articles.get(i).getCodebare());
 			article.setComplement_intitule(articles.get(i).getComplement_intitule());
@@ -34,6 +34,7 @@ public class ArticleService {
 			article.setObservation(articles.get(i).getObservation());
 			article.setRI(articles.get(i).getRI());
 			article.setImmobilisation(articles.get(i).getImmobilisation());
+			article.setPv(articles.get(i).getPv());
 			this.articleLocalrepository.save(article);
 		}
 	}

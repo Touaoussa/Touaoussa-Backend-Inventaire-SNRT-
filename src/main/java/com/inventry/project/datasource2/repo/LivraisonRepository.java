@@ -26,7 +26,7 @@ public interface LivraisonRepository extends JpaRepository<Livraison,LvraisonKey
 	
 	@Query(value="select r.id_reception as idreception , l.quantite as quantite , a.numarticle as numarticle , a.description as description , a.nomarticle as nomarticle , a.prixunitaire as prixunitaire , a.prixtotal as prixtotal, a.codebare as codebare, a.marque as marque  from reception r,livraison l, article a \r\n" + 
 			"where r.id_reception=l.reception_id \r\n" + 
-			"and l.article_id=a.numarticle \r\n "+
+			"and l.article_id=a.idarticle \r\n "+
 			"and r.support_id=:reference " ,nativeQuery = true )
 	List<IHistoriqueLivraison> gethstoriquelivraison(@Param("reference")Long reference);
 }

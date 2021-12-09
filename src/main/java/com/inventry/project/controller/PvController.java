@@ -44,7 +44,7 @@ public class PvController {
 	 
 	 
 	 @PostMapping(path = "/getallpv") 
-	 public List<IHistoriquepv> gethistoriquepv() throws Exception{
+	 public List<Pvreception> gethistoriquepv() throws Exception{
 		 return this.pvservice.gethistoriquepv();
 	 }
 

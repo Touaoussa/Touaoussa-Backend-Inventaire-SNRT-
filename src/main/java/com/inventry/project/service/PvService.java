@@ -21,14 +21,16 @@ public class PvService {
 	PvRepository pvrepository;
 	
 	public Pvreception addpv(Pvreception pv) {
+		
 		return this.pvrepository.save(pv);
 	}
 	
 	public List<Pvreception> getallpv(){
 		return this.pvrepository.findAll();
 	}
-	public List<IHistoriquepv> gethistoriquepv(){
-		return this.pvrepository.gethstoriquepv();
+	public List<Pvreception> gethistoriquepv(){
+		return this.pvrepository.findAll();
+		//return this.pvrepository.gethstoriquepv();
 	}
 	
 	public List<IAgents> getagents(){

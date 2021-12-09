@@ -25,7 +25,7 @@ public class Supportacquistion implements Serializable {
 	private String type;
 	private String path;
 		
-	@OneToMany(mappedBy="support", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="support", cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
 	private List<Article> articles;
 	
 	@OneToMany(mappedBy="support" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)

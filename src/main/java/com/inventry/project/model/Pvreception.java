@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,13 +46,13 @@ public class Pvreception {
 	@JoinColumn(name="bonlivraison_id", nullable=false)	
 	private BonLivraison bonlivraison;
 	
+	@OneToMany(mappedBy = "pv" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    List<Article> articles;
+	
 	public Pvreception() {
 		
 	}
 	
-
-	
-
 
 	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents,
 			Supportacquistion support, Site site, BonLivraison bonlivraison) {
@@ -64,9 +65,21 @@ public class Pvreception {
 		this.site = site;
 		this.bonlivraison = bonlivraison;
 	}
+	
+	
 
-
-
+	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents,
+			Supportacquistion support, Site site, BonLivraison bonlivraison, List<Article> articles) {
+		super();
+		this.numpv = numpv;
+		this.date_pv = date_pv;
+		this.utilisateur = utilisateur;
+		this.agents = agents;
+		this.support = support;
+		this.site = site;
+		this.bonlivraison = bonlivraison;
+		this.articles = articles;
+	}
 
 
 	public String getNumpv() {
@@ -77,7 +90,6 @@ public class Pvreception {
 		this.numpv = numpv;
 	}
 
-	
 	public List<Utilisateur> getAgents() {
 		return agents;
 	}
@@ -86,8 +98,7 @@ public class Pvreception {
 	public void setAgents(List<Utilisateur> agents) {
 		this.agents = agents;
 	}
-
-
+	
 	public String getUtilisateur() {
 		return utilisateur;
 	}
@@ -103,9 +114,6 @@ public class Pvreception {
 	public void setDate_pv(String date_pv) {
 		this.date_pv = date_pv;
 	}
-	
-
-
 
 	@JsonIgnore
 	public BonLivraison getBonlivraison() {
@@ -116,8 +124,6 @@ public class Pvreception {
 	public void setBonlivraison(BonLivraison bonlivraison) {
 		this.bonlivraison = bonlivraison;
 	}
-
-
 
 	@JsonIgnore
 
@@ -130,18 +136,26 @@ public class Pvreception {
 		this.support = support;
 	}
 
-
-	@JsonIgnore
 	public Site getSite() {
 		return site;
 	}
 
-
-	@JsonProperty
 	public void setSite(Site site) {
 		this.site = site;
 	}
-	
+
+	public List<Article> getArticles() {
+		return this.articles;
+	}
+
+	public void setArticleinventaires(List<Article> articles) {
+		this.articles = articles;
+	}
+
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
 	
 	
 	

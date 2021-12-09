@@ -98,6 +98,12 @@ public class SupportController {
 		return supportacquisition;		
 	}
 	
+	 @GetMapping(value = "/support/{reference}") 
+	    public Supportacquistion Getsupportreference(@PathVariable("reference") Long reference) throws Exception{	
+		//return this.articlelocalrepository.findAll();
+		 return this.supportservice.findsupportbyid(reference);
+		} 
+	
 	/*@GetMapping("/{intitule}")
 	public Object Recupérer_nombre_personnel(@PathVariable String intitule){
 		//Direction direction=directionrepository.findByIntitule(intitule);
@@ -160,11 +166,6 @@ public class SupportController {
 			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire());
 			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal());
 			*/
-			articles.get(i).setQuantite(articles.get(i).getQuantite());
-			System.out.println(articles.get(i).getQuantite());
-			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100);
-			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/100);
-		} 
 			//articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
 			//System.out.println(articles.get(i).getQuantite()/10);
 			//articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100);
@@ -197,7 +198,7 @@ public class SupportController {
 		 return articles;
 	    }
 	
-	 
+
 	 
 	
 	
