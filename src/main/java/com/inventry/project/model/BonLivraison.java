@@ -21,10 +21,11 @@ public class BonLivraison {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="support_id", nullable=false)
-	
+	@JsonIgnore
 	private Supportacquistion support;
 	
 	@OneToMany(mappedBy="bonlivraison" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Pvreception> pvs;
 	
 	public BonLivraison() {

@@ -29,6 +29,7 @@ public class Utilisateur implements UserDetails{
 	private String mdps;
 	
 	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Site> sites;
 	
 	//@OneToMany(mappedBy="agent", cascade = CascadeType.ALL , fetch = FetchType.LAZY)

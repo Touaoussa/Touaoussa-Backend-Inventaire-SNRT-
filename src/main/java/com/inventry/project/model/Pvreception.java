@@ -1,5 +1,6 @@
 package com.inventry.project.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,10 +15,16 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class Pvreception {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Pvreception implements Serializable{
+	
+	/**
+	 * 
+	 */
 	
 	@Id
 	private String numpv;
@@ -35,7 +42,7 @@ public class Pvreception {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="support_id", nullable=false)	
+	@JoinColumn(name="support_id")	
 	private Supportacquistion support;
 	
 	@ManyToOne
@@ -46,7 +53,7 @@ public class Pvreception {
 	@JoinColumn(name="bonlivraison_id", nullable=false)	
 	private BonLivraison bonlivraison;
 	
-	@OneToMany(mappedBy = "pv" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "pvs" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     List<Article> articles;
 	
 	public Pvreception() {
@@ -115,18 +122,18 @@ public class Pvreception {
 		this.date_pv = date_pv;
 	}
 
-	@JsonIgnore
+	//@JsonIgnore
 	public BonLivraison getBonlivraison() {
 		return bonlivraison;
 	}
 
-	@JsonProperty
+	//@JsonProperty
 	public void setBonlivraison(BonLivraison bonlivraison) {
 		this.bonlivraison = bonlivraison;
 	}
 
-	@JsonIgnore
-
+	
+	//@JsonIgnore
 	public Supportacquistion getSupport() {
 		return support;
 	}
@@ -136,6 +143,7 @@ public class Pvreception {
 		this.support = support;
 	}
 
+	//@JsonIgnore
 	public Site getSite() {
 		return site;
 	}

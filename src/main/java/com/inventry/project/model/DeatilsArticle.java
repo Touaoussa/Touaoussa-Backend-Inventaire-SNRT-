@@ -10,11 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
-public class Articleinventaire implements Serializable{
+public class DeatilsArticle implements Serializable{
 
 	@Id
-	Long idarticle;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long iddetaillearticle;
 	Long numarticle;
 	String nomarticle;
 	String description;
@@ -36,14 +40,14 @@ public class Articleinventaire implements Serializable{
 	Boolean immobilisation;
 	
 	@ManyToOne
-	@JoinColumn(name="pv_id", nullable=false)
-	private Pvreception pv;
+	@JoinColumn(name="article_id", nullable=false)
+	private Article article;
 
 	
 	
 	
 	
-	public Articleinventaire() {
+	public DeatilsArticle() {
 		super();
 	}
 
@@ -51,12 +55,12 @@ public class Articleinventaire implements Serializable{
 
 
 
-	public Articleinventaire(Long idarticle, Long numarticle, String nomarticle, String description, int quantite,
+	public DeatilsArticle(Long idarticle, Long numarticle, String nomarticle, String description, int quantite,
 			float prixunitaire, float prixtotal, String codebare, String complement_intitule, String rI,
 			String caracteristiques, String marque, String type, String nsr, String observation, Double lot,
-			Boolean immobilisation, Pvreception pv) {
+			Boolean immobilisation, Article article) {
 		super();
-		this.idarticle = idarticle;
+		this.iddetaillearticle= idarticle;
 		this.numarticle = numarticle;
 		this.nomarticle = nomarticle;
 		this.description = description;
@@ -73,23 +77,28 @@ public class Articleinventaire implements Serializable{
 		this.observation = observation;
 		this.lot = lot;
 		this.immobilisation = immobilisation;
-		this.pv = pv;
+		this.article = article;
 	}
 
 
 
 
 
-	public Long getIdarticle() {
-		return idarticle;
+	
+
+
+
+
+	public Long getIddetaillearticle() {
+		return iddetaillearticle;
 	}
 
 
 
 
 
-	public void setIdarticle(Long idarticle) {
-		this.idarticle = idarticle;
+	public void setIddetaillearticle(Long iddetaillearticle) {
+		this.iddetaillearticle = iddetaillearticle;
 	}
 
 
@@ -351,18 +360,24 @@ public class Articleinventaire implements Serializable{
 
 
 
+	@JsonIgnore
+	public Article getArticle() {
+		return article;
+	}
 
-	public Pvreception getPv() {
-		return pv;
+
+
+
+	
+
+	public void setArticle(Article article) {
+		this.article = article;
 	}
 
 
 
 
 
-	public void setPv(Pvreception pv) {
-		this.pv = pv;
-	}
 	
 	
 	

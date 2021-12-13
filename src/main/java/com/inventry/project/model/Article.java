@@ -40,6 +40,8 @@ public class Article implements Serializable {
 	Double lot;
 	Boolean immobilisation;
 	
+	
+	
 	//Long support_id;
 	@ManyToOne
 	@JoinColumn(name="support_id", nullable=false)
@@ -49,11 +51,11 @@ public class Article implements Serializable {
 	@JsonIgnore
 	List<Livraison> livraisons;
 	
-	@ManyToOne
-	@JoinColumn(name="pv_id")
-	private Pvreception pv;
+	@ManyToMany
+	private List<Pvreception> pvs;
 	
-
+	@OneToMany(mappedBy = "article",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	List<DeatilsArticle> detailsarticle ;
 
 	public Long getIdarticle() {
 		return idarticle;
@@ -189,6 +191,36 @@ public class Article implements Serializable {
 		this.livraisons = livraisons;
 	}
 
+	public Article(Long idarticle, Long numarticle, String nomarticle, String description, int quantite,
+			float prixunitaire, float prixtotal, String codebare, String complement_intitule, String rI,
+			String caracteristiques, String marque, String type, String nsr, String observation, Double lot,
+			Boolean immobilisation, Supportacquistion support, List<Livraison> livraisons, List<Pvreception> pvs,
+			List<DeatilsArticle> detailsarticle) {
+		super();
+		this.idarticle = idarticle;
+		this.numarticle = numarticle;
+		this.nomarticle = nomarticle;
+		this.description = description;
+		this.quantite = quantite;
+		this.prixunitaire = prixunitaire;
+		this.prixtotal = prixtotal;
+		this.codebare = codebare;
+		this.complement_intitule = complement_intitule;
+		RI = rI;
+		this.caracteristiques = caracteristiques;
+		this.marque = marque;
+		this.type = type;
+		this.nsr = nsr;
+		this.observation = observation;
+		this.lot = lot;
+		this.immobilisation = immobilisation;
+		this.support = support;
+		this.livraisons = livraisons;
+		this.pvs = pvs;
+		this.detailsarticle = detailsarticle;
+	}
+
+
 	public String getCodebare() {
 		return codebare;
 	}
@@ -288,13 +320,23 @@ public class Article implements Serializable {
 	}
 
 	@JsonIgnore
-	public Pvreception getPv() {
-		return pv;
+	public List<Pvreception> getPv() {
+		return pvs;
 	}
 
 	@JsonProperty
-	public void setPv(Pvreception pv) {
-		this.pv = pv;
+	public void setPv(List<Pvreception> pvs) {
+		this.pvs = pvs;
+	}
+
+
+	public List<DeatilsArticle> getDetailsarticle() {
+		return detailsarticle;
+	}
+
+
+	public void setDetailsarticle(List<DeatilsArticle> detailsarticle) {
+		this.detailsarticle = detailsarticle;
 	}
 	
 	

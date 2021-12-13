@@ -10,6 +10,7 @@ import org.hibernate.annotations.Proxy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -20,6 +21,10 @@ import lombok.Data;
 
 public class Supportacquistion implements Serializable {
 	
+	/**
+	 * 
+	 */
+
 	@Id
 	private Long reference;
 	private String type;
@@ -38,6 +43,7 @@ public class Supportacquistion implements Serializable {
 	
 	@ManyToMany
 	private List<Site> sites;
+	
 	
 	@OneToMany(mappedBy = "support" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -241,11 +247,11 @@ public Supportacquistion(Long reference, String type) {
 			this.bonlivraisons = bonlivraisons;
 		}
 
-
+		@JsonIgnore
 		public List<Pvreception> getPvs() {
 			return pvs;
 		}
-
+		@JsonProperty
 		public void setPvs(List<Pvreception> pvs) {
 			this.pvs = pvs;
 		}
