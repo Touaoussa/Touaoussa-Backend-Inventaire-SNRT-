@@ -11,12 +11,24 @@ import com.inventry.project.model.ArticleJde;
 
 public interface ArticleLocalRepository extends JpaRepository<Article,Long> {
 	
-	@Query(value="select  a.numarticle, a.nomarticle , a.description ,a.type , a.codebare,a.nsr as nsr , a.support_id, s.intitule , pv.numpv from article a, livraison l , reception r ,site s ,pvreception pv\r\n" + 
-			"where a.numarticle=l.article_id\r\n" + 
-			"and l.reception_id=r.id_reception\r\n" + 
-			"and r.site_id=s.codification\r\n" + 
-			"and pv.reception_id=r.id_reception "
-			+ "GROUP BY a.numarticle,a.codebare",nativeQuery = true)
+	
+	
+	
+	
+	
+	
+	@Query(value="select  a.numarticle, a.nomarticle , a.description ,a.type , a.codebare,a.nsr as nsr , a.support_id, s.intitule , pv.numpv from article a, article_pvreception ap  ,site s ,pvreception pv \r\n" + 
+			"where a.idarticle=ap.articles_idarticle\r\n" + 
+			"and ap.pvs_numpv=pv.numpv\r\n" + 
+			"and	pv.site_id=s.codification \r\n" + 
+			 "GROUP BY a.idarticle,a.codebare union\r\n" + 
+			 "\r\n" + 
+			 "select  d.numarticle, d.nomarticle , d.description ,d.type , d.codebare,a.nsr as nsr , a.support_id, s.intitule , pv.numpv from article a, article_pvreception ap  ,site s ,pvreception pv ,deatilsarticle d \r\n" + 
+			 "where a.idarticle=ap.articles_idarticle\r\n" + 
+			 "and ap.pvs_numpv=pv.numpv\r\n" + 
+			 "and	pv.site_id=s.codification \r\n" + 
+			 "and d.article_id=a.idarticle\r\n" + 
+			 "GROUP BY a.idarticle,a.codebare",nativeQuery = true)
 	List<IArticle> getallarticles();
 
 }

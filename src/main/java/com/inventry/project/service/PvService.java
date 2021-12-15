@@ -36,4 +36,8 @@ public class PvService {
 	public List<IAgents> getagents(){
 		return this.pvrepository.getagents();
 	}
+	
+	public Long getlastnumpv() {
+		return this.pvrepository.getNumpv();
+	}
 }

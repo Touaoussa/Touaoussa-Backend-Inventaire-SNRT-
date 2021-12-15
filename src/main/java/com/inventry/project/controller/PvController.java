@@ -27,6 +27,11 @@ public class PvController {
 	@Autowired
 	PvService pvservice; 
 	
+	@GetMapping(path ="/getlastnumpv")
+	public Long getlastnumpv(){
+		return this.pvservice.getlastnumpv();
+	}
+	
 	@GetMapping(path ="/getallpvs")
 	public List<Pvreception> findallpvs(){
 		return this.pvservice.getallpv();

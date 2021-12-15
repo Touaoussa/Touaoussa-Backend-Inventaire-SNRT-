@@ -30,4 +30,10 @@ public interface PvRepository extends JpaRepository<Pvreception ,Long> {
 			+ "where pv.numpv=agpv.pv_id \r\n"
 			+ "and agpv.agent_id=ut.matricule",nativeQuery = true )
 	List<IAgents> getagents();
+	
+	
+	
+	@Query(value="select convert(SUBSTRING(numpv,5,4),SIGNED) as NUM from   pvreception  \r\n"
+			+ "ORDER BY num desc limit 1 ",nativeQuery = true )
+	Long getNumpv();
 }
