@@ -154,6 +154,10 @@ public class SupportController {
 	 
 	 @PostMapping(path = "/setarticles") 
 	    public List<ArticleJde> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
+		if( this.supportacquistionRepository2.existsById(supportacquisition.getReference() )){
+			List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
+			return articles;
+		}
 		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
 		double prix =articles.get(0).getPrixunitaire();
 		//System.out.println(String.format("%1.2f",prix));
