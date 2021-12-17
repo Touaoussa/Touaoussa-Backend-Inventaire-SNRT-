@@ -34,6 +34,7 @@ public class Site implements Serializable {
 	@JsonIgnore
 	private Region region;
 	
+	
 
 	@ManyToOne
 	@JoinColumn(name="responsable_id")
@@ -45,6 +46,37 @@ public class Site implements Serializable {
     List<Pvreception> pvs;
 	
 	
+	@OneToMany(mappedBy="site",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	private List<Detailssite> detailssite;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
+			List<Supportacquistion> supports, List<Reception> receptions, Region region, Utilisateur utilisateur,
+			List<Pvreception> pvs, List<Detailssite> detailssite) {
+		super();
+		this.codification = codification;
+		this.intitule = intitule;
+		this.localite = localite;
+		this.adresse = adresse;
+		this.cordonneesgps = cordonneesgps;
+		this.supports = supports;
+		this.receptions = receptions;
+		this.region = region;
+		this.utilisateur = utilisateur;
+		this.pvs = pvs;
+		this.detailssite = detailssite;
+	}
+
+
+
+
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
 			List<Supportacquistion> supports, Region region, Utilisateur utilisateur, List<Reception> receptions) {
 		super();
@@ -200,6 +232,20 @@ public class Site implements Serializable {
 
 	public void setPvs(List<Pvreception> pvs) {
 		this.pvs = pvs;
+	}
+
+
+
+
+	public List<Detailssite> getDetailssite() {
+		return detailssite;
+	}
+
+
+
+
+	public void setDetailssite(List<Detailssite> detailssite) {
+		this.detailssite = detailssite;
 	}
 
 	
