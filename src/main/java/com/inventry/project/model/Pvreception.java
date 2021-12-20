@@ -47,7 +47,7 @@ public class Pvreception implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="site_id", nullable=false)	
-	private Site site;
+	private Detailssite site;
 	
 	@ManyToOne
 	@JoinColumn(name="bonlivraison_id", nullable=false)	
@@ -62,7 +62,7 @@ public class Pvreception implements Serializable{
 	
 
 	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents,
-			Supportacquistion support, Site site, BonLivraison bonlivraison) {
+			Supportacquistion support, Detailssite site, BonLivraison bonlivraison) {
 		super();
 		this.numpv = numpv;
 		this.date_pv = date_pv;
@@ -76,7 +76,7 @@ public class Pvreception implements Serializable{
 	
 
 	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents,
-			Supportacquistion support, Site site, BonLivraison bonlivraison, List<Article> articles) {
+			Supportacquistion support, Detailssite site, BonLivraison bonlivraison, List<Article> articles) {
 		super();
 		this.numpv = numpv;
 		this.date_pv = date_pv;
@@ -144,11 +144,11 @@ public class Pvreception implements Serializable{
 	}
 
 	//@JsonIgnore
-	public Site getSite() {
+	public Detailssite getSite() {
 		return site;
 	}
 
-	public void setSite(Site site) {
+	public void setSite(Detailssite site) {
 		this.site = site;
 	}
 

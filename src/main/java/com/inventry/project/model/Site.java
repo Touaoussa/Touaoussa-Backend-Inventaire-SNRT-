@@ -41,9 +41,7 @@ public class Site implements Serializable {
 	@JsonIgnore
 	private Utilisateur utilisateur;
 	
-	@OneToMany(mappedBy = "site" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	@JsonIgnore
-    List<Pvreception> pvs;
+	
 	
 	
 	@OneToMany(mappedBy="site",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
@@ -58,8 +56,7 @@ public class Site implements Serializable {
 	
 	
 	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
-			List<Supportacquistion> supports, List<Reception> receptions, Region region, Utilisateur utilisateur,
-			List<Pvreception> pvs, List<Detailssite> detailssite) {
+			List<Supportacquistion> supports, List<Reception> receptions, Region region, Utilisateur utilisateur, List<Detailssite> detailssite) {
 		super();
 		this.codification = codification;
 		this.intitule = intitule;
@@ -70,48 +67,13 @@ public class Site implements Serializable {
 		this.receptions = receptions;
 		this.region = region;
 		this.utilisateur = utilisateur;
-		this.pvs = pvs;
 		this.detailssite = detailssite;
 	}
 
 
 
 
-	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
-			List<Supportacquistion> supports, Region region, Utilisateur utilisateur, List<Reception> receptions) {
-		super();
-		this.codification = codification;
-		this.intitule = intitule;
-		this.localite = localite;
-		this.adresse = adresse;
-		this.cordonneesgps = cordonneesgps;
-		this.supports = supports;
-		this.region = region;
-		this.utilisateur = utilisateur;
-		this.receptions = receptions;
-	}
-
 	
-	
-
-	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
-			List<Supportacquistion> supports, List<Reception> receptions, Region region, Utilisateur utilisateur,
-			List<Pvreception> pvs) {
-		super();
-		this.codification = codification;
-		this.intitule = intitule;
-		this.localite = localite;
-		this.adresse = adresse;
-		this.cordonneesgps = cordonneesgps;
-		this.supports = supports;
-		this.receptions = receptions;
-		this.region = region;
-		this.utilisateur = utilisateur;
-		this.pvs = pvs;
-	}
-
-
-
 
 	public List<Reception> getReceptions() {
 		return receptions;
@@ -121,54 +83,14 @@ public class Site implements Serializable {
 		this.receptions = receptions;
 	}
 
-	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
-			List<Supportacquistion> supports, Region region, Utilisateur utilisateur) {
-		super();
-		this.codification = codification;
-		this.intitule = intitule;
-		this.localite = localite;
-		this.adresse = adresse;
-		this.cordonneesgps = cordonneesgps;
-		this.supports = supports;
-		this.region = region;
-		this.utilisateur = utilisateur;
-	}
 
-	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
-			List<Supportacquistion> supports, Region region) {
-		super();
-		this.codification = codification;
-		this.intitule = intitule;
-		this.localite = localite;
-		this.adresse = adresse;
-		this.cordonneesgps = cordonneesgps;
-		this.supports = supports;
-		this.region = region;
-	}
 
-	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps,
-			List<Supportacquistion> supports) {
-		super();
-		this.codification = codification;
-		this.intitule = intitule;
-		this.localite = localite;
-		this.adresse = adresse;
-		this.cordonneesgps = cordonneesgps;
-		this.supports = supports;
-	}
 
 	public Site() {
 		
 	}
 	
-	public Site(Long codification, String intitule, String localite, String adresse, String cordonneesgps) {
-		super();
-		this.codification = codification;
-		this.intitule = intitule;
-		this.localite = localite;
-		this.adresse = adresse;
-		this.cordonneesgps = cordonneesgps;
-	}
+	
 	
 	public Long getCodification() {
 		return codification;
@@ -226,13 +148,13 @@ public class Site implements Serializable {
 	}
 
 
-	public List<Pvreception> getPvs() {
+	/*public List<Pvreception> getPvs() {
 		return pvs;
 	}
 
 	public void setPvs(List<Pvreception> pvs) {
 		this.pvs = pvs;
-	}
+	}*/
 
 
 

@@ -1,17 +1,21 @@
 package com.inventry.project.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Detailssite implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String Id_local;
 	private String Intitule;
@@ -19,11 +23,13 @@ public class Detailssite implements Serializable{
 	private Integer Numetage;
 	@ManyToOne
 	@JoinColumn(name="site_id", nullable=false)
-	@JsonIgnore
+	//@JsonIgnore
 	private Site site;
 	
 	
-	
+	@OneToMany(mappedBy = "site" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@JsonIgnore
+    List<Pvreception> pvs;
 	
 	public Detailssite() {
 		super();
@@ -39,6 +45,20 @@ public class Detailssite implements Serializable{
 		Etage = etage;
 		Numetage = numetage;
 		this.site = site;
+	}
+
+
+
+
+	public Detailssite(String id_local, String intitule, String etage, Integer numetage, Site site,
+			List<Pvreception> pvs) {
+		super();
+		Id_local = id_local;
+		Intitule = intitule;
+		Etage = etage;
+		Numetage = numetage;
+		this.site = site;
+		this.pvs = pvs;
 	}
 
 
@@ -100,8 +120,8 @@ public class Detailssite implements Serializable{
 
 
 
-	public Site getSite() {
-		return site;
+	public String getSite() {
+		return this.site.getIntitule();
 	}
 
 
@@ -109,6 +129,20 @@ public class Detailssite implements Serializable{
 
 	public void setSite(Site site) {
 		this.site = site;
+	}
+
+
+
+
+	public List<Pvreception> getPvs() {
+		return pvs;
+	}
+
+
+
+
+	public void setPvs(List<Pvreception> pvs) {
+		this.pvs = pvs;
 	}
 	
 	

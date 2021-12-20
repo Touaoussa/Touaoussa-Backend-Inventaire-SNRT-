@@ -57,7 +57,7 @@ public class Supportacquistion implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="fournisseur_id", nullable=false)
-	@JsonIgnore
+	
 	private Fournisseur fournisseur;
 
 	public Supportacquistion() {

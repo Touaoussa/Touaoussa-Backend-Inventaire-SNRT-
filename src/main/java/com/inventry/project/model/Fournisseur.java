@@ -15,6 +15,7 @@ public class Fournisseur {
 	private String nomfournisseur;
 	
 	@OneToMany(mappedBy="fournisseur")
+	@JsonIgnore
 	private List<Supportacquistion> supports;
 	
 	

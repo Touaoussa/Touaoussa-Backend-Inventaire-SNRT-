@@ -41,6 +41,7 @@ import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.configuration.*;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
+import com.inventry.project.datasource2.repo.FournisseurRepository;
 import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.direction.repo.DirectionRepository;
 import com.inventry.project.firstdatasource.repo.ArticleJdeRepository;
@@ -71,6 +72,9 @@ public class SupportController {
 	
 	@Autowired
 	SupportService supportservice;
+	
+	@Autowired
+	FournisseurRepository fournisseurrepository;
 	
 	@Autowired
 	JwtUtil jwtTokenutil;
@@ -182,7 +186,9 @@ public class SupportController {
 		supportacquisition.setDirection(d);
 		
 		Fournisseur f =new Fournisseur();
-		f.setIdfournisseur(Long.valueOf(1));
+	//	f.setIdfournisseur(Long.valueOf(1));
+		f.setNomfournisseur(articles.get(0).getFournisseur());
+		Fournisseur f2=fournisseurrepository.save(f);
 		supportacquisition.setFournisseur(f);
 		
 		this.supportacquistionRepository2.save(supportacquisition);
