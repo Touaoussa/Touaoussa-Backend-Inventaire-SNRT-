@@ -25,12 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtRequestFilter jwtRequestFilter;
 	
 	private final String[] PUBLIC_ENDPOINTS = { 
-			"/*",
-			"/*/*",
-			"/*/*/*",
-			"/*/*/*/*",
-			"/*/*/*/*/*",
-			"/*/*/*/*/*/*",
+			
 			"/microservice1/authenticate",
 		
 		}; 

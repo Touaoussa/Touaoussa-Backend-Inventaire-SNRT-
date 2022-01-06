@@ -23,7 +23,7 @@ public class Detailssite implements Serializable{
 	private Integer Numetage;
 	@ManyToOne
 	@JoinColumn(name="site_id", nullable=false)
-	//@JsonIgnore
+	@JsonIgnore
 	private Site site;
 	
 	
