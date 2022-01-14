@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.DTO.LivraisonDto;
 import com.inventry.project.datasource2.repo.IHistoriqueLivraison;
 import com.inventry.project.model.HistoriqueLivraison;
 import com.inventry.project.model.Livraison;
@@ -28,18 +29,32 @@ public class LivraisonController {
 	LivraisonService livraisonservice;
 	
 	 @PostMapping(path = "/setlivraison") 
-	    public Livraison AddLivraison(@RequestBody Livraison livraison) throws Exception{	
+	    public Livraison AddLivraison(@RequestBody LivraisonDto livraisondto) throws Exception{	
+		 Livraison livraison= new Livraison();
+		 
+		 // the mapping between "livraison" and "livraisondto"
+		 livraison.setArticle(livraisondto.getArticle());
+		 livraison.setReception(livraisondto.getReception());
+		 livraison.setQuantite(livraisondto.getQuantite());
+		
 		return this.livraisonservice.addLivraison(livraison);
 		}
 	 
 	 @PostMapping(path = "/deletelivraison") 
-	    public void RemoveLivraison(@RequestBody Livraison livraison) throws Exception{	
+	    public void RemoveLivraison(@RequestBody LivraisonDto livraisondto) throws Exception{	
+		 Livraison livraison= new Livraison();
+		 
+		 // the mapping between "livraison" and "livraisondto"
+		 livraison.setArticle(livraisondto.getArticle());
+		 livraison.setReception(livraisondto.getReception());
+		 livraison.setQuantite(livraisondto.getQuantite());
+		 
 		 this.livraisonservice.deleteLivraison(livraison);
 		}
 	 
 	 @PostMapping(path="/getnumarticles")
-	 public List<Long> getAllnumarticles(@RequestBody Livraison livraison) throws Exception{
-		return this.livraisonservice.getnumarticles(livraison.getReception().getId_reception());
+	 public List<Long> getAllnumarticles(@RequestBody LivraisonDto livraisondto) throws Exception{
+		return this.livraisonservice.getnumarticles(livraisondto.getReception().getId_reception());
 	 }
 	 
 	 @PostMapping(path="/gethistoriquelivraison")

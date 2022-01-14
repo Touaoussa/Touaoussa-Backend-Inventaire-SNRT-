@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.inventry.project.datasource2.repo.IUtilisateur;
@@ -36,8 +39,17 @@ public class MyUserDetailsService implements UserDetailsService {
 	} 
 	
 	
+	private static PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
 	public List<IUtilisateur> FindAllAgents(){
 		return this.utilisateurrepo.getAgents();
+	}
+	
+	public Utilisateur Adduser(Utilisateur utilisateur) {
+		 utilisateur.setMdps(passwordEncoder().encode(utilisateur.getMdps()));
+		return this.utilisateurrepo.save(utilisateur);
 	}
 
 }
