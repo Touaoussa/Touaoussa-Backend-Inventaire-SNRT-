@@ -18,7 +18,7 @@ import com.inventry.project.model.Site;
 import com.inventry.project.model.Utilisateur;
 import com.inventry.project.service.MyUserDetailsService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/utilisateurs")
 @EnableTransactionManagement

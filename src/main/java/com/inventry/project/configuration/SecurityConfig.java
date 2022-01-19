@@ -28,17 +28,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final String[] PUBLIC_ENDPOINTS = { 
 			
 			"/microservice1/authenticate",
-			"/utilisateurs/AddUtilisateur"
-		
+			"/utilisateurs/AddUtilisateur",
+			//"/microservice1/FileSupport/9000053"
+			//"/microservice1/uploadfile/support/"
 		}; 
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(myUserDeatilsService);
+		auth.userDetailsService(myUserDeatilsService).passwordEncoder(Encoder());
 	}
 	
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder Encoder() {
 		return new BCryptPasswordEncoder();
 	}
 	

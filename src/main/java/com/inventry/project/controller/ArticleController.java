@@ -15,7 +15,7 @@ import com.inventry.project.model.Article;
 import com.inventry.project.model.Pvreception;
 import com.inventry.project.service.ArticleService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/article")
 public class ArticleController {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.DTO.PvreceptionDto;
 import com.inventry.project.datasource2.repo.IAgents;
 import com.inventry.project.datasource2.repo.IHistoriquepv;
 import com.inventry.project.datasource2.repo.IUtilisateur;
@@ -18,7 +19,7 @@ import com.inventry.project.model.Pvreception;
 import com.inventry.project.model.Site;
 import com.inventry.project.service.PvService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/pv")
 @EnableTransactionManagement
@@ -43,7 +44,16 @@ public class PvController {
 	 }
 	
 	@PostMapping(path = "/setpv") 
-	    public Pvreception AddPv(@RequestBody Pvreception pvreception) throws Exception{	
+	    public Pvreception AddPv(@RequestBody PvreceptionDto pvreceptionDto) throws Exception{	
+		Pvreception	pvreception = new Pvreception();
+		pvreception.setNumpv(pvreceptionDto.getNumpv());
+		pvreception.setDate_pv(pvreceptionDto.getDate_pv());
+		pvreception.setSupport(pvreceptionDto.getSupport());
+		pvreception.setSite(pvreceptionDto.getSite());
+		pvreception.setBonlivraison(pvreceptionDto.getBonlivraison());
+		pvreception.setAgents(pvreceptionDto.getAgents());
+		pvreception.setUtilisateur(pvreceptionDto.getUtilisateur());
+		pvreception.setArticles(pvreceptionDto.getArticles());
 		return this.pvservice.addpv(pvreception);
 		}
 	 

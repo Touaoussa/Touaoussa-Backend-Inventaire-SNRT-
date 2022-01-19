@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.DTO.ReceptionDto;
+import com.inventry.project.DTO.SupportacquistionDto;
 import com.inventry.project.datasource2.repo.ReceptionRepository;
 import com.inventry.project.model.Article;
 import com.inventry.project.model.Reception;
@@ -18,7 +20,7 @@ import com.inventry.project.model.Site;
 import com.inventry.project.model.Supportacquistion;
 import com.inventry.project.service.ReceptionService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/receptions")
 @EnableTransactionManagement
@@ -38,7 +40,13 @@ public class ReceptionController {
 	 
 	 
 	 @PostMapping(path = "/addreception") 
-	    public Reception AddReception(@RequestBody Reception reception) throws Exception{			 
+	    public Reception AddReception(@RequestBody ReceptionDto receptiondto) throws Exception{			
+			 Reception reception =new Reception();
+			 reception.setId_reception(receptiondto.getId_reception());
+			 reception.setDate_reception(receptiondto.getDate_reception());
+			 reception.setType_reception(receptiondto.getType_reception());
+			 reception.setSupportacqisition(receptiondto.getSupportacqisition());
+			 reception.setSite(receptiondto.getSite());
 		return this.receptionservice.addreception(reception);
 		}
 	 
@@ -48,18 +56,30 @@ public class ReceptionController {
 		}
 	 */
 	 @PostMapping(path = "/updatereception")  
-	    public Reception ModifierReception(@RequestBody Reception reception) throws Exception{			 
+	    public Reception ModifierReception(@RequestBody ReceptionDto receptiondto) throws Exception{		
+		 Reception reception =new Reception();
+		 reception.setId_reception(receptiondto.getId_reception());
+		 reception.setDate_reception(receptiondto.getDate_reception());
+		 reception.setType_reception(receptiondto.getType_reception());
+		 reception.setSupportacqisition(receptiondto.getSupportacqisition());
+		 reception.setSite(receptiondto.getSite());
 		return this.receptionservice.updatereceptions(reception);
 		}
 	   
 	 @PostMapping(path = "/deleteereception") 
-	    public void SupprimerReception(@RequestBody Reception reception) throws Exception{			 
+	    public void SupprimerReception(@RequestBody ReceptionDto receptiondto) throws Exception{		
+		 Reception reception =new Reception();
+		 reception.setId_reception(receptiondto.getId_reception());
+		 reception.setDate_reception(receptiondto.getDate_reception());
+		 reception.setType_reception(receptiondto.getType_reception());
+		 reception.setSupportacqisition(receptiondto.getSupportacqisition());
+		 reception.setSite(receptiondto.getSite());
 		 this.receptionservice.DeleteReception(reception);
 		}
 	 
 	 @PostMapping("/getreceptionsbysupport") 
-	    public List<Reception> GetReceptionbySupport(@RequestBody Supportacquistion supportacquisition) throws Exception{	
-		 return this.receptionservice.findabySupport(supportacquisition.getReference());
+	    public List<Reception> GetReceptionbySupport(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{	
+		 return this.receptionservice.findabySupport(supportacquisitiondto.getReference());
 		}
 	 
 	 

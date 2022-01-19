@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.DTO.BonLivraisonDto;
 import com.inventry.project.model.BonLivraison;
 import com.inventry.project.model.Livraison;
 import com.inventry.project.service.BonLivraisonService;
 import com.inventry.project.service.LivraisonService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/bonlivraisons")
 @EnableTransactionManagement
@@ -26,7 +27,12 @@ public class BonLivraisonController {
 	BonLivraisonService bonlivraisonservice;
 	
 	 @PostMapping(path = "/setbonlivraison") 
-	    public BonLivraison AddBonLivraison(@RequestBody BonLivraison bonlivraison) throws Exception{	
+	    public BonLivraison AddBonLivraison(@RequestBody BonLivraisonDto bonlivraisondto) throws Exception{	
+		 BonLivraison bonlivraison= new BonLivraison();
+		 bonlivraison.setNumBl(bonlivraisondto.getNumbl());
+		 bonlivraison.setDatebl(bonlivraisondto.getDatebl());
+		 bonlivraison.setSupport(bonlivraisondto.getSupport());
+		 
 		return this.bonlivraisonservice.addBonLivraison(bonlivraison);
 		}
 	 

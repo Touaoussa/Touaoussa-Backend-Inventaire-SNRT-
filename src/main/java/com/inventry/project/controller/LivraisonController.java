@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inventry.project.DTO.LivraisonDto;
+import com.inventry.project.DTO.SupportacquistionDto;
 import com.inventry.project.datasource2.repo.IHistoriqueLivraison;
 import com.inventry.project.model.HistoriqueLivraison;
 import com.inventry.project.model.Livraison;
@@ -20,7 +21,7 @@ import com.inventry.project.model.Site;
 import com.inventry.project.model.Supportacquistion;
 import com.inventry.project.service.LivraisonService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/livraisons")
 @EnableTransactionManagement
@@ -58,8 +59,8 @@ public class LivraisonController {
 	 }
 	 
 	 @PostMapping(path="/gethistoriquelivraison")
-	 public List<IHistoriqueLivraison> gethistoriquelivraison(@RequestBody Supportacquistion supportacquistion) throws Exception{
-		return this.livraisonservice.gethstoriquelivraison(supportacquistion.getReference());
+	 public List<IHistoriqueLivraison> gethistoriquelivraison(@RequestBody SupportacquistionDto supportacquistiondto) throws Exception{
+		return this.livraisonservice.gethstoriquelivraison(supportacquistiondto.getReference());
 	 }
 	 
 	 

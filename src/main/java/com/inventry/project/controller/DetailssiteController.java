@@ -14,7 +14,7 @@ import com.inventry.project.model.Site;
 import com.inventry.project.service.DetailsSiteService;
 import com.inventry.project.service.SiteService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/sites")
 @EnableTransactionManagement

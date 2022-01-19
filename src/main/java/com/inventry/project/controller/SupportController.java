@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +40,7 @@ import com.inventry.project.service.MyUserDetailsService;
 import com.inventry.project.service.SupportService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
+import com.inventry.project.DTO.SupportacquistionDto;
 import com.inventry.project.configuration.*;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
 import com.inventry.project.datasource2.repo.FournisseurRepository;
@@ -46,7 +48,7 @@ import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.direction.repo.DirectionRepository;
 import com.inventry.project.firstdatasource.repo.ArticleJdeRepository;
 import com.inventry.project.security.*;
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/microservice1")
 @EnableTransactionManagement
@@ -57,7 +59,7 @@ public class SupportController {
 	@Autowired
 	SupportacquistionRepository supportacquistionRepository ;
 	@Autowired
-	SupportacquistionRepository2 supportacquistionRepository2 ;
+	SupportacquistionRepository2 supportacquistionRepository2  ;
 	@Autowired
 	ArticleJdeRepository articlejderepository;
 	
@@ -142,13 +144,13 @@ public class SupportController {
 
 	
 	 @PostMapping(path = "/uploadfile/support/") 
-	    public Map<String,Object> uploadPhoto(MultipartFile file) throws Exception{
+	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception{
 	        String name=file.getOriginalFilename();
 	        int i= name.lastIndexOf(".");
 	        if (i<0) throw new Exception();
 	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
 	       // Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
-	        Files.write(Paths.get(System.getProperty("user.dir")+"/upload/support/"+name),file.getBytes());
+	        Files.write(Paths.get(System.getProperty("user.dir")+"/upload/support/"+name).normalize(),file.getBytes());
 	        Map<String,Object> resp=new HashMap<>();
 	        resp.put("path",name);
 	        return resp;
@@ -157,12 +159,12 @@ public class SupportController {
 	 
 	 
 	 @PostMapping(path = "/setarticles") 
-	    public List<ArticleJde> AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
-		if( this.supportacquistionRepository2.existsById(supportacquisition.getReference() )){
-			List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
+	    public List<ArticleJde> AddArticles(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{
+		if( this.supportacquistionRepository2.existsById(supportacquisitiondto.getReference() )){
+			List<ArticleJde> articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
 			return articles;
 		}
-		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisition.getReference(),supportacquisition.getType());
+		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
 		double prix =articles.get(0).getPrixunitaire();
 		//System.out.println(String.format("%1.2f",prix));
 		System.out.println(prix/100);
@@ -183,15 +185,23 @@ public class SupportController {
 		
 		Direction d= new Direction();
 		d.setIddirection(Long.valueOf(1));
-		supportacquisition.setDirection(d);
+		supportacquisitiondto.setDirection(d);
 		
 		Fournisseur f =new Fournisseur();
 	//	f.setIdfournisseur(Long.valueOf(1));
 		f.setNomfournisseur(articles.get(0).getFournisseur());
 		Fournisseur f2=fournisseurrepository.save(f);
-		supportacquisition.setFournisseur(f);
+		supportacquisitiondto.setFournisseur(f);
 		
-		this.supportacquistionRepository2.save(supportacquisition);
+		Supportacquistion supportacquistion =new Supportacquistion();
+		
+		supportacquistion.setReference(supportacquisitiondto.getReference());
+		supportacquistion.setType(supportacquisitiondto.getType());
+		supportacquistion.setPath(supportacquisitiondto.getPath());
+		supportacquisitiondto.setDirection(supportacquisitiondto.getDirection());
+		supportacquisitiondto.setFournisseur(supportacquisitiondto.getFournisseur());
+		
+		 this.supportacquistionRepository2.save(supportacquistion);
 		for(int i=0; i < articles.size();i++) {
 			//System.out.println("num article= "+articles.get(i).getNumarticle());
 		Article article = new Article(
@@ -201,7 +211,7 @@ public class SupportController {
 				articles.get(i).getQuantite(),
 				articles.get(i).getPrixunitaire(),
 				articles.get(i).getPrixtotal(),
-				supportacquisition
+				supportacquistion
 				);
 		articlelocalrepository.save(article);
 		}
@@ -219,10 +229,10 @@ public class SupportController {
 	    }*/
 	 
 	 
-	 @PostMapping(path = "/setarticles2") 
+	/* @PostMapping(path = "/setarticles2") 
 	    public Article AddArticle(@RequestBody Article article) throws Exception{	
 		return articlelocalrepository.save(article);
-		}
+		}*/
 	 
 	 @GetMapping("/getarticles") 
 	    public List<Supportacquistion> GetAllArticles() throws Exception{	
@@ -231,8 +241,8 @@ public class SupportController {
 		} 
 		
 	    
-	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_PDF_VALUE)
-	    public ResponseEntity<InputStreamResource>  File(@PathVariable (name ="reference")Long reference)throws Exception{
+	 @GetMapping(value = "/FileSupport/{reference}/{token}",produces = MediaType.APPLICATION_PDF_VALUE)
+	    public ResponseEntity<InputStreamResource>  File(@PathVariable (name ="reference")Long reference, @PathVariable("token") String token)throws Exception{
 		 Supportacquistion supportacquistion=supportacquistionRepository2.findById(reference).get();
 	       /* String FileName=supportacquistion.getPath();
 	        File file=new File(System.getProperty("user.home")+"/upload/support/"+FileName);
@@ -244,6 +254,8 @@ public class SupportController {
 		 File file = new File(filepath);
 	      HttpHeaders headers = new HttpHeaders();      
 	      headers.add("content-disposition", "inline;filename=" +FileName);
+	      headers.set("Authorization", "Bearer "+token);
+	      //headers.setBearerAuth("Bearer "+ token);
 	        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 	        return ResponseEntity.ok()
 	                .headers(headers)
@@ -252,8 +264,5 @@ public class SupportController {
 	                .body(resource);
 		
 	    }
-	 
-	
-	
-	 
+	  
 }

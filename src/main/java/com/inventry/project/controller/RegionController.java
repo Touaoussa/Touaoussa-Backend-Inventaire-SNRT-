@@ -13,7 +13,7 @@ import com.inventry.project.model.Reception;
 import com.inventry.project.model.Region;
 import com.inventry.project.service.RegionService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/regions")
 @EnableTransactionManagement

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventry.project.DTO.SiteDto;
+import com.inventry.project.DTO.SupportacquistionDto;
+import com.inventry.project.DTO.UtilisateurDto;
 import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.model.Article;
 import com.inventry.project.model.Site;
@@ -20,7 +23,7 @@ import com.inventry.project.model.Utilisateur;
 import com.inventry.project.service.SiteService;
 import com.inventry.project.service.SupportService;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/sites")
 @EnableTransactionManagement
@@ -41,27 +44,38 @@ public class SitesController {
 		}
 	 
 	 @PostMapping("/getsitessupport") 
-	    public Optional<Supportacquistion> GetSitesSupport(@RequestBody Supportacquistion support) throws Exception{	
-		 return this.siteservice.findsupportbyrefernce(support.getReference());
+	    public Optional<Supportacquistion> GetSitesSupport(@RequestBody SupportacquistionDto supportdto) throws Exception{	
+		 return this.siteservice.findsupportbyrefernce(supportdto.getReference());
 		}
 	 
 	 @PostMapping(path = "/setsite") 
-	    public Site AddSite(@RequestBody Site site) throws Exception{	
+	    public Site AddSite(@RequestBody SiteDto sitedto) throws Exception{	
+		 Site site=new Site();
+		 site.setCodification(sitedto.getCodification());
+		 site.setLocalite(sitedto.getLocalite());
+		 site.setAdresse(sitedto.getAdresse());
+		 site.setIntitule(sitedto.getIntitule());
+		 site.setCordonneesgps(sitedto.getCordonneesgps());
+		 site.setRegion(sitedto.getRegion());
+		 site.setUtilisateur(sitedto.getUtilisateur());
 		return this.siteservice.addsite(site);
 		}
 	 
 	 @PostMapping(path = "/affectersite") 
-	    public Supportacquistion AffecterSite(@RequestBody Supportacquistion supportacquisition) throws Exception{			 
+	    public Supportacquistion AffecterSite(@RequestBody SupportacquistionDto supportacquisitionDto) throws Exception{	
+		 Supportacquistion supportacquisition= new Supportacquistion();
+		 supportacquisition.setReference(supportacquisitionDto.getReference());
+		 supportacquisition.setSites(supportacquisitionDto.getSites());
 		return this.siteservice.affectersite(supportacquisition);
 		}
 	 
 	 @PostMapping("/getsiteresponsable") 
-	    public List<Site> GetSitesResponsable(@RequestBody Utilisateur utilisateur) throws Exception{
-		 return this.siteservice.findsitebyresponsable(utilisateur.getMatricule());
+	    public List<Site> GetSitesResponsable(@RequestBody UtilisateurDto utilisateurdto) throws Exception{
+		 return this.siteservice.findsitebyresponsable(utilisateurdto.getMatricule());
 		}
 	 
 	 @PostMapping("/getsitesupport") 
-	    public List<Supportacquistion> GetSitesSupports(@RequestBody Site site) throws Exception{
-		 return this.supportservice.findsupportbysite(site.getCodification());
+	    public List<Supportacquistion> GetSitesSupports(@RequestBody SiteDto sitedto) throws Exception{
+		 return this.supportservice.findsupportbysite(sitedto.getCodification());
 		}
 }
