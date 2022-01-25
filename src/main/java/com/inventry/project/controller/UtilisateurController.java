@@ -37,9 +37,11 @@ public class UtilisateurController {
 		Utilisateur utilisateur = new Utilisateur() ;
 		utilisateur.setMatricule(utilisateurdto.getMatricule());
 		utilisateur.setIdentifiant(utilisateurdto.getIdentifiant());
+		utilisateur.setMdps(utilisateurdto.getMdps());
 		utilisateur.setNom(utilisateurdto.getNom());
-		utilisateur.setPrenom(utilisateur.getPrenom());
+		utilisateur.setPrenom(utilisateurdto.getPrenom());
 		utilisateur.setTele(utilisateurdto.getTele());
+		utilisateur.setRoles(utilisateurdto.getRoles());
 		 return this.utilisateurservice.Adduser(utilisateur);
 	 }
 	 

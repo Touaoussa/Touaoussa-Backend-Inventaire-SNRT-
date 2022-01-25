@@ -142,20 +142,6 @@ public class SupportController {
 	}
 	
 
-	
-	 @PostMapping(path = "/uploadfile/support/") 
-	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception{
-	        String name=file.getOriginalFilename();
-	        int i= name.lastIndexOf(".");
-	        if (i<0) throw new Exception();
-	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
-	       // Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
-	        Files.write(Paths.get(System.getProperty("user.dir")+"/upload/support/"+name).normalize(),file.getBytes());
-	        Map<String,Object> resp=new HashMap<>();
-	        resp.put("path",name);
-	        return resp;
-	    }
-	 
 	 
 	 
 	 @PostMapping(path = "/setarticles") 
@@ -239,10 +225,28 @@ public class SupportController {
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupports();
 		} 
+	 
+	 /*upload File */
+	 @PostMapping(path = "/uploadfile/support/") 
+	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception{
+	        String name=file.getOriginalFilename();
+	        int i= name.lastIndexOf(".");
+	        if (i<0) throw new Exception();
+	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
+	       // Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
+	        Files.write(Paths.get(System.getProperty("user.dir")+"/upload/support/"+name).normalize(),file.getBytes());
+	        Map<String,Object> resp=new HashMap<>();
+	        resp.put("path",name);
+	        return resp;
+	    }
+	 
+	 
+	 
+	 /*GetFile */
 		
 	    
-	 @GetMapping(value = "/FileSupport/{reference}/{token}",produces = MediaType.APPLICATION_PDF_VALUE)
-	    public ResponseEntity<InputStreamResource>  File(@PathVariable (name ="reference")Long reference, @PathVariable("token") String token)throws Exception{
+	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_PDF_VALUE)
+	    public ResponseEntity<InputStreamResource>  File(@PathVariable (name ="reference")Long reference)throws Exception{
 		 Supportacquistion supportacquistion=supportacquistionRepository2.findById(reference).get();
 	       /* String FileName=supportacquistion.getPath();
 	        File file=new File(System.getProperty("user.home")+"/upload/support/"+FileName);
@@ -254,7 +258,8 @@ public class SupportController {
 		 File file = new File(filepath);
 	      HttpHeaders headers = new HttpHeaders();      
 	      headers.add("content-disposition", "inline;filename=" +FileName);
-	      headers.set("Authorization", "Bearer "+token);
+	      headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
+	      //headers.add("Authorization", "Bearer "+token);
 	      //headers.setBearerAuth("Bearer "+ token);
 	        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 	        return ResponseEntity.ok()
@@ -262,7 +267,6 @@ public class SupportController {
 	                .contentLength(file.length())
 	                .contentType(MediaType.parseMediaType("application/pdf"))
 	                .body(resource);
-		
 	    }
 	  
 }

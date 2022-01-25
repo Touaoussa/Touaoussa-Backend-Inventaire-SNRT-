@@ -1,5 +1,10 @@
 package com.inventry.project.DTO;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.inventry.project.model.Role;
+
 public class UtilisateurDto {
 	private Long matricule;
 	private String identifiant;
@@ -7,6 +12,7 @@ public class UtilisateurDto {
 	private String prenom;
 	private Long tele;
 	private String mdps;
+	private Set<Role> roles = new HashSet<>();
 	
 	public UtilisateurDto() {
 		super();
@@ -20,6 +26,19 @@ public class UtilisateurDto {
 		this.prenom = prenom;
 		this.tele = tele;
 		this.mdps = mdps;
+	}
+
+	
+	public UtilisateurDto(Long matricule, String identifiant, String nom, String prenom, Long tele, String mdps,
+			Set<Role> roles) {
+		super();
+		this.matricule = matricule;
+		this.identifiant = identifiant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.tele = tele;
+		this.mdps = mdps;
+		this.roles = roles;
 	}
 
 	public Long getMatricule() {
@@ -68,6 +87,14 @@ public class UtilisateurDto {
 
 	public void setMdps(String mdps) {
 		this.mdps = mdps;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 	
