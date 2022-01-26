@@ -221,7 +221,7 @@ public class SupportController {
 		}*/
 	 
 	 @GetMapping("/getarticles") 
-	    public List<Supportacquistion> GetAllArticles() throws Exception{	
+	    public List<Supportacquistion> GetAllArticles() throws Exception{	 
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupports();
 		} 
