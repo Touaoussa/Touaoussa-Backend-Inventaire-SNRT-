@@ -148,6 +148,28 @@ public class SupportController {
 	    public List<ArticleJde> AddArticles(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{
 		if( this.supportacquistionRepository2.existsById(supportacquisitiondto.getReference() )){
 			List<ArticleJde> articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+			
+			Direction d= new Direction();
+			d.setIddirection(Long.valueOf(1));
+			supportacquisitiondto.setDirection(d);
+			
+			Fournisseur f =new Fournisseur();
+		//	f.setIdfournisseur(Long.valueOf(1));
+			f.setNomfournisseur(articles.get(0).getFournisseur());
+			Fournisseur f2=fournisseurrepository.save(f);
+			supportacquisitiondto.setFournisseur(f);
+			
+			Supportacquistion supportacquistion =new Supportacquistion();
+			
+			supportacquistion.setReference(supportacquisitiondto.getReference());
+			supportacquistion.setType(supportacquisitiondto.getType());
+			supportacquistion.setPath(supportacquisitiondto.getPath());
+			supportacquistion.setDirection(supportacquisitiondto.getDirection());
+			supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
+			
+			 this.supportacquistionRepository2.save(supportacquistion);
+
+			
 			return articles;
 		}
 		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
@@ -184,8 +206,8 @@ public class SupportController {
 		supportacquistion.setReference(supportacquisitiondto.getReference());
 		supportacquistion.setType(supportacquisitiondto.getType());
 		supportacquistion.setPath(supportacquisitiondto.getPath());
-		supportacquisitiondto.setDirection(supportacquisitiondto.getDirection());
-		supportacquisitiondto.setFournisseur(supportacquisitiondto.getFournisseur());
+		supportacquistion.setDirection(supportacquisitiondto.getDirection());
+		supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 		
 		 this.supportacquistionRepository2.save(supportacquistion);
 		for(int i=0; i < articles.size();i++) {
