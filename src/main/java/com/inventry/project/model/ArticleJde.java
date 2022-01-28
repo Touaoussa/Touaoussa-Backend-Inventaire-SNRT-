@@ -14,13 +14,13 @@ public class ArticleJde {
 	int quantite;
 	float prixunitaire;
 	float prixtotal;
-	Long support_id;
+	String support_id;
 	String fournisseur;
 	
-	public Long getSupport_id() {
+	public String getSupport_id() {
 		return support_id;
 	}
-	public void setSupport_id(Long support_id) {
+	public void setSupport_id(String support_id) {
 		this.support_id = support_id;
 	}
 	
@@ -41,7 +41,7 @@ public class ArticleJde {
 	
 	
 	public ArticleJde(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
-			float prixtotal, Long support_id, String fournisseur) {
+			float prixtotal, String support_id, String fournisseur) {
 		super();
 		this.numarticle = numarticle;
 		this.nomarticle = nomarticle;

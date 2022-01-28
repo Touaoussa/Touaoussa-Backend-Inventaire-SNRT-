@@ -26,7 +26,7 @@ public class Supportacquistion implements Serializable {
 	 */
 
 	@Id
-	private Long reference;
+	private String reference;
 	private String type;
 	private String path;
 		
@@ -70,7 +70,7 @@ public class Supportacquistion implements Serializable {
 	
 	
 
-	public Supportacquistion(Long reference, String type, String path, List<Article> articles,
+	public Supportacquistion(String reference, String type, String path, List<Article> articles,
 			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, List<Pvreception> pvs,
 			Direction direction, Fournisseur fournisseur) {
 		super();
@@ -90,7 +90,7 @@ public class Supportacquistion implements Serializable {
 
 
 
-	public Supportacquistion(Long reference, String type, String path, List<Article> articles,
+	public Supportacquistion(String reference, String type, String path, List<Article> articles,
 			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, Direction direction,
 			Fournisseur fournisseur) {
 		super();
@@ -105,12 +105,12 @@ public class Supportacquistion implements Serializable {
 		this.fournisseur = fournisseur;
 	}
 
-	public Supportacquistion(Long reference) {
+	public Supportacquistion(String reference) {
 		super();
 		this.reference = reference;
 	}
 
-	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
+	public Supportacquistion(String reference, String type, String path, List<Article> articles, List<Site> sites,
 			List<Reception> receptions, Direction direction, Fournisseur fournisseur) {
 		super();
 		this.reference = reference;
@@ -124,7 +124,7 @@ public class Supportacquistion implements Serializable {
 	}
 
 
-	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites,
+	public Supportacquistion(String reference, String type, String path, List<Article> articles, List<Site> sites,
 			List<Reception> receptions) {
 		super();
 		this.reference = reference;
@@ -135,13 +135,13 @@ public class Supportacquistion implements Serializable {
 		this.receptions = receptions;
 	}
 
-	public Supportacquistion(Long reference ,List<Reception> receptions) {
+	public Supportacquistion(String reference ,List<Reception> receptions) {
 		super();
 		this.reference = reference;
 		this.receptions = receptions;
 	}
 
-	public Supportacquistion(Long reference, String type, String path, List<Article> articles, List<Site> sites) {
+	public Supportacquistion(String reference, String type, String path, List<Article> articles, List<Site> sites) {
 		super();
 		this.reference = reference;
 		this.type = type;
@@ -150,7 +150,7 @@ public class Supportacquistion implements Serializable {
 		this.sites = sites;
 	}
 
-	public Supportacquistion(Long reference, String type, String path, List<Article> articles) {
+	public Supportacquistion(String reference, String type, String path, List<Article> articles) {
 		super();
 		this.reference = reference;
 		this.type = type;
@@ -160,18 +160,18 @@ public class Supportacquistion implements Serializable {
 
 
 
-public Supportacquistion(Long reference, String type) {
+public Supportacquistion(String reference, String type) {
 		this.reference = reference;
 		this.type = type;
 	}
 
 
-	public Long getReference() {
+	public String getReference() {
 		return reference;
 	}
 
 
-	public void setReference(Long reference) {
+	public void setReference(String reference) {
 		this.reference = reference;
 	}
 

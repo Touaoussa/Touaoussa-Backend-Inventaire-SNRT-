@@ -10,7 +10,7 @@ import com.inventry.project.model.Site;
 
 public class SupportacquistionDto {
 
-	private Long reference;
+	private String reference;
 	private String type;
 	private String path;
 	private Direction direction;
@@ -24,7 +24,7 @@ public class SupportacquistionDto {
 	
 	
 
-	public SupportacquistionDto(Long reference, String type, String path, Direction direction,
+	public SupportacquistionDto(String reference, String type, String path, Direction direction,
 			Fournisseur fournisseur) {
 		super();
 		this.reference = reference;
@@ -37,7 +37,7 @@ public class SupportacquistionDto {
 
 
 
-	public SupportacquistionDto(Long reference, String type, String path, Direction direction, Fournisseur fournisseur,
+	public SupportacquistionDto(String reference, String type, String path, Direction direction, Fournisseur fournisseur,
 			List<Site> sites) {
 		super();
 		this.reference = reference;
@@ -51,11 +51,11 @@ public class SupportacquistionDto {
 
 
 
-	public Long getReference() {
-		return reference;
+	public String getReference() {
+		return this.reference;
 	}
 
-	public void setReference(Long reference) {
+	public void setReference(String reference) {
 		this.reference = reference;
 	}
 

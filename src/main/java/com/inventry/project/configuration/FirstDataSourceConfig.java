@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         transactionManagerRef = "db1TransactionMgr",
         basePackages = {
                 "com.inventry.project.support.repo",
-                "com.inventry.project.firstdatasource.repo",
+                "com.inventry.project.datasource1.repo",
                 "com.inventry.project.articlejde.repo"
         })
 @EnableTransactionManagement

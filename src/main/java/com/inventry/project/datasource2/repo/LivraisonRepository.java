@@ -28,5 +28,5 @@ public interface LivraisonRepository extends JpaRepository<Livraison,LvraisonKey
 			"where r.id_reception=l.reception_id \r\n" + 
 			"and l.article_id=a.idarticle \r\n "+
 			"and r.support_id=:reference " ,nativeQuery = true )
-	List<IHistoriqueLivraison> gethstoriquelivraison(@Param("reference")Long reference);
+	List<IHistoriqueLivraison> gethstoriquelivraison(@Param("reference")String reference);
 }

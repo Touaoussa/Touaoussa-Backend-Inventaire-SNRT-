@@ -13,7 +13,7 @@ public interface ReceptionRepository extends JpaRepository<Reception,Long> {
 
 	@Query(value="select * from reception r \r\n" + 
 			"where r.support_id =:ref "  ,nativeQuery = true)
-	List<Reception> findBysupportreference(@Param("ref")Long reference);
+	List<Reception> findBysupportreference(@Param("ref")String ref);
 	
 	@Query(value="delete  from reception r \r\n" + 
 			"where r.support_id =:ref "  ,nativeQuery = true)

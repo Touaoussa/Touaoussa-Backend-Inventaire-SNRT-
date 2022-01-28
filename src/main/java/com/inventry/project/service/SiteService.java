@@ -52,8 +52,8 @@ public class SiteService {
 		return this.supportacquistionRepository2.save(supportacquistion);
 	}
 	*/
-	public Optional<Supportacquistion> findsupportbyrefernce(Long reference) {
-		return this.supportacquistionRepository2.findById(reference);
+	public Supportacquistion findsupportbyrefernce(String reference) {
+		return this.supportacquistionRepository2.findByReference(reference);
 	}
 	
 	public List<Site> findsitebyresponsable(Long matricule){

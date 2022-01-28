@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -42,11 +43,11 @@ import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.DTO.SupportacquistionDto;
 import com.inventry.project.configuration.*;
+import com.inventry.project.datasource1.repo.ArticleJdeRepository;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
 import com.inventry.project.datasource2.repo.FournisseurRepository;
 import com.inventry.project.datasource2.repo.SupportacquistionRepository2;
 import com.inventry.project.direction.repo.DirectionRepository;
-import com.inventry.project.firstdatasource.repo.ArticleJdeRepository;
 import com.inventry.project.security.*;
 //@CrossOrigin
 @RestController
@@ -110,20 +111,7 @@ public class SupportController {
 		 return this.supportservice.findsupportbyid(reference);
 		} 
 	
-	/*@GetMapping("/{intitule}")
-	public Object Recupérer_nombre_personnel(@PathVariable String intitule){
-		//Direction direction=directionrepository.findByIntitule(intitule);
-		List<Object> listsupportacquistion =  supportacquistionRepository.getsupports();
-		return listsupportacquistion.get(0);
-	}*/
-	
-/*	@GetMapping("/{Supportacquistion}")
-		public Object Recupérer_support_acquisition(){
-		List<Object> listsupportacquistion =  supportacquistionRepository.getsupports();
-		//Long nbr = supportacquistionRepository.count();
-		return listsupportacquistion.get(0);
-	}*/
-	
+
 	@RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
 	public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception{
 		try {
@@ -146,9 +134,22 @@ public class SupportController {
 	 
 	 @PostMapping(path = "/setarticles") 
 	    public List<ArticleJde> AddArticles(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{
-		if( this.supportacquistionRepository2.existsById(supportacquisitiondto.getReference() )){
-			List<ArticleJde> articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+		 
+	
+		 /*********************Déja existé ********************/
+		 
+		if( this.supportacquistionRepository2.existsByReference(supportacquisitiondto.getReference() )){
+			List<ArticleJde> articles ;
+			if(supportacquisitiondto.getType().equals("M1")) {
+				System.out.println(supportacquisitiondto.getType());
+			//	return null;
+			articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+			}
+			else {
+				 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+			}
 			
+			Supportacquistion supportacquistion =new Supportacquistion();
 			Direction d= new Direction();
 			d.setIddirection(Long.valueOf(1));
 			supportacquisitiondto.setDirection(d);
@@ -159,8 +160,6 @@ public class SupportController {
 			Fournisseur f2=fournisseurrepository.save(f);
 			supportacquisitiondto.setFournisseur(f);
 			
-			Supportacquistion supportacquistion =new Supportacquistion();
-			
 			supportacquistion.setReference(supportacquisitiondto.getReference());
 			supportacquistion.setType(supportacquisitiondto.getType());
 			supportacquistion.setPath(supportacquisitiondto.getPath());
@@ -170,25 +169,30 @@ public class SupportController {
 			 this.supportacquistionRepository2.save(supportacquistion);
 
 			
-			return articles;
+			  return articles ;
+			
 		}
-		List<ArticleJde> articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+		
+		
+		
+		/**********************Non existé ***************/
+		
+		
+		List<ArticleJde> articles = new ArrayList<ArticleJde>() ;
+		
+		if(supportacquisitiondto.getType().equals("M1")) {
+			System.out.println("yes");
+		articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+		}
+		else {
+			System.out.println("no");
+			 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+		}
+		
 		double prix =articles.get(0).getPrixunitaire();
 		//System.out.println(String.format("%1.2f",prix));
 		System.out.println(prix/100);
 		
-		/*for(int i=0; i < articles.size();i++) {
-			
-			/*articles.get(i).setQuantite(articles.get(i).getQuantite());
-			System.out.println(articles.get(i).getQuantite());
-			articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire());
-			articles.get(i).setPrixtotal(articles.get(i).getPrixtotal());
-			*/
-			//articles.get(i).setQuantite(articles.get(i).getQuantite()/100);
-			//System.out.println(articles.get(i).getQuantite()/10);
-			//articles.get(i).setPrixunitaire(articles.get(i).getPrixunitaire()/100);
-			//articles.get(i).setPrixtotal(articles.get(i).getPrixtotal()/100);
-		//} 
 		System.out.println("size= "+ articles.size());
 		
 		Direction d= new Direction();
@@ -201,15 +205,16 @@ public class SupportController {
 		Fournisseur f2=fournisseurrepository.save(f);
 		supportacquisitiondto.setFournisseur(f);
 		
-		Supportacquistion supportacquistion =new Supportacquistion();
+		Supportacquistion supportacquistion1 =new Supportacquistion();
 		
-		supportacquistion.setReference(supportacquisitiondto.getReference());
-		supportacquistion.setType(supportacquisitiondto.getType());
-		supportacquistion.setPath(supportacquisitiondto.getPath());
-		supportacquistion.setDirection(supportacquisitiondto.getDirection());
-		supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
+		supportacquistion1.setReference(supportacquisitiondto.getReference());
+		supportacquistion1.setType(supportacquisitiondto.getType());
+		supportacquistion1.setPath(supportacquisitiondto.getPath());
+		supportacquistion1.setDirection(supportacquisitiondto.getDirection());
+		supportacquistion1.setFournisseur(supportacquisitiondto.getFournisseur());
 		
-		 this.supportacquistionRepository2.save(supportacquistion);
+		 this.supportacquistionRepository2.save(supportacquistion1);
+		 
 		for(int i=0; i < articles.size();i++) {
 			//System.out.println("num article= "+articles.get(i).getNumarticle());
 		Article article = new Article(
@@ -219,11 +224,11 @@ public class SupportController {
 				articles.get(i).getQuantite(),
 				articles.get(i).getPrixunitaire(),
 				articles.get(i).getPrixtotal(),
-				supportacquistion
+				supportacquistion1
 				);
 		articlelocalrepository.save(article);
 		}
-		 return articles;
+	 return articles ;
 	    }
 	
 

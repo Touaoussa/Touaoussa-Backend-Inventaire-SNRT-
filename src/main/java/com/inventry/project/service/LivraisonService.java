@@ -61,7 +61,7 @@ public class LivraisonService {
 		return receptionrepository.save(reception2);
 	} */
 	
-	public List<IHistoriqueLivraison> gethstoriquelivraison(Long reference){
+	public List<IHistoriqueLivraison> gethstoriquelivraison(String reference){
 		
 		return this.livraisonrpository.gethstoriquelivraison(reference);
 	}

@@ -14,7 +14,7 @@ import com.inventry.project.model.Supportacquistion;
 
 
 @Repository
-public interface SupportacquistionRepository extends JpaRepository<Supportacquistion,Long> {
+public interface SupportacquistionRepository extends JpaRepository<Supportacquistion,String> {
 	
 	//@Query(value="select PDAN8 as reference, PDLITM as type ,PDITM as num_article_JDE from proddta.F4311 " ,nativeQuery = true)
 	@Query(value="select a.phdoco AS reference,a.phdcto AS type  from proddta.f4301 a" ,nativeQuery = true)
