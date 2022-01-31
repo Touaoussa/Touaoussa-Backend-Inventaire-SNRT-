@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -105,8 +106,8 @@ public class SupportController {
 		return supportacquisition;		
 	}
 	
-	 @GetMapping(value = "/support/{reference}") 
-	    public Supportacquistion Getsupportreference(@PathVariable("reference") Long reference) throws Exception{	
+	 @GetMapping(value = "/support") 
+	    public Supportacquistion Getsupportreference(@RequestParam (name ="reference") String reference) throws Exception{	
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupportbyid(reference);
 		} 
@@ -140,14 +141,19 @@ public class SupportController {
 		 
 		if( this.supportacquistionRepository2.existsByReference(supportacquisitiondto.getReference() )){
 			List<ArticleJde> articles ;
-			if(supportacquisitiondto.getType().equals("M1")) {
+			String[] arr = new String [] {"M1", "M2", "M3", "M4","M5","M6","M7","M8","M9"};
+			if( Arrays.asList(arr).contains(supportacquisitiondto.getType()) ) {
 				System.out.println(supportacquisitiondto.getType());
 			//	return null;
+				
 			articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
 			}
 			else {
 				 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
 			}
+			
+			
+			/*******************Ajout des supports ***************/
 			
 			Supportacquistion supportacquistion =new Supportacquistion();
 			Direction d= new Direction();
@@ -155,7 +161,6 @@ public class SupportController {
 			supportacquisitiondto.setDirection(d);
 			
 			Fournisseur f =new Fournisseur();
-		//	f.setIdfournisseur(Long.valueOf(1));
 			f.setNomfournisseur(articles.get(0).getFournisseur());
 			Fournisseur f2=fournisseurrepository.save(f);
 			supportacquisitiondto.setFournisseur(f);
@@ -179,8 +184,8 @@ public class SupportController {
 		
 		
 		List<ArticleJde> articles = new ArrayList<ArticleJde>() ;
-		
-		if(supportacquisitiondto.getType().equals("M1")) {
+		String[] arr = new String [] {"M1", "M2", "M3", "M4","M5","M6","M7","M8","M9"};
+		if( Arrays.asList(arr).contains(supportacquisitiondto.getType()) ) {
 			System.out.println("yes");
 		articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
 		}
@@ -189,12 +194,9 @@ public class SupportController {
 			 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
 		}
 		
-		double prix =articles.get(0).getPrixunitaire();
-		//System.out.println(String.format("%1.2f",prix));
-		System.out.println(prix/100);
-		
-		System.out.println("size= "+ articles.size());
-		
+		/*******************Ajout des supports ***************/
+	
+		Supportacquistion supportacquistion =new Supportacquistion();
 		Direction d= new Direction();
 		d.setIddirection(Long.valueOf(1));
 		supportacquisitiondto.setDirection(d);
@@ -205,15 +207,15 @@ public class SupportController {
 		Fournisseur f2=fournisseurrepository.save(f);
 		supportacquisitiondto.setFournisseur(f);
 		
-		Supportacquistion supportacquistion1 =new Supportacquistion();
+		supportacquistion.setReference(supportacquisitiondto.getReference());
+		supportacquistion.setType(supportacquisitiondto.getType());
+		supportacquistion.setPath(supportacquisitiondto.getPath());
+		supportacquistion.setDirection(supportacquisitiondto.getDirection());
+		supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 		
-		supportacquistion1.setReference(supportacquisitiondto.getReference());
-		supportacquistion1.setType(supportacquisitiondto.getType());
-		supportacquistion1.setPath(supportacquisitiondto.getPath());
-		supportacquistion1.setDirection(supportacquisitiondto.getDirection());
-		supportacquistion1.setFournisseur(supportacquisitiondto.getFournisseur());
-		
-		 this.supportacquistionRepository2.save(supportacquistion1);
+		 this.supportacquistionRepository2.save(supportacquistion);
+
+		/**********Ajout des articles *****************/
 		 
 		for(int i=0; i < articles.size();i++) {
 			//System.out.println("num article= "+articles.get(i).getNumarticle());
@@ -224,7 +226,7 @@ public class SupportController {
 				articles.get(i).getQuantite(),
 				articles.get(i).getPrixunitaire(),
 				articles.get(i).getPrixtotal(),
-				supportacquistion1
+				supportacquistion
 				);
 		articlelocalrepository.save(article);
 		}
@@ -235,18 +237,7 @@ public class SupportController {
 	 
 	
 	
-	 /*@PostMapping(path = "/setarticles") 
-	    public Supportacquistion AddArticles(@RequestBody Supportacquistion supportacquisition) throws Exception{
-		
-		return this.supportacquistionRepository2.save(supportacquisition);
-	    }*/
-	 
-	 
-	/* @PostMapping(path = "/setarticles2") 
-	    public Article AddArticle(@RequestBody Article article) throws Exception{	
-		return articlelocalrepository.save(article);
-		}*/
-	 
+
 	 @GetMapping("/getarticles") 
 	    public List<Supportacquistion> GetAllArticles() throws Exception{	 
 		//return this.articlelocalrepository.findAll();
@@ -272,9 +263,11 @@ public class SupportController {
 	 /*GetFile */
 		
 	    
-	 @GetMapping(value = "/FileSupport/{reference}",produces = MediaType.APPLICATION_PDF_VALUE)
-	    public ResponseEntity<InputStreamResource>  File(@PathVariable (name ="reference")Long reference)throws Exception{
-		 Supportacquistion supportacquistion=supportacquistionRepository2.findById(reference).get();
+	 @GetMapping(value = "/FileSupport",produces = MediaType.APPLICATION_PDF_VALUE)
+	 
+	    public ResponseEntity<InputStreamResource>  File(@RequestParam (name ="reference")String reference)throws Exception{
+		 Supportacquistion supportacquistion=supportacquistionRepository2.findByReference(reference);
+		 System.out.println(reference);
 	       /* String FileName=supportacquistion.getPath();
 	        File file=new File(System.getProperty("user.home")+"/upload/support/"+FileName);
 	        Path path= Paths.get(file.toURI());

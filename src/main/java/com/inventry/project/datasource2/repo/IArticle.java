@@ -7,7 +7,7 @@ public interface IArticle {
 	String getDescription();
 	String getType();
 	String getCodebare();
-	Long getSupport_id();
+	String getSupport_id();
 	String getIntitule();
 	String getNumpv();
 }

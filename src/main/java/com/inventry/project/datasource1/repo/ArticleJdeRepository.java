@@ -26,9 +26,10 @@ public interface ArticleJdeRepository  extends JpaRepository<ArticleJde,Long> {
 	
 	
 	@Query(value="select   PDITM as numarticle, PDLITM as nomarticle, b.ABALPH as fournisseur ,PDDSC1 as description, PDUORG /100 as quantite, PDPRRC /10000 as prixunitaire, PDAEXP /100 as prixtotal , PDVR01 as support_id from proddta.F4311 a , proddta.F0101 b"
-			+ " where a.pdan8 = b.aban8  and  PDVR01=:numsupport and PDDCTO=:type "
+			+ " where a.pdan8 = b.aban8  and  PDVR01 LIKE '%' || :numsupport || '%'  and PDDCTO=:type "
 			,nativeQuery = true)
-	List<ArticleJde> getarticlesMarche(@Param("numsupport") String numsupport,	@Param("type") String type);
+	
+	List<ArticleJde> getarticlesMarche( String numsupport,	 String type);
 
 
 

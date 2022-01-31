@@ -35,8 +35,8 @@ public class SupportService {
 		return this.supportacquistionRepository2.getsupportsbysite(codesite);
 	}
 	
-	public Supportacquistion findsupportbyid(Long reference){
-		return this.supportacquistionRepository2.findById(reference).get();
+	public Supportacquistion findsupportbyid(String reference){
+		return this.supportacquistionRepository2.findByReference(reference);
 	}
 
 }
