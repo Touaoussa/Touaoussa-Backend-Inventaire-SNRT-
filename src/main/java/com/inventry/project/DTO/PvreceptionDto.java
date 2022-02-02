@@ -19,6 +19,7 @@ public class PvreceptionDto {
 	private BonLivraison bonlivraison;
 	private List<Utilisateur> agents;
 	private List<Article> articles;
+	private Double prix_ht;
 	
 	public PvreceptionDto() {
 		super();
@@ -34,6 +35,22 @@ public class PvreceptionDto {
 		this.site = site;
 		this.bonlivraison = bonlivraison;
 		this.agents = agents;
+	}
+	
+	
+
+	public PvreceptionDto(String numpv, String date_pv, String utilisateur, Supportacquistion support, Detailssite site,
+			BonLivraison bonlivraison, List<Utilisateur> agents, List<Article> articles, Double prix_ht) {
+		super();
+		this.numpv = numpv;
+		this.date_pv = date_pv;
+		this.utilisateur = utilisateur;
+		this.support = support;
+		this.site = site;
+		this.bonlivraison = bonlivraison;
+		this.agents = agents;
+		this.articles = articles;
+		this.prix_ht = prix_ht;
 	}
 
 	public String getNumpv() {
@@ -98,6 +115,14 @@ public class PvreceptionDto {
 
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
+	}
+
+	public Double getPrix_ht() {
+		return prix_ht;
+	}
+
+	public void setPrix_ht(Double prix_ht) {
+		this.prix_ht = prix_ht;
 	}
 	
 	

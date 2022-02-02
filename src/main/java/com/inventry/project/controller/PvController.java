@@ -54,6 +54,7 @@ public class PvController {
 		pvreception.setAgents(pvreceptionDto.getAgents());
 		pvreception.setUtilisateur(pvreceptionDto.getUtilisateur());
 		pvreception.setArticles(pvreceptionDto.getArticles());
+		pvreception.setPrix_ht(pvreceptionDto.getPrix_ht());
 		return this.pvservice.addpv(pvreception);
 		}
 	 

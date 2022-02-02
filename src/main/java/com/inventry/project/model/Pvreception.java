@@ -39,6 +39,7 @@ public class Pvreception implements Serializable{
 			  inverseJoinColumns = @JoinColumn(name = "agent_id"))
 	private List<Utilisateur> agents;
 	
+	private Double prix_ht;
 	
 	
 	@ManyToOne
@@ -60,6 +61,23 @@ public class Pvreception implements Serializable{
 		
 	}
 	
+
+	
+	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents, Double prix_ht,
+			Supportacquistion support, Detailssite site, BonLivraison bonlivraison, List<Article> articles) {
+		super();
+		this.numpv = numpv;
+		this.date_pv = date_pv;
+		this.utilisateur = utilisateur;
+		this.agents = agents;
+		this.prix_ht = prix_ht;
+		this.support = support;
+		this.site = site;
+		this.bonlivraison = bonlivraison;
+		this.articles = articles;
+	}
+
+
 
 	public Pvreception(String numpv, String date_pv, String utilisateur, List<Utilisateur> agents,
 			Supportacquistion support, Detailssite site, BonLivraison bonlivraison) {
@@ -164,6 +182,19 @@ public class Pvreception implements Serializable{
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
+
+
+
+	public Double getPrix_ht() {
+		return prix_ht;
+	}
+
+
+
+	public void setPrix_ht(Double prix_ht) {
+		this.prix_ht = prix_ht;
+	}
+	
 	
 	
 	
