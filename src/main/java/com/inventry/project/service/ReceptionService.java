@@ -78,7 +78,7 @@ public class ReceptionService {
 	public void DeleteReception(Reception reception) {
 		 this.receptionrepository.deleteById(reception.getId_reception());
 	}
-	public List<Reception> findabySupport(Long ref){
+	public List<Reception> findabySupport(String ref){
 	return this.receptionrepository.findBysupportreference(ref);
 	 } 
 	
