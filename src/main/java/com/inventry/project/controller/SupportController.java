@@ -43,6 +43,7 @@ import com.inventry.project.service.SupportService;
 import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.DTO.SupportacquistionDto;
+import com.inventry.project.Exception.BadRequestException;
 import com.inventry.project.configuration.*;
 import com.inventry.project.datasource1.repo.ArticleJdeRepository;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
@@ -114,7 +115,7 @@ public class SupportController {
 	
 
 	@RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
-	public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception{
+	public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception,BadRequestException{
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authenticationrequest.getUsername() ,authenticationrequest.getPassword())

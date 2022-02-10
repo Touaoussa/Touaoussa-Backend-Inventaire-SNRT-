@@ -1,5 +1,6 @@
 package com.inventry.project.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,13 @@ public class ArticleController {
 		public List<IArticle> getallarticles() throws Exception {
 		return this.articleservice.getallarticles();
 	}
+	
+	@GetMapping(path="/testExceptions")
+	public void getExceptions() throws SQLIntegrityConstraintViolationException  {
+	throw new SQLIntegrityConstraintViolationException();
+}
 	 @PostMapping(path = "/updatearticles") 
-	    public void AddPv(@RequestBody List<Article> articles) throws Exception{	
+	    public void AddPv(@RequestBody List<Article> articles) {	
 		this.articleservice.updatearticles(articles);
 		}
 
