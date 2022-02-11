@@ -30,6 +30,7 @@ public class PvController {
 
 	@Autowired
 	PvService pvservice; 
+	@Autowired
 	ArticleService articleservice;
 	
 	@GetMapping(path ="/getlastnumpv")
@@ -50,7 +51,7 @@ public class PvController {
 	@PostMapping(path = "/setpv") 
 	    public Pvreception AddPv(@RequestBody PvArticle pvarticle) throws Exception{	
 		Pvreception	pvreception = new Pvreception();
-		System.out.println("hhhhhhhh"+pvarticle.getArticles().get(0).getIdarticle());
+		//System.out.println("hhhhhhhh"+pvarticle.getArticles().get(0).getIdarticle());
 		pvreception.setNumpv(pvarticle.getPv().getNumpv());
 		pvreception.setDate_pv(pvarticle.getPv().getDate_pv());
 		pvreception.setSupport(pvarticle.getPv().getSupport());
@@ -58,10 +59,11 @@ public class PvController {
 		pvreception.setBonlivraison(pvarticle.getPv().getBonlivraison());
 		pvreception.setAgents(pvarticle.getPv().getAgents());
 		pvreception.setUtilisateur(pvarticle.getPv().getUtilisateur());
-		//pvreception.setArticles(pvarticle.getPv().getArticles());
+		pvreception.setArticles(pvarticle.getPv().getArticles());
 		pvreception.setPrix_ht(pvarticle.getPv().getPrix_ht());
+		Pvreception PV = this.pvservice.addpv(pvreception);
 		this.articleservice.updatearticles(pvarticle.getArticles());
-		return this.pvservice.addpv(pvreception);
+		return PV;
 		}
 	 
 	 

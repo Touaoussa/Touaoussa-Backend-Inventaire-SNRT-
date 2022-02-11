@@ -35,11 +35,13 @@ public class ArticleService {
 			article.setRI(articles.get(i).getRI());
 			article.setImmobilisation(articles.get(i).getImmobilisation());
 			article.setPv(articles.get(i).getPv());
-			article.getPv().addAll(articles.get(i).getPv());
+			//article.getPv().addAll(articles.get(i).getPv());
+			
 			for(int j=0 ; j< articles.get(i).getDetailsarticle().size() ;j++ ) {
 				articles.get(i).getDetailsarticle().get(j).setArticle(article);
 			}
 			article.setDetailsarticle(articles.get(i).getDetailsarticle());
+			
 			
 			this.articleLocalrepository.save(article);
 		}

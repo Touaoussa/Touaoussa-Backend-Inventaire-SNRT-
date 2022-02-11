@@ -1,8 +1,10 @@
 package com.inventry.project.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inventry.project.DTO.UtilisateurDto;
 import com.inventry.project.datasource2.repo.IUtilisateur;
 import com.inventry.project.datasource2.repo.UtilisateurRepository;
+import com.inventry.project.model.AuthenticationResponse;
+import com.inventry.project.model.JwtAuthorities;
 import com.inventry.project.model.Site;
 import com.inventry.project.model.Utilisateur;
 import com.inventry.project.service.MyUserDetailsService;
+import com.inventry.project.util.JwtUtil;
 
 //@CrossOrigin
 @RestController
@@ -43,6 +48,12 @@ public class UtilisateurController {
 		utilisateur.setTele(utilisateurdto.getTele());
 		utilisateur.setRoles(utilisateurdto.getRoles());
 		 return this.utilisateurservice.Adduser(utilisateur);
+	 }
+	 
+	 @PostMapping("/GetAuthorities")
+	 	public Collection<? extends GrantedAuthority> GetAuthorities(@RequestBody JwtAuthorities authenticationeesponse) throws Exception {
+		 JwtUtil jwtutil = new JwtUtil();
+		 return (Collection<? extends GrantedAuthority>) jwtutil.getAuthoritiesFromToken(authenticationeesponse.getJwt());
 	 }
 	 
 }

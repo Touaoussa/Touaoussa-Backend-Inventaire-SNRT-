@@ -1,7 +1,5 @@
 package com.inventry.project.util;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.*;
 
@@ -34,6 +32,16 @@ public class JwtUtil {
 				setExpiration(generateExpirationDate())
 				.signWith(SignatureAlgorithm.HS512, TOKEN_SECRET)
 				.compact();
+	}
+	
+	public Collection<?> getAuthoritiesFromToken(String token){
+		try {
+			Claims claims = getClaims(token);
+
+			return (Collection<?>) claims.get(CLAIMS_AUTHORITY);
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 
 	public String getUserNameFromToken(String token) {

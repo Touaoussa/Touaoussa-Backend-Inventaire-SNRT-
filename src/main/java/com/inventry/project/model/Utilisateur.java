@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
@@ -21,11 +22,14 @@ public class Utilisateur implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long matricule;
 	private String identifiant;
 	private String nom;
 	private String prenom;
+	@JsonIgnore
 	private Long tele;
+	@JsonIgnore
 	private String mdps;
 	
 	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
@@ -129,9 +133,11 @@ public class Utilisateur implements UserDetails{
 		this.identifiant = identifiant;
 	}
 
+	@JsonIgnore
 	public Long getMatricule() {
 		return matricule;
 	}
+	@JsonProperty
 	public void setMatricule(Long matricule) {
 		this.matricule = matricule;
 	}
@@ -171,7 +177,7 @@ public class Utilisateur implements UserDetails{
 	}
 
 	@Override
-	@JsonIgnore
+	//@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = this.roles.stream()
@@ -180,6 +186,7 @@ public class Utilisateur implements UserDetails{
 		return authorities;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
@@ -191,25 +198,25 @@ public class Utilisateur implements UserDetails{
 		// TODO Auto-generated method stub
 		return this.identifiant;
 	}
-
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub

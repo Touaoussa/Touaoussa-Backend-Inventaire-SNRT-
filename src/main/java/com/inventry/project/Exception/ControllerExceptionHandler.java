@@ -17,37 +17,46 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ControllerExceptionHandler {
+public class ControllerExceptionHandler  {
 	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorMessage> handleException(Exception e) {
+		ErrorMessage emsg = new ErrorMessage("E000", e.getMessage(),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	@ExceptionHandler(value = BadRequestException.class)
+	public ResponseEntity<ErrorMessage> handleBadRequestException(BadRequestException e) {
+		ErrorMessage emsg = new ErrorMessage("E001", e.getMessage(),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	} 
+	
+
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<ErrorMessage> handleMethodArgumentNotValidException(SQLIntegrityConstraintViolationException e) {
-		ErrorMessage emsg = new ErrorMessage("E004", "Code barre déja existé");
+		ErrorMessage emsg = new ErrorMessage("E004", "Code barre déja existé", HttpStatus.BAD_REQUEST);
 		new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(value = BadRequestException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ResponseEntity<ErrorMessage> handleBadRequestException(BadRequestException e) {
-		ErrorMessage emsg = new ErrorMessage("E001", "test");
-		//new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+
+	@ExceptionHandler(NullPointerException.class) 
+	public ResponseEntity<ErrorMessage> handlesServerErrorException(NullPointerException e) {
+		ErrorMessage emsg = new ErrorMessage("E003",e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		new ResponseEntity<>(emsg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(emsg, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	
 	@ExceptionHandler(value = HttpMessageNotReadableException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ResponseEntity<ErrorMessage> handlesBadRequestException(HttpMessageNotReadableException e) {
-		ErrorMessage emsg = new ErrorMessage("E002", e.getMessage());
+		ErrorMessage emsg = new ErrorMessage("E002", e.getMessage(), HttpStatus.BAD_REQUEST);
 		new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(NullPointerException.class)
-	public ResponseEntity<ErrorMessage> handlesServerErrorException(NullPointerException e) {
-		ErrorMessage emsg = new ErrorMessage("E003","test");
-		new ResponseEntity<>(emsg, HttpStatus.INTERNAL_SERVER_ERROR);
-		return new ResponseEntity<>(emsg, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+
 	
 	
 	
