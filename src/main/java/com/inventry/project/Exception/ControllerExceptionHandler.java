@@ -56,7 +56,11 @@ public class ControllerExceptionHandler  {
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
 	
-
+	@ExceptionHandler(value = TokenException.class)
+	public ResponseEntity<ErrorMessage> handleBadRequestException(TokenException e) {
+		ErrorMessage emsg = new ErrorMessage("E007","Token Expiré",HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	} 
 	
 	
 	

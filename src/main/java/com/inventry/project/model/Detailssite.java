@@ -11,7 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Detailssite implements Serializable{
@@ -23,7 +25,7 @@ public class Detailssite implements Serializable{
 	private Integer Numetage;
 	@ManyToOne
 	@JoinColumn(name="site_id", nullable=false)
-	//@JsonIgnore
+	@JsonBackReference
 	private Site site;
 	
 	
@@ -58,6 +60,17 @@ public class Detailssite implements Serializable{
 		Etage = etage;
 		Numetage = numetage;
 		this.site = site;
+		this.pvs = pvs;
+	}
+
+	public Detailssite(String id_local, String intitule, String etage, Integer numetage, String site,
+			List<Pvreception> pvs) {
+		super();
+		Id_local = id_local;
+		Intitule = intitule;
+		Etage = etage;
+		Numetage = numetage;
+		//this.site = site;
 		this.pvs = pvs;
 	}
 
@@ -120,10 +133,13 @@ public class Detailssite implements Serializable{
 
 
 
-	public String getSite() {
-		return this.site.getIntitule();
+	public Site getSite() {
+		return this.site;
 	}
 
+	/*public void setSite(Site site) {
+		this.site.setIntitule(site.getIntitule());
+	}*/
 
 
 
@@ -133,7 +149,7 @@ public class Detailssite implements Serializable{
 
 
 
-
+	
 	public List<Pvreception> getPvs() {
 		return pvs;
 	}

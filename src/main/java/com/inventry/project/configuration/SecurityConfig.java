@@ -48,6 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.headers()
+		.httpStrictTransportSecurity()
+		.includeSubDomains(true)
+		.maxAgeInSeconds(31536000);
+		
 		http.csrf().disable()
 					.authorizeRequests().antMatchers(
 							PUBLIC_ENDPOINTS

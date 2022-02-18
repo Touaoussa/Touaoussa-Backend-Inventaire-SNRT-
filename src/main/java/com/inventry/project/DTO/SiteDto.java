@@ -1,7 +1,10 @@
 package com.inventry.project.DTO;
 
+import java.util.List;
+
 import javax.persistence.Id;
 
+import com.inventry.project.model.Detailssite;
 import com.inventry.project.model.Region;
 import com.inventry.project.model.Utilisateur;
 
@@ -14,7 +17,7 @@ public class SiteDto {
 	private String cordonneesgps;
 	private Region region;
 	private Utilisateur utilisateur;
-	
+	List<Detailssite> detailssite;
 	public SiteDto() {
 		super();
 	}
@@ -87,5 +90,16 @@ public class SiteDto {
 		this.utilisateur = utilisateur;
 	}
 	
+	public List<Detailssite> getDetailssite() {
+		return detailssite;
+	}
+
+
+
+
+	public void setDetailssite(List<Detailssite> detailssite) {
+		this.detailssite = detailssite;
+	}
+
 	
 }

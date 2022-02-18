@@ -24,19 +24,6 @@ public class SupportacquistionDto {
 	
 	
 
-	public SupportacquistionDto(String reference, String type, String path, Direction direction,
-			Fournisseur fournisseur) {
-		super();
-		this.reference = reference;
-		this.type = type;
-		this.path = path;
-		this.direction = direction;
-		this.fournisseur = fournisseur;
-	}
-
-
-
-
 	public SupportacquistionDto(String reference, String type, String path, Direction direction, Fournisseur fournisseur,
 			List<Site> sites) {
 		super();

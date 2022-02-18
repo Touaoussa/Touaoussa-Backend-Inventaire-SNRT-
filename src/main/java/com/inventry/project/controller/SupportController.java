@@ -114,22 +114,46 @@ public class SupportController {
 		} 
 	
 
-	@RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
-	public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception,BadRequestException{
-		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authenticationrequest.getUsername() ,authenticationrequest.getPassword())
-					);
-		}catch(BadCredentialsException e) {
-			throw new Exception("le login ou le mot de passe est erroné",e);
+	 @RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
+		public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception,BadRequestException{
+			
+			final Utilisateur userDetails =(Utilisateur) myUserDetailsService
+					.loadUserByUsername(authenticationrequest.getUsername());
+			System.out.println("user="+   userDetails.getIdentifiant());
+			 if (userDetails.isEnabled() && userDetails.isAccountNonLocked()) {
+			try {
+				authenticationManager.authenticate(
+						new UsernamePasswordAuthenticationToken(authenticationrequest.getUsername() ,authenticationrequest.getPassword())
+						);
+			}catch(BadCredentialsException e) {
+				  if (userDetails.getFailedattempt() < this.myUserDetailsService.MAX_FAILED_ATTEMPTS - 1) {
+	                  this.myUserDetailsService.increaseFailedAttempts(userDetails);
+	                  throw new Exception("le login ou le mot de passe est erroné",e);
+	              } 
+		             		
+				else {
+					myUserDetailsService.lock(userDetails);
+					throw new Exception("Votre compte a été verrouillé en raison de trois tentatives infructueuses Il sera déverrouillé après 1 heure.");
+	            }
+			}
+			 } //if isnotlicked
+			 
+			 else  {
+				 if (myUserDetailsService.unlockWhenTimeExpired(userDetails)) {
+	                 throw new Exception("Votre compte a été déverrouillé. Veuillez réessayer de vous connecter.");
+	             }
+				 else {
+					long time = myUserDetailsService.GetTimeLeftForUnlock(userDetails);
+	          throw new Exception("verrouillé en raison de trois tentatives. Veuillez essayer de vous connecter à nouveau aprés ."+time +"minutes");
+				 }
+			 }
+			
+			
+			final String jwt = jwtTokenutil.generateToken(userDetails);
+			
+			return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS,userDetails.getUsername(), userDetails.getMatricule(),userDetails.getAuthorities());
 		}
 		
-		final Utilisateur userDetails =(Utilisateur) myUserDetailsService
-				.loadUserByUsername(authenticationrequest.getUsername());
-		final String jwt = jwtTokenutil.generateToken(userDetails);
-		
-		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS,userDetails.getUsername(), userDetails.getMatricule(),userDetails.getAuthorities());
-	}
 	
 
 	 
@@ -168,7 +192,7 @@ public class SupportController {
 			
 			supportacquistion.setReference(supportacquisitiondto.getReference());
 			supportacquistion.setType(supportacquisitiondto.getType());
-			supportacquistion.setPath(supportacquisitiondto.getPath());
+			supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
 			supportacquistion.setDirection(supportacquisitiondto.getDirection());
 			supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 			
@@ -210,7 +234,7 @@ public class SupportController {
 		
 		supportacquistion.setReference(supportacquisitiondto.getReference());
 		supportacquistion.setType(supportacquisitiondto.getType());
-		supportacquistion.setPath(supportacquisitiondto.getPath());
+		supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
 		supportacquistion.setDirection(supportacquisitiondto.getDirection());
 		supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 		
@@ -248,7 +272,22 @@ public class SupportController {
 	 /*upload File */
 	 @PostMapping(path = "/uploadfile/support/") 
 	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception{
-	        String name=file.getOriginalFilename();
+	     
+		 MediaType mediaType = MediaType.parseMediaType(file.getContentType());
+
+		    System.out.println(file.getContentType());
+		    System.out.println(mediaType);
+		   // System.out.println(mediaType.getType());
+		    //System.out.println(file.getResource().getURL());
+		    if(file.getSize() > 500000) {
+		        throw new IllegalArgumentException("La taille du fichier ne doit pas dépasser 500Ko.");
+		    }
+		    if(!"application/pdf".equals(mediaType.toString())) {
+		        throw new IllegalArgumentException("Incorrect file type, PDF required.");
+		    }
+
+		 
+		 String name=file.getOriginalFilename();
 	        int i= name.lastIndexOf(".");
 	        if (i<0) throw new Exception();
 	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
@@ -277,12 +316,21 @@ public class SupportController {
 		 String FileName=supportacquistion.getPath();
 		 String filepath =System.getProperty("user.dir")+"/upload/support/"+ FileName;
 		 File file = new File(filepath);
+		 System.out.println("file="+file);
+		 
 	      HttpHeaders headers = new HttpHeaders();      
 	      headers.add("content-disposition", "inline;filename=" +FileName);
 	      headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 	      //headers.add("Authorization", "Bearer "+token);
 	      //headers.setBearerAuth("Bearer "+ token);
-	        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+	      InputStreamResource resource;
+	      try {
+	    	  resource = new InputStreamResource(new FileInputStream(file));
+	      }catch(Exception e) {
+	    	  throw new Exception("Le fichier "+FileName+" est introuvable");
+	      }
+	        System.out.println("rs="+resource);
+	        //if(resource == null) 
 	        return ResponseEntity.ok()
 	                .headers(headers)
 	                .contentLength(file.length())

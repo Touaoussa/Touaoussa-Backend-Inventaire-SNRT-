@@ -1,5 +1,6 @@
 package com.inventry.project.model;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,12 @@ public class Utilisateur implements UserDetails{
 	@JsonIgnore
 	private Long tele;
 	@JsonIgnore
-	private String mdps;
+	private String mdps; 
+	private boolean accountnonlocked=false;  
+	
+
+	private int failedattempt;   
+	private Date locktime;
 	
 	@OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -177,7 +183,7 @@ public class Utilisateur implements UserDetails{
 	}
 
 	@Override
-	//@JsonIgnore
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = this.roles.stream()
@@ -207,8 +213,7 @@ public class Utilisateur implements UserDetails{
 	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
+		return this.accountnonlocked;
 	}
 	@JsonIgnore
 	@Override
@@ -230,7 +235,7 @@ public class Utilisateur implements UserDetails{
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
-
+	@JsonIgnore
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -239,6 +244,27 @@ public class Utilisateur implements UserDetails{
 		this.roles = roles;
 	}
 	
+
+
+	public void setAccountnonlocked(boolean accountnonlocked) {
+		this.accountnonlocked = accountnonlocked;
+	}
+	@JsonIgnore
+	public int getFailedattempt() {
+		return failedattempt;
+	}
+
+	public void setFailedattempt(int failedattempt) {
+		this.failedattempt = failedattempt;
+	}
+	@JsonIgnore
+	public Date getLockTime() {
+		return locktime;
+	}
+
+	public void setLockTime(Date locktime) {
+		this.locktime = locktime;
+	}
 	
 	
 }

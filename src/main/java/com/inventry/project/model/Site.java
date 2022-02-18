@@ -9,6 +9,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Site implements Serializable {
@@ -44,11 +45,15 @@ public class Site implements Serializable {
 	
 	
 	
-	@OneToMany(mappedBy="site",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="site",cascade = CascadeType.ALL )
+	 @JsonManagedReference
 	private List<Detailssite> detailssite;
 	
 	
 	
+public Site() {
+		super();
+	}
 	
 	
 	
@@ -86,9 +91,6 @@ public class Site implements Serializable {
 
 
 
-	public Site() {
-		
-	}
 	
 	
 	

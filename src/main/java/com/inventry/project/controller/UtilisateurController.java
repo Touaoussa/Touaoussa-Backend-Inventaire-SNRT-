@@ -19,6 +19,7 @@ import com.inventry.project.datasource2.repo.UtilisateurRepository;
 import com.inventry.project.model.AuthenticationResponse;
 import com.inventry.project.model.JwtAuthorities;
 import com.inventry.project.model.Site;
+import com.inventry.project.model.TokenBlackList;
 import com.inventry.project.model.Utilisateur;
 import com.inventry.project.service.MyUserDetailsService;
 import com.inventry.project.util.JwtUtil;
@@ -54,6 +55,13 @@ public class UtilisateurController {
 	 	public Collection<? extends GrantedAuthority> GetAuthorities(@RequestBody JwtAuthorities authenticationeesponse) throws Exception {
 		 JwtUtil jwtutil = new JwtUtil();
 		 return (Collection<? extends GrantedAuthority>) jwtutil.getAuthoritiesFromToken(authenticationeesponse.getJwt());
+	 }
+	 
+	 @PostMapping("/Logout")
+	 	public String  Logout(@RequestBody TokenBlackList token) throws Exception {
+		 if(this.utilisateurservice.AddTokenToBlackList(token) !=null)
+			 return "Token Expiré ";
+		 return "";
 	 }
 	 
 }

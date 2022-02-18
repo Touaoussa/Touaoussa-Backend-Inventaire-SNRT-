@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.inventry.project.Exception.TokenException;
 import com.inventry.project.service.MyUserDetailsService;
 import com.inventry.project.util.JwtUtil;
 
@@ -26,6 +27,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired 
 	JwtUtil jwtTokenUtil;
 	
+
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
@@ -35,12 +38,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		String username = null ;
 		String jwt = null ;
 		
+		
 		if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			jwt = authorizationHeader.substring(7);
 			username = jwtTokenUtil.getUserNameFromToken(jwt);
 			System.out.println("header valid");
 		} 
 		else System.out.println("pas de header");
+		
+		if(this.UserDetailsService.FindToken(jwt)) throw new TokenException();
 		
 		if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.UserDetailsService.loadUserByUsername(username);

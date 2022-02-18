@@ -66,6 +66,7 @@ public class SitesController {
 		 Supportacquistion supportacquisition= new Supportacquistion();
 		 supportacquisition.setReference(supportacquisitionDto.getReference());
 		 supportacquisition.setSites(supportacquisitionDto.getSites());
+		 System.out.println("sites= "+ supportacquisitionDto.getSites().get(0));
 		return this.siteservice.affectersite(supportacquisition);
 		}
 	 
