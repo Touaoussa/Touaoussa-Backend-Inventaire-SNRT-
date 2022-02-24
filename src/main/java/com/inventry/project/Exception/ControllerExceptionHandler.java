@@ -21,6 +21,12 @@ public class ControllerExceptionHandler  {
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorMessage> handleException(Exception e) {
+		ErrorMessage emsg = new ErrorMessage("E000", "Erreur",HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<ErrorMessage> LoginException(Exception e) {
 		ErrorMessage emsg = new ErrorMessage("E000", e.getMessage(),HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}

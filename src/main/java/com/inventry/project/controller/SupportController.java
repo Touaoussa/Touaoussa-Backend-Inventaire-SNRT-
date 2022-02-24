@@ -44,6 +44,7 @@ import com.inventry.project.support.repo.SupportacquistionRepository;
 import com.inventry.project.util.JwtUtil;
 import com.inventry.project.DTO.SupportacquistionDto;
 import com.inventry.project.Exception.BadRequestException;
+import com.inventry.project.Exception.LoginException;
 import com.inventry.project.configuration.*;
 import com.inventry.project.datasource1.repo.ArticleJdeRepository;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
@@ -128,23 +129,23 @@ public class SupportController {
 			}catch(BadCredentialsException e) {
 				  if (userDetails.getFailedattempt() < this.myUserDetailsService.MAX_FAILED_ATTEMPTS - 1) {
 	                  this.myUserDetailsService.increaseFailedAttempts(userDetails);
-	                  throw new Exception("le login ou le mot de passe est erroné",e);
+	                  throw new LoginException("le login ou le mot de passe est erroné");
 	              } 
 		             		
 				else {
 					myUserDetailsService.lock(userDetails);
-					throw new Exception("Votre compte a été verrouillé en raison de trois tentatives infructueuses Il sera déverrouillé après 1 heure.");
+					throw new LoginException("Votre compte a été verrouillé en raison de trois tentatives infructueuses Il sera déverrouillé après 1 heure.");
 	            }
 			}
 			 } //if isnotlicked
 			 
 			 else  {
 				 if (myUserDetailsService.unlockWhenTimeExpired(userDetails)) {
-	                 throw new Exception("Votre compte a été déverrouillé. Veuillez réessayer de vous connecter.");
+	                 throw new LoginException("Votre compte a été déverrouillé. Veuillez réessayer de vous connecter.");
 	             }
 				 else {
 					long time = myUserDetailsService.GetTimeLeftForUnlock(userDetails);
-	          throw new Exception("verrouillé en raison de trois tentatives. Veuillez essayer de vous connecter à nouveau aprés ."+time +"minutes");
+	          throw new LoginException("verrouillé en raison de trois tentatives. Veuillez essayer de vous connecter à nouveau aprés ."+time +"minutes");
 				 }
 			 }
 			
