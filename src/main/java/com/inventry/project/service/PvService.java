@@ -30,7 +30,7 @@ public class PvService {
 		return this.pvrepository.findAll();
 	}
 	
-	
+	//HI all
 	public List<Pvreception> gethistoriquepv(){
 		return this.pvrepository.findAll();
 		//return this.pvrepository.gethstoriquepv();
