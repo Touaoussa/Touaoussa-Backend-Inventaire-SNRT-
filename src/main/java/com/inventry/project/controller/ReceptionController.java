@@ -3,6 +3,7 @@ package com.inventry.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,13 @@ public class ReceptionController {
 	@Autowired 
 	ReceptionService receptionservice;
 
+	@PreAuthorize("hasRole('ROLE_RESPONSABLE','ROLE_AGENTINVENTAIRE')")
 	 @GetMapping("/getreceptions") 
 	    public List<Reception> GetAllReceptions() throws Exception{	
 		 return this.receptionservice.findallreceptions();
 		}
 	 
-	 
+	 @PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 	 @PostMapping(path = "/addreception") 
 	    public Reception AddReception(@RequestBody ReceptionDto receptiondto) throws Exception{			
 			 Reception reception =new Reception();
@@ -55,6 +57,7 @@ public class ReceptionController {
 		return this.receptionservice.affecterReception(supportacquisition);
 		}
 	 */
+	 @PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 	 @PostMapping(path = "/updatereception")  
 	    public Reception ModifierReception(@RequestBody ReceptionDto receptiondto) throws Exception{		
 		 Reception reception =new Reception();
@@ -66,6 +69,7 @@ public class ReceptionController {
 		return this.receptionservice.updatereceptions(reception);
 		}
 	   
+	 @PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 	 @PostMapping(path = "/deleteereception") 
 	    public void SupprimerReception(@RequestBody ReceptionDto receptiondto) throws Exception{		
 		 Reception reception =new Reception();
@@ -77,6 +81,7 @@ public class ReceptionController {
 		 this.receptionservice.DeleteReception(reception);
 		}
 	 
+	 @PreAuthorize("hasRole('ROLE_RESPONSABLE','ROLE_AGENTINVENTAIRE')")
 	 @PostMapping("/getreceptionsbysupport") 
 	    public List<Reception> GetReceptionbySupport(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{	
 		 return this.receptionservice.findabySupport(supportacquisitiondto.getReference());

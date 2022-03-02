@@ -1,7 +1,8 @@
 package com.inventry.project.model;
 
 public enum ERole {
-		AGENT_INVENTAIRE,
-		RESPONSABLE,
-		SERVICE_ACHAT
+		ROLE_AGENTINVENTAIRE,
+		ROLE_RESPONSABLE,
+		ROLE_ACHAT,
+		ROLE_ADMIN
 }

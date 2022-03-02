@@ -17,6 +17,11 @@ public class ErrorMessage {
 	public ErrorMessage() {
 		super();
 	}
+	
+	public ErrorMessage(String description,HttpStatus status) {
+		this.description = description;
+		this.status=status;
+	}
 
 	public ErrorMessage(String code, String description,HttpStatus status) {
 		this.code = code;

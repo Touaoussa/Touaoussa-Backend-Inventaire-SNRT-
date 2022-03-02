@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,11 +34,18 @@ public class UtilisateurController {
 	@Autowired
 	MyUserDetailsService utilisateurservice;
 	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping("/getagents") 
 	    public List<IUtilisateur> GetAgents() throws Exception{	
 		 return this.utilisateurservice.FindAllAgents();
 		}
-	 
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	 @PostMapping("/getroles") 
+	    public Collection<? extends GrantedAuthority> GetRoles( @RequestBody Utilisateur ut) throws Exception{	
+		 return this.utilisateurservice.GetAuthorities(ut.getIdentifiant());
+		}
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	 @PostMapping("/AddUtilisateur")
 	 	public Utilisateur PutUser(@RequestBody UtilisateurDto utilisateurdto) throws Exception {
 		Utilisateur utilisateur = new Utilisateur() ;

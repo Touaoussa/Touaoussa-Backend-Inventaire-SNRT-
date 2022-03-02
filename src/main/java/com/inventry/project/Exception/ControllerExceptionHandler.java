@@ -11,6 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,6 +33,13 @@ public class ControllerExceptionHandler  {
 	}
 	
 	
+	@ExceptionHandler(SupportNotFoundException.class)
+	public ResponseEntity<ErrorMessage> SupportNotFoundException(SupportNotFoundException e) {
+		ErrorMessage emsg = new ErrorMessage("E010", e.getMessage(),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	}
+	
+	
 	@ExceptionHandler(value = BadRequestException.class)
 	public ResponseEntity<ErrorMessage> handleBadRequestException(BadRequestException e) {
 		ErrorMessage emsg = new ErrorMessage("E001", e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -39,7 +47,7 @@ public class ControllerExceptionHandler  {
 	} 
 	
 
-	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	/*@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<ErrorMessage> handleMethodArgumentNotValidException(SQLIntegrityConstraintViolationException e) {
 		ErrorMessage emsg = new ErrorMessage("E004", "Code barre déja existé", HttpStatus.BAD_REQUEST);
 		new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
@@ -61,12 +69,19 @@ public class ControllerExceptionHandler  {
 		new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
-	
+	*/
 	@ExceptionHandler(value = TokenException.class)
 	public ResponseEntity<ErrorMessage> handleBadRequestException(TokenException e) {
 		ErrorMessage emsg = new ErrorMessage("E007","Token Expiré",HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	} 
+	
+	@ExceptionHandler(value = UsernameNotFoundException.class)
+	public ResponseEntity<ErrorMessage> handleUsernameNotFoundExceptionException(UsernameNotFoundException e) {
+		ErrorMessage emsg = new ErrorMessage("E008","Utilisateur Non trouvé",HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	} 
+	
 	
 	
 	

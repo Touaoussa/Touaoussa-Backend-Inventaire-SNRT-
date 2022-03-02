@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,6 +62,7 @@ public class SitesController {
 		return this.siteservice.addsite(site);
 		}
 	 
+	 @PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path = "/affectersite") 
 	    public Supportacquistion AffecterSite(@RequestBody SupportacquistionDto supportacquisitionDto) throws Exception{	
 		 Supportacquistion supportacquisition= new Supportacquistion();
@@ -69,7 +71,7 @@ public class SitesController {
 		 System.out.println("sites= "+ supportacquisitionDto.getSites().get(0));
 		return this.siteservice.affectersite(supportacquisition);
 		}
-	 
+	 @PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 	 @PostMapping("/getsiteresponsable") 
 	    public List<Site> GetSitesResponsable(@RequestBody UtilisateurDto utilisateurdto) throws Exception{
 		 return this.siteservice.findsitebyresponsable(utilisateurdto.getMatricule());

@@ -30,7 +30,7 @@ public class Utilisateur implements UserDetails{
 	private String prenom;
 	@JsonIgnore
 	private Long tele;
-	@JsonIgnore
+	
 	private String mdps; 
 	private boolean accountnonlocked=false;  
 	
@@ -166,9 +166,11 @@ public class Utilisateur implements UserDetails{
 	public void setTele(Long tele) {
 		this.tele = tele;
 	}
+	@JsonIgnore
 	public String getMdps() {
 		return mdps;
 	}
+	@JsonProperty
 	public void setMdps(String mdps) {
 		this.mdps = mdps;
 	}
@@ -183,7 +185,7 @@ public class Utilisateur implements UserDetails{
 	}
 
 	@Override
-	@JsonIgnore
+	//@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = this.roles.stream()
@@ -235,7 +237,7 @@ public class Utilisateur implements UserDetails{
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
-	@JsonIgnore
+	//@JsonIgnore
 	public Set<Role> getRoles() {
 		return roles;
 	}

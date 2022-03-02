@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.inventry.project.datasource2.repo.IAgents;
@@ -28,6 +29,8 @@ public class PvService {
 	public List<Pvreception> getallpv(){
 		return this.pvrepository.findAll();
 	}
+	
+	
 	public List<Pvreception> gethistoriquepv(){
 		return this.pvrepository.findAll();
 		//return this.pvrepository.gethstoriquepv();

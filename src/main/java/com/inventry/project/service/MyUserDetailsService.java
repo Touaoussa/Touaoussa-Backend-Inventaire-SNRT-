@@ -1,6 +1,7 @@
 package com.inventry.project.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -49,7 +51,9 @@ public class MyUserDetailsService implements UserDetailsService {
 	
 	} 
 	
-	
+	public Collection<? extends GrantedAuthority> GetAuthorities(String identifiant){
+		return this.utilisateurrepo.findByIdentifiant(identifiant).getAuthorities();
+	}
 	
     public boolean isAccountNonLocked(Utilisateur utilisateur)throws UsernameNotFoundException {
         return utilisateur.isAccountNonLocked();

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import com.inventry.project.filters.JwtRequestFilter;
 import com.inventry.project.service.MyUserDetailsService;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -29,10 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			"/microservice1/authenticate",
 			"/utilisateurs/AddUtilisateur",
-			"/article/testExceptions",
+			//"/article/testExceptions",
 			//"/microservice1/FileSupport/9000053"
 			//"/microservice1/uploadfile/support/"
 		}; 
+	
+	private final String[] AGENT_INVENTAIRE_ENDPOINTS = {
+			"/microservice1/FileSupport",
+			
+	};
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -54,9 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.maxAgeInSeconds(31536000);
 		
 		http.csrf().disable()
-					.authorizeRequests().antMatchers(
-							PUBLIC_ENDPOINTS
-							).permitAll()
+					.authorizeRequests()
+					.antMatchers(PUBLIC_ENDPOINTS).permitAll()
+				//	.antMatchers(AGENT_INVENTAIRE_ENDPOINTS).hasRole("SERVICE_ACHAT")
 					.anyRequest().authenticated()
 					.and().sessionManagement()
 					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

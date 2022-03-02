@@ -3,6 +3,7 @@ package com.inventry.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class DetailssiteController {
 
 	@Autowired
 	DetailsSiteService detailssiteservice;
-	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping("/getdetailssites") 
 	    public List<Detailssite> GetAllSites() throws Exception{	
 		 return this.detailssiteservice.getalldetailssites();

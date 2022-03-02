@@ -2,7 +2,10 @@ package com.inventry.project.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,22 +36,28 @@ public class PvController {
 	@Autowired
 	ArticleService articleservice;
 	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	@GetMapping(path ="/getlastnumpv")
 	public Long getlastnumpv(){
 		return this.pvservice.getlastnumpv();
 	}
 	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	@GetMapping(path ="/getallpvs")
 	public List<Pvreception> findallpvs(){
 		return this.pvservice.getallpv();
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping(path = "/getagents") 
 	 public List<IAgents> getagents() throws Exception{ 
 		 return this.pvservice.getagents();
 	 }
 	
-	@PostMapping(path = "/setpv") 
+	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
+	@PostMapping(path = "/setpv")
 	    public Pvreception AddPv(@RequestBody PvArticle pvarticle) throws Exception{	
 		Pvreception	pvreception = new Pvreception();
 		//System.out.println("hhhhhhhh"+pvarticle.getArticles().get(0).getIdarticle());
@@ -66,7 +75,8 @@ public class PvController {
 		return PV;
 		}
 	 
-	 
+	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path = "/getallpv") 
 	 public List<Pvreception> gethistoriquepv() throws Exception{
 		 return this.pvservice.gethistoriquepv();

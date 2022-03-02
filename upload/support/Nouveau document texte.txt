@@ -1,0 +1,96 @@
+@RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
+	public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception,BadRequestException{
+		
+		final Utilisateur userDetails =(Utilisateur) myUserDetailsService
+				.loadUserByUsername(authenticationrequest.getUsername());
+		System.out.println("user="+   userDetails.getIdentifiant());
+		 if (userDetails.isEnabled() && userDetails.isAccountNonLocked()) {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authenticationrequest.getUsername() ,authenticationrequest.getPassword())
+					);
+		}catch(BadCredentialsException e) {
+			  if (userDetails.getFailedattempt() < this.myUserDetailsService.MAX_FAILED_ATTEMPTS - 1) {
+                  this.myUserDetailsService.increaseFailedAttempts(userDetails);
+                  throw new Exception("le login ou le mot de passe est erroné",e);
+              } 
+	             		
+			else {
+				myUserDetailsService.lock(userDetails);
+				throw new Exception("Your account has been locked due to 3 failed attempts."
+                        + " It will be unlocked after 24 hours.");
+            }
+		}
+		 } //if isnotlicked
+		 
+		/* else if (!userDetails.isAccountNonLocked()) {
+             if (userService.unlockWhenTimeExpired(userDetails)) {
+                 exception = new LockedException("Your account has been unlocked. Please try to login again.");
+             }*/
+		
+		
+		final String jwt = jwtTokenutil.generateToken(userDetails);
+		
+		return new AuthenticationResponse(jwt,Constants.ACCESS_TOKEN_VALIDITY_SECONDS,userDetails.getUsername(), userDetails.getMatricule(),userDetails.getAuthorities());
+	}
+	
+
+
+
+let jwt= new JwtAuthorities();
+ jwt.jwt=localStorage.getItem('token');
+
+   let array2=null;
+   this.utilisateurservice.getauthorities(jwt).then(
+    (reponse)=> {
+      array2=reponse;
+      console.log(reponse);
+
+      this.roles=[];
+  
+      for(let i=0 ; i< array2.length;i++){
+       let role = new Role;
+       role.name=array2[i].authority;
+        this.roles.push(array2[i].authority); 
+      }
+      console.log(this.roles);
+      
+     navItems.forEach(element => {
+      element.children.forEach(element2 => {
+       // console.log('role',this.roles);
+        //if(element.role === "AGENT_INVENTAIRE") this.navItems.push(element);
+        if(this.roles.includes(element2.role)) this.children.push(element2);
+      })
+      element.children=this.children;
+      this.navItems.push(element);
+    })
+    },
+    (error)=> {
+      console.log(error);
+    }
+   );
+   
+
+
+
+
+
+"use strict";
+
+const webpack = require("webpack");
+
+const mode = process.env.NODE_ENV === "production" ? "production" : "development";
+
+module.exports = {
+  // WARNING: MUST set the 'mode' manually because it isn't done by NX/NG cli
+  mode,
+  module: {
+    rules: [
+      // add custom rules here
+    ],
+  },
+  plugins: [
+    // add custom plugins here
+  ],
+
+}

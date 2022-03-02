@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.InputStreamResource;
@@ -19,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,6 +48,7 @@ import com.inventry.project.util.JwtUtil;
 import com.inventry.project.DTO.SupportacquistionDto;
 import com.inventry.project.Exception.BadRequestException;
 import com.inventry.project.Exception.LoginException;
+import com.inventry.project.Exception.SupportNotFoundException;
 import com.inventry.project.configuration.*;
 import com.inventry.project.datasource1.repo.ArticleJdeRepository;
 import com.inventry.project.datasource2.repo.ArticleLocalRepository;
@@ -100,6 +104,7 @@ public class SupportController {
 	}
 	
 	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	@GetMapping("/Supportacquistion")
 	public Supportacquistion add_support_acquisition(){
 		Supportacquistion supportacquisition = this.Recupérer_support_acquisition();
@@ -108,13 +113,15 @@ public class SupportController {
 		return supportacquisition;		
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping(value = "/support") 
 	    public Supportacquistion Getsupportreference(@RequestParam (name ="reference") String reference) throws Exception{	
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupportbyid(reference);
 		} 
 	
-
+	 			/*******************authetification**********************************/
 	 @RequestMapping(value = "/authenticate" , method =RequestMethod.POST)
 		public AuthenticationResponse createAthenticationToken(@RequestBody AuthenticationRequest authenticationrequest) throws Exception,BadRequestException{
 			
@@ -129,7 +136,7 @@ public class SupportController {
 			}catch(BadCredentialsException e) {
 				  if (userDetails.getFailedattempt() < this.myUserDetailsService.MAX_FAILED_ATTEMPTS - 1) {
 	                  this.myUserDetailsService.increaseFailedAttempts(userDetails);
-	                  throw new LoginException("le login ou le mot de passe est erroné");
+	                  throw new LoginException("le mot de passe est erroné");
 	              } 
 		             		
 				else {
@@ -159,6 +166,8 @@ public class SupportController {
 
 	 
 	 
+	 /****************Ajout Support ***********************/
+	 @PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path = "/setarticles") 
 	    public List<ArticleJde> AddArticles(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{
 		 
@@ -193,7 +202,8 @@ public class SupportController {
 			
 			supportacquistion.setReference(supportacquisitiondto.getReference());
 			supportacquistion.setType(supportacquisitiondto.getType());
-			supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
+			supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
+			supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("'\'") + 1).trim());
 			supportacquistion.setDirection(supportacquisitiondto.getDirection());
 			supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 			
@@ -213,11 +223,19 @@ public class SupportController {
 		String[] arr = new String [] {"M1", "M2", "M3", "M4","M5","M6","M7","M8","M9"};
 		if( Arrays.asList(arr).contains(supportacquisitiondto.getType()) ) {
 			System.out.println("yes");
+			try {
 		articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+			}catch(IndexOutOfBoundsException E) {
+				throw new SupportNotFoundException("Support Non trouvé vérifier le réference ou bien le typedu support");
+			}
 		}
 		else {
+			try {
 			System.out.println("no");
 			 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+			}catch(IndexOutOfBoundsException E) {
+				throw new SupportNotFoundException("Support Non trouvé vérifier le réference ou bien le typedu support");
+			}
 		}
 		
 		/*******************Ajout des supports ***************/
@@ -235,7 +253,8 @@ public class SupportController {
 		
 		supportacquistion.setReference(supportacquisitiondto.getReference());
 		supportacquistion.setType(supportacquisitiondto.getType());
-		supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
+		supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
+		supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("'\'") + 1).trim());
 		supportacquistion.setDirection(supportacquisitiondto.getDirection());
 		supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 		
@@ -262,15 +281,19 @@ public class SupportController {
 
 	 
 	
-	
-
+	/*Get Supports */
+	 @PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping("/getarticles") 
 	    public List<Supportacquistion> GetAllArticles() throws Exception{	 
 		//return this.articlelocalrepository.findAll();
 		 return this.supportservice.findsupports();
 		} 
 	 
+	 
+	 
+	 
 	 /*upload File */
+	 @PreAuthorize("hasRole('ROLE_ACHAT')")
 	 @PostMapping(path = "/uploadfile/support/") 
 	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception{
 	     
@@ -303,9 +326,9 @@ public class SupportController {
 	 
 	 /*GetFile */
 		
-	    
+	 @PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping(value = "/FileSupport",produces = MediaType.APPLICATION_PDF_VALUE)
-	 
+	 //@RolesAllowed({ "SERVICE_ACHAT" }) 
 	    public ResponseEntity<InputStreamResource>  File(@RequestParam (name ="reference")String reference)throws Exception{
 		 Supportacquistion supportacquistion=supportacquistionRepository2.findByReference(reference);
 		 System.out.println(reference);

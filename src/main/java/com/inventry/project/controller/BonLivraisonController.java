@@ -3,6 +3,7 @@ package com.inventry.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ public class BonLivraisonController {
 	@Autowired
 	BonLivraisonService bonlivraisonservice;
 	
+	
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path = "/setbonlivraison") 
 	    public BonLivraison AddBonLivraison(@RequestBody BonLivraisonDto bonlivraisondto) throws Exception{	
 		 BonLivraison bonlivraison= new BonLivraison();
@@ -36,6 +39,7 @@ public class BonLivraisonController {
 		return this.bonlivraisonservice.addBonLivraison(bonlivraison);
 		}
 	 
+	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @GetMapping(path="/getallbonlivraison")
 	 public List<BonLivraison> GetAllBonLivraisons() throws Exception{
 		 return this.bonlivraisonservice.getallbonlivraison();

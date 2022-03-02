@@ -3,6 +3,7 @@ package com.inventry.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +30,7 @@ public class LivraisonController {
 	@Autowired
 	LivraisonService livraisonservice;
 	
+	@PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 	 @PostMapping(path = "/setlivraison") 
 	    public Livraison AddLivraison(@RequestBody LivraisonDto livraisondto) throws Exception{	
 		 Livraison livraison= new Livraison();
@@ -41,6 +43,7 @@ public class LivraisonController {
 		return this.livraisonservice.addLivraison(livraison);
 		}
 	 
+	@PreAuthorize("hasRole('ROLE_RESPONSABLE')")
 	 @PostMapping(path = "/deletelivraison") 
 	    public void RemoveLivraison(@RequestBody LivraisonDto livraisondto) throws Exception{	
 		 Livraison livraison= new Livraison();
@@ -53,11 +56,13 @@ public class LivraisonController {
 		 this.livraisonservice.deleteLivraison(livraison);
 		}
 	 
+	
 	 @PostMapping(path="/getnumarticles")
 	 public List<Long> getAllnumarticles(@RequestBody LivraisonDto livraisondto) throws Exception{
 		return this.livraisonservice.getnumarticles(livraisondto.getReception().getId_reception());
 	 }
-	 
+	
+	 @PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path="/gethistoriquelivraison")
 	 public List<IHistoriqueLivraison> gethistoriquelivraison(@RequestBody SupportacquistionDto supportacquistiondto) throws Exception{
 		return this.livraisonservice.gethstoriquelivraison(supportacquistiondto.getReference());

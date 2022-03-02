@@ -17,7 +17,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 	@Query(value="select u.matricule , u.nom , u.prenom, u.identifiant  from utilisateur u ,roles r ,user_roles ur\r\n"
 			+ "where u.matricule=ur.matricule\r\n"
 			+ "and ur.role_id = r.id\r\n"
-			+ "and r.name='AGENT_INVENTAIRE'",nativeQuery = true )
+			+ "and r.name='ROLE_AGENTINVENTAIRE'",nativeQuery = true )
 	List<IUtilisateur> getAgents();
 	
 	@Query(value="UPDATE utilisateur u SET u.failedAttempt = ?1 WHERE u.identifiant = ?2",nativeQuery = true)
