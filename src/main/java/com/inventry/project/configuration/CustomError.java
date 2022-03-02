@@ -21,17 +21,15 @@ public class CustomError  extends ErrorReportValve{
         try {
             // Write a more friendly, less technical message to the user
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(response.getOutputStream()));
-            out.write("<html><head><title>Oops</title><body>");
-            out.write("<h1>Oops</h1>");
-            out.write("<p>Well, that didn't go as we had expected.</p>");
-            out.write("<p>Don't worry though, we're working on it.</p>");
-            out.write("</body></html>");
+            out.write("Oops");
+            out.write("Well, that didn't go as we had expected.");
+            out.write("Don't worry though, we're working on it.");
             out.close();
 
             // Log the error with your favorite logging framework...
-            log.severe("Uncaught throwable was thrown: " + t.getMessage());
+          //  log.severe("Uncaught throwable was thrown: " + t.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
     }
     
