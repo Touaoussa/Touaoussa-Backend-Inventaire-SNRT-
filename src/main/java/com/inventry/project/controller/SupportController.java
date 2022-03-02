@@ -136,7 +136,7 @@ public class SupportController {
 			}catch(BadCredentialsException e) {
 				  if (userDetails.getFailedattempt() < this.myUserDetailsService.MAX_FAILED_ATTEMPTS - 1) {
 	                  this.myUserDetailsService.increaseFailedAttempts(userDetails);
-	                  throw new LoginException("le mot de passe est erroné");
+	                  throw new LoginException("le mot de passe ou l'utilisateur est  erroné");
 	              } 
 		             		
 				else {

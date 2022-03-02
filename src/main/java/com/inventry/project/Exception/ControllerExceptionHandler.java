@@ -78,7 +78,7 @@ public class ControllerExceptionHandler  {
 	
 	@ExceptionHandler(value = UsernameNotFoundException.class)
 	public ResponseEntity<ErrorMessage> handleUsernameNotFoundExceptionException(UsernameNotFoundException e) {
-		ErrorMessage emsg = new ErrorMessage("E008","Utilisateur Non trouvé",HttpStatus.BAD_REQUEST);
+		ErrorMessage emsg = new ErrorMessage("E008","le mot de passe ou l'utilisateur est  erroné",HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	} 
 	
