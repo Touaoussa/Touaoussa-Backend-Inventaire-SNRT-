@@ -202,8 +202,13 @@ public class SupportController {
 			
 			supportacquistion.setReference(supportacquisitiondto.getReference());
 			supportacquistion.setType(supportacquisitiondto.getType());
-			supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
-			supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("'\'") + 1).trim());
+			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
+			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("//") + 1).trim());
+			supportacquisitiondto.setPath(supportacquisitiondto.getPath().replace("\\", ""));
+			supportacquisitiondto.setPath(supportacquisitiondto.getPath().replaceAll("[/]+", ""));
+			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().replaceAll("[\\]+", "sss"));
+			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("'\'") + 1).trim());
+			supportacquistion.setPath(supportacquisitiondto.getPath());
 			supportacquistion.setDirection(supportacquisitiondto.getDirection());
 			supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 			
