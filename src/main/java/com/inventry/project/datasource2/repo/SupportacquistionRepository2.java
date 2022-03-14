@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inventry.project.model.Supportacquistion;
-import com.inventry.project.model.Supportacquistionlocal;
+
 
 
 @Repository

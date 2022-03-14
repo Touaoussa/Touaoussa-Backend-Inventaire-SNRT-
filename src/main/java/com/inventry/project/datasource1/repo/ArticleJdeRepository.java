@@ -17,7 +17,7 @@ public interface ArticleJdeRepository  extends JpaRepository<ArticleJde,Long> {
 	/*@Query(value=""
 			+ "select PDAN8 as numarticle  from proddta.F4311 \r\n"
 			,nativeQuery = true)*/
-	@Query(value="select   PDITM as numarticle, PDLITM as nomarticle, b.ABALPH as fournisseur ,PDDSC1 as description, PDUORG /100 as quantite, PDPRRC /10000 as prixunitaire, PDAEXP /100 as prixtotal , PDDOCO as support_id from proddta.F4311 a , proddta.F0101 b"
+	@Query(value="select   PDITM as numarticle, PDLITM as nomarticle,PDAN8 as numfournisseur,b.ABALPH as fournisseur ,PDDSC1 as description, PDUORG /100 as quantite, PDPRRC /10000 as prixunitaire, PDAEXP /100 as prixtotal , PDDOCO as support_id from proddta.F4311 a , proddta.F0101 b"
 			+ " where a.pdan8 = b.aban8 and PDDCTO=:type and  PDDOCO=:numsupport "
 			,nativeQuery = true)
 	List<ArticleJde> getarticles(@Param("numsupport") String numsupport,
@@ -25,7 +25,7 @@ public interface ArticleJdeRepository  extends JpaRepository<ArticleJde,Long> {
 			);
 	
 	
-	@Query(value="select   PDITM as numarticle, PDLITM as nomarticle, b.ABALPH as fournisseur ,PDDSC1 as description, PDUORG /100 as quantite, PDPRRC /10000 as prixunitaire, PDAEXP /100 as prixtotal , PDVR01 as support_id from proddta.F4311 a , proddta.F0101 b"
+	@Query(value="select   PDITM as numarticle, PDLITM as nomarticle,PDAN8 as numfournisseur , b.ABALPH as fournisseur ,PDDSC1 as description, PDUORG /100 as quantite, PDPRRC /10000 as prixunitaire, PDAEXP /100 as prixtotal , PDVR01 as support_id from proddta.F4311 a , proddta.F0101 b"
 			+ " where a.pdan8 = b.aban8  and  PDVR01 LIKE '%' || :numsupport || '%'  and PDDCTO=:type "
 			,nativeQuery = true)
 	

@@ -19,14 +19,13 @@ public class DeatilsArticle implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long iddetaillearticle;
-	Long numarticle;
 	String nomarticle;
 	String description;
 	int quantite;
-	float prixunitaire;
+	float prixunitaire; 
 	float prixtotal;
 	/*****new attributes********/
-	@Column(unique=true)
+	@Column(length=128 ,unique=true) 
 	String codebare;
 	String complement_intitule;
 	String RI ;
@@ -61,7 +60,7 @@ public class DeatilsArticle implements Serializable{
 			Boolean immobilisation, Article article) {
 		super();
 		this.iddetaillearticle= idarticle;
-		this.numarticle = numarticle;
+		//this.numarticle = numarticle;
 		this.nomarticle = nomarticle;
 		this.description = description;
 		this.quantite = quantite;
@@ -105,18 +104,7 @@ public class DeatilsArticle implements Serializable{
 
 
 
-	public Long getNumarticle() {
-		return numarticle;
-	}
-
-
-
-
-
-	public void setNumarticle(Long numarticle) {
-		this.numarticle = numarticle;
-	}
-
+	
 
 
 

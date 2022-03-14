@@ -9,15 +9,32 @@ import com.inventry.project.model.Detailssite;
 import com.inventry.project.model.Supportacquistion;
 import com.inventry.project.model.Utilisateur;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class PvreceptionDto {
+	
 	private String numpv;
+	
+	@NotBlank(message = "veuillez choisir une date")
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private String date_pv;
+	
+	@NotNull(message = "veuillez choisir un utilisateur")
 	private String utilisateur;
+	
 	private Supportacquistion support;
+	
+	@Valid
 	private Detailssite site;
+	@Valid
 	private BonLivraison bonlivraison;
+	
+	@NotEmpty(message = "veuillez choisir un agent")
 	private List<Utilisateur> agents;
+	
 	private List<Article> articles;
 	private Double prix_ht;
 	
@@ -25,17 +42,6 @@ public class PvreceptionDto {
 		super();
 	}
 
-	public PvreceptionDto(String numpv, String date_pv, String utilisateur, Supportacquistion support, Detailssite site,
-			BonLivraison bonlivraison, List<Utilisateur> agents) {
-		super();
-		this.numpv = numpv;
-		this.date_pv = date_pv;
-		this.utilisateur = utilisateur;
-		this.support = support;
-		this.site = site;
-		this.bonlivraison = bonlivraison;
-		this.agents = agents;
-	}
 	
 	
 

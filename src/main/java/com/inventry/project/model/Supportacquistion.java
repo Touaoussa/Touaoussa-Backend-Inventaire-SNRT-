@@ -50,10 +50,10 @@ public class Supportacquistion implements Serializable {
     List<Pvreception> pvs;
 	
 
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name="direction_id", nullable=false)
 	@JsonIgnore
-	private Direction direction;
+	private Direction direction;*/
 	
 	@ManyToOne
 	@JoinColumn(name="fournisseur_id", nullable=false)
@@ -82,7 +82,7 @@ public class Supportacquistion implements Serializable {
 		this.receptions = receptions;
 		this.sites = sites;
 		this.pvs = pvs;
-		this.direction = direction;
+		//this.direction = direction;
 		this.fournisseur = fournisseur;
 	}
 
@@ -101,7 +101,7 @@ public class Supportacquistion implements Serializable {
 		this.bonlivraisons = bonlivraisons;
 		this.receptions = receptions;
 		this.sites = sites;
-		this.direction = direction;
+	//	this.direction = direction;
 		this.fournisseur = fournisseur;
 	}
 
@@ -119,7 +119,7 @@ public class Supportacquistion implements Serializable {
 		this.articles = articles;
 		this.sites = sites;
 		this.receptions = receptions;
-		this.direction = direction;
+		//this.direction = direction;
 		this.fournisseur = fournisseur;
 	}
 
@@ -222,13 +222,13 @@ public Supportacquistion(String reference, String type) {
 			this.receptions = receptions;
 		}
 
-		public Direction getDirection() {
+	/*	public Direction getDirection() {
 			return direction;
 		}
 
 		public void setDirection(Direction direction) {
 			this.direction = direction;
-		}
+		}*/
 
 		public Fournisseur getFournisseur() {
 			return fournisseur;

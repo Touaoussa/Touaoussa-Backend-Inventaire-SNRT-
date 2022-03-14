@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,8 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Utilisateur implements UserDetails{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long matricule;
 	private String identifiant;
 	private String nom;
@@ -32,7 +32,7 @@ public class Utilisateur implements UserDetails{
 	private Long tele;
 	
 	private String mdps; 
-	private boolean accountnonlocked=false;  
+	private boolean accountnonlocked=true;  
 	
 
 	private int failedattempt;   
@@ -185,7 +185,7 @@ public class Utilisateur implements UserDetails{
 	}
 
 	@Override
-	//@JsonIgnore
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = this.roles.stream()
@@ -237,7 +237,7 @@ public class Utilisateur implements UserDetails{
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
-	//@JsonIgnore
+	@JsonIgnore
 	public Set<Role> getRoles() {
 		return roles;
 	}

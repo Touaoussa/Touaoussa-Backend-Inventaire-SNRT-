@@ -12,12 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
+//@Order(Ordered.LOWEST_PRECEDENCE)
 public class ControllerExceptionHandler  {
 	
 	@ExceptionHandler(Exception.class)
@@ -28,14 +29,32 @@ public class ControllerExceptionHandler  {
 	
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<ErrorMessage> LoginException(Exception e) {
-		ErrorMessage emsg = new ErrorMessage("E000", e.getMessage(),HttpStatus.BAD_REQUEST);
+		ErrorMessage emsg = new ErrorMessage("E001", e.getMessage(),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(DuplicateCDBException.class)
+	public ResponseEntity<ErrorMessage> DuplicateCDBException(Exception e) {
+		
+		ErrorMessage emsg = new ErrorMessage("E002", e.getMessage(),HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
 	
 	
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+		String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+		ErrorMessage emsg = new ErrorMessage("E003", message,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+    }
+	
+	
+	
+	
 	@ExceptionHandler(SupportNotFoundException.class)
 	public ResponseEntity<ErrorMessage> SupportNotFoundException(SupportNotFoundException e) {
-		ErrorMessage emsg = new ErrorMessage("E010", e.getMessage(),HttpStatus.BAD_REQUEST);
+		ErrorMessage emsg = new ErrorMessage("E004", e.getMessage(),HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
 	
@@ -52,10 +71,10 @@ public class ControllerExceptionHandler  {
 		ErrorMessage emsg = new ErrorMessage("E004", "Code barre déja existé", HttpStatus.BAD_REQUEST);
 		new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
-	}
+	}*/
 
 
-	@ExceptionHandler(NullPointerException.class) 
+/*	@ExceptionHandler(NullPointerException.class) 
 	public ResponseEntity<ErrorMessage> handlesServerErrorException(NullPointerException e) {
 		ErrorMessage emsg = new ErrorMessage("E003",e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		new ResponseEntity<>(emsg, HttpStatus.INTERNAL_SERVER_ERROR);

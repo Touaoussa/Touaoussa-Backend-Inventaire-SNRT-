@@ -2,6 +2,7 @@ package com.inventry.project.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -65,4 +67,23 @@ public class SecondDataSourceConfig {
 	        return new JpaTransactionManager(entityManagerFactory);
 	    }
 	 
+	 	@Bean
+	    public LocalSessionFactoryBean sessionFactory() {
+	        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+	        sessionFactory.setDataSource(dataSource());
+	        sessionFactory.setPackagesToScan(
+	          "com.inventry.project.model") ;
+	        sessionFactory.setHibernateProperties(hibernateProperties());
+	        return sessionFactory;
+	    }
+	 	
+	 	private final Properties hibernateProperties() {
+	        Properties hibernateProperties = new Properties();
+	        hibernateProperties.setProperty(
+	          "spring.jpa.hibernate.ddl-auto", "create-update");
+	        hibernateProperties.setProperty(
+	          "hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+
+	        return hibernateProperties;
+	    }
 }

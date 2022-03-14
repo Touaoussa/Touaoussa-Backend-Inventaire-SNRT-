@@ -9,7 +9,7 @@ import com.inventry.project.model.Article;
 import com.inventry.project.model.ArticleJde;
 
 
-public interface ArticleLocalRepository extends JpaRepository<Article,Long> {
+public interface ArticleLocalRepository  extends JpaRepository<Article,Long> {
 	
 	
 	

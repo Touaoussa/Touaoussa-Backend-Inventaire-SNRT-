@@ -182,9 +182,15 @@ public class SupportController {
 			//	return null;
 				
 			articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+			if(articles.size()==0) {
+				 throw new SupportNotFoundException("Support Non trouvé vérifier le numéro ou bien le type du support");
+			 }
 			}
 			else {
 				 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
+				 if(articles.size()==0) {
+					 throw new SupportNotFoundException("Support Non trouvé vérifier le numéro ou bien le type du support");
+				 }
 			}
 			
 			
@@ -196,6 +202,7 @@ public class SupportController {
 			supportacquisitiondto.setDirection(d);
 			
 			Fournisseur f =new Fournisseur();
+			f.setIdfournisseur(articles.get(0).getNumfournisseur());
 			f.setNomfournisseur(articles.get(0).getFournisseur());
 			Fournisseur f2=fournisseurrepository.save(f);
 			supportacquisitiondto.setFournisseur(f);
@@ -209,7 +216,7 @@ public class SupportController {
 			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().replaceAll("[\\]+", "sss"));
 			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("'\'") + 1).trim());
 			supportacquistion.setPath(supportacquisitiondto.getPath());
-			supportacquistion.setDirection(supportacquisitiondto.getDirection());
+			//supportacquistion.setDirection(supportacquisitiondto.getDirection());
 			supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 			
 			 this.supportacquistionRepository2.save(supportacquistion);
@@ -227,20 +234,19 @@ public class SupportController {
 		List<ArticleJde> articles = new ArrayList<ArticleJde>() ;
 		String[] arr = new String [] {"M1", "M2", "M3", "M4","M5","M6","M7","M8","M9"};
 		if( Arrays.asList(arr).contains(supportacquisitiondto.getType()) ) {
-			System.out.println("yes");
-			try {
 		articles = articlejderepository.getarticlesMarche(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
-			}catch(IndexOutOfBoundsException E) {
-				throw new SupportNotFoundException("Support Non trouvé vérifier le réference ou bien le typedu support");
-			}
+		if(articles.size()==0) {
+			 throw new SupportNotFoundException("Support Non trouvé vérifier le numéro ou bien le type du support");
+		 }
 		}
 		else {
-			try {
-			System.out.println("no");
+			
 			 articles = articlejderepository.getarticles(supportacquisitiondto.getReference(),supportacquisitiondto.getType());
-			}catch(IndexOutOfBoundsException E) {
-				throw new SupportNotFoundException("Support Non trouvé vérifier le réference ou bien le typedu support");
-			}
+			 System.out.println("hhhhhhhhh");
+			 if(articles.size()==0) {
+				 throw new SupportNotFoundException("Support Non trouvé vérifier le numéro ou bien le type du support");
+			 }
+			
 		}
 		
 		/*******************Ajout des supports ***************/
@@ -252,6 +258,7 @@ public class SupportController {
 		
 		Fournisseur f =new Fournisseur();
 	//	f.setIdfournisseur(Long.valueOf(1));
+		f.setIdfournisseur(articles.get(0).getNumfournisseur());
 		f.setNomfournisseur(articles.get(0).getFournisseur());
 		Fournisseur f2=fournisseurrepository.save(f);
 		supportacquisitiondto.setFournisseur(f);
@@ -260,7 +267,7 @@ public class SupportController {
 		supportacquistion.setType(supportacquisitiondto.getType());
 		supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
 		supportacquistion.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("'\'") + 1).trim());
-		supportacquistion.setDirection(supportacquisitiondto.getDirection());
+		//supportacquistion.setDirection(supportacquisitiondto.getDirection());
 		supportacquistion.setFournisseur(supportacquisitiondto.getFournisseur());
 		
 		 this.supportacquistionRepository2.save(supportacquistion);

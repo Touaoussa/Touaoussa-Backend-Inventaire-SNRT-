@@ -35,7 +35,7 @@ public class ArticleController {
 }
 	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path = "/updatearticles") 
-	    public void AddPv(@RequestBody List<Article> articles) {	
+	    public void AddPv(@RequestBody List<Article> articles) throws Exception {	
 		this.articleservice.updatearticles(articles);
 		}
 

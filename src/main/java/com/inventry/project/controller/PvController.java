@@ -3,6 +3,8 @@ package com.inventry.project.controller;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inventry.project.DTO.PvreceptionDto;
+import com.inventry.project.Exception.DuplicateCDBException;
 import com.inventry.project.datasource2.repo.IAgents;
 import com.inventry.project.datasource2.repo.IHistoriquepv;
 import com.inventry.project.datasource2.repo.IUtilisateur;
@@ -38,7 +41,8 @@ public class PvController {
 	
 	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	@GetMapping(path ="/getlastnumpv")
-	public Long getlastnumpv(){
+	public Long getlastnumpv() throws Exception{
+		if (this.pvservice.getlastnumpv()==null) return (long) 0;
 		return this.pvservice.getlastnumpv();
 	}
 	
@@ -58,20 +62,21 @@ public class PvController {
 	
 	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	@PostMapping(path = "/setpv")
-	    public Pvreception AddPv(@RequestBody PvArticle pvarticle) throws Exception{	
-		Pvreception	pvreception = new Pvreception();
-		//System.out.println("hhhhhhhh"+pvarticle.getArticles().get(0).getIdarticle());
-		pvreception.setNumpv(pvarticle.getPv().getNumpv());
-		pvreception.setDate_pv(pvarticle.getPv().getDate_pv());
-		pvreception.setSupport(pvarticle.getPv().getSupport());
-		pvreception.setSite(pvarticle.getPv().getSite()); 
-		pvreception.setBonlivraison(pvarticle.getPv().getBonlivraison());
-		pvreception.setAgents(pvarticle.getPv().getAgents());
-		pvreception.setUtilisateur(pvarticle.getPv().getUtilisateur());
-		pvreception.setArticles(pvarticle.getPv().getArticles());
-		pvreception.setPrix_ht(pvarticle.getPv().getPrix_ht());
-		Pvreception PV = this.pvservice.addpv(pvreception);
-		this.articleservice.updatearticles(pvarticle.getArticles());
+	@Transactional(rollbackOn = Exception.class)
+	    public Pvreception AddPv(@Valid @RequestBody PvreceptionDto pvarticle) throws Exception{	
+		Pvreception PV=null;
+			Pvreception	pvreception = new Pvreception();
+			pvreception.setNumpv(pvarticle.getNumpv());
+			pvreception.setDate_pv(pvarticle.getDate_pv());
+			pvreception.setSupport(pvarticle.getSupport());
+			pvreception.setSite(pvarticle.getSite()); 
+			pvreception.setBonlivraison(pvarticle.getBonlivraison());
+			pvreception.setAgents(pvarticle.getAgents());
+			pvreception.setUtilisateur(pvarticle.getUtilisateur());
+			//pvreception.setArticles(pvarticle.getArticles());
+			pvreception.setPrix_ht(pvarticle.getPrix_ht());
+			PV = this.pvservice.addpv(pvreception);
+			this.articleservice.updatearticles(pvarticle.getArticles());
 		return PV;
 		}
 	 

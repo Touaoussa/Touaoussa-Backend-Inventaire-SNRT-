@@ -3,6 +3,7 @@ package com.inventry.project.model;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class BonLivraison {
 	@Id
+	@NotNull(message = "veuillez choisir un numéro de bon de livraison")
 	//@GeneratedValue(strategy=GenerationType.TABLE)
 	private String numbl;
 	//@GeneratedValue(strategy=GenerationType.SEQUENCE)

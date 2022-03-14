@@ -26,8 +26,8 @@ public class Article implements Serializable {
 	int quantite;
 	float prixunitaire;
 	float prixtotal;
-	/*****new attributes********/
-	@Column(unique=true)
+	/*****new attributes********/ 
+	@Column(length=128 ,unique=true) 
 	String codebare;
 	String complement_intitule;
 	String RI ;
@@ -54,7 +54,7 @@ public class Article implements Serializable {
 	@ManyToMany
 	private List<Pvreception> pvs;
 	
-	@OneToMany(mappedBy = "article",cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "article")
 	List<DeatilsArticle> detailsarticle ;
 
 	public Long getIdarticle() {

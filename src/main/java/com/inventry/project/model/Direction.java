@@ -12,8 +12,8 @@ public class Direction {
 	private Long iddirection;	
 	private String intitule;
 	
-	@OneToMany(mappedBy="direction", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-	private List<Supportacquistion> listsupport  ;
+	//@OneToMany(mappedBy="direction", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	//private List<Supportacquistion> listsupport  ;
 
 	public Direction() {
 		
@@ -23,7 +23,7 @@ public class Direction {
 		super();
 		this.iddirection = iddirection;
 		this.intitule = intitule;
-		this.listsupport = listsupport;
+		//this.listsupport = listsupport;
 	}
 
 
@@ -45,13 +45,13 @@ public class Direction {
 		this.intitule = intitule;
 	}
 
-	public List<Supportacquistion> getListsupport() {
+	/*public List<Supportacquistion> getListsupport() {
 		return listsupport;
 	}
 
 	public void setListsupport(List<Supportacquistion> listsupport) {
 		this.listsupport = listsupport;
-	}
+	}*/
 	
 	
 	

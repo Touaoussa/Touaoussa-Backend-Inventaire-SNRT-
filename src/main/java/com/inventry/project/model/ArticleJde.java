@@ -15,6 +15,7 @@ public class ArticleJde {
 	float prixunitaire;
 	float prixtotal;
 	String support_id;
+	long numfournisseur;
 	String fournisseur;
 	
 	public String getSupport_id() {
@@ -22,6 +23,23 @@ public class ArticleJde {
 	}
 	public void setSupport_id(String support_id) {
 		this.support_id = support_id;
+	}
+	
+	
+	
+	
+	public ArticleJde(Long numarticle, String nomarticle, String description, int quantite, float prixunitaire,
+			float prixtotal, String support_id, long numfournisseur, String fournisseur) {
+		super();
+		this.numarticle = numarticle;
+		this.nomarticle = nomarticle;
+		this.description = description;
+		this.quantite = quantite;
+		this.prixunitaire = prixunitaire;
+		this.prixtotal = prixtotal;
+		this.support_id = support_id;
+		this.numfournisseur = numfournisseur;
+		this.fournisseur = fournisseur;
 	}
 	
 	public ArticleJde() {
@@ -95,6 +113,12 @@ public class ArticleJde {
 		this.fournisseur = fournisseur;
 	}
 	
+	public long getNumfournisseur() {
+		return numfournisseur;
+	}
+	public void setNumfournisseur(long numfournisseur) {
+		this.numfournisseur = numfournisseur;
+	}
 	
 	
 }

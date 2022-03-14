@@ -2,10 +2,13 @@ package com.inventry.project.configuration;
 
 import org.apache.catalina.Container;
 import org.apache.catalina.core.StandardHost;
+import org.hibernate.SessionFactory;
+import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 @Configuration
 public class MyConfig {
@@ -24,4 +27,6 @@ public class MyConfig {
             });
         };
     }
+    
+
 }
