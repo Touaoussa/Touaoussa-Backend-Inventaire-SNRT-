@@ -13,8 +13,13 @@
 	<groupId>com.example</groupId>
 	<artifactId>Backend-Projet-Inventaire</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Projet-Inventaire</name>
+	<packaging>war</packaging>
+	<name>gtii-backend</name>
 	<description>project for Spring Boot</description>
+	
+
+	
+
 	
 	<properties>
 		<java.version>1.8</java.version>
@@ -33,6 +38,14 @@
      <groupId>org.springframework.boot</groupId>
      <artifactId>spring-boot-starter-jdbc</artifactId>
  </dependency>
+ 
+  <!-- Executable and self-hosted -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
  
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -114,10 +127,16 @@
 		<version>3.7.0.1746</version>
 		</dependency>
 		
+		<dependency>
+    	<groupId>org.springframework.boot</groupId>
+   	 	<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 
 	<build>
+	<finalName>gtii-backend</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

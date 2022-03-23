@@ -328,7 +328,7 @@ public class SupportController {
 	        if (i<0) throw new Exception();
 	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
 	       // Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
-	        Files.write(Paths.get(System.getProperty("user.dir")+"/upload/support/"+name).normalize(),file.getBytes());
+	        Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name).normalize(),file.getBytes());
 	        Map<String,Object> resp=new HashMap<>();
 	        resp.put("path",name);
 	        return resp;
