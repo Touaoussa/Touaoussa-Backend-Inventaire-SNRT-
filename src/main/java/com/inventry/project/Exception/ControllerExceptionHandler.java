@@ -5,6 +5,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @ControllerAdvice
 //@Order(Ordered.LOWEST_PRECEDENCE)
@@ -35,7 +37,6 @@ public class ControllerExceptionHandler  {
 	
 	@ExceptionHandler(DuplicateCDBException.class)
 	public ResponseEntity<ErrorMessage> DuplicateCDBException(Exception e) {
-		
 		ErrorMessage emsg = new ErrorMessage("E002", e.getMessage(),HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
 	}
@@ -66,6 +67,19 @@ public class ControllerExceptionHandler  {
 	} 
 	
 
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<ErrorMessage> IllegalArgumentException(Exception e) {
+		ErrorMessage emsg = new ErrorMessage("E005", e.getMessage(),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ResponseEntity<ErrorMessage> SizeLimitExceededException(MaxUploadSizeExceededException e) {
+		ErrorMessage emsg = new ErrorMessage("E006", "Le fichier ne doit pas dépasser 500ko ",HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(emsg, HttpStatus.BAD_REQUEST);
+	}
+	
 	/*@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<ErrorMessage> handleMethodArgumentNotValidException(SQLIntegrityConstraintViolationException e) {
 		ErrorMessage emsg = new ErrorMessage("E004", "Code barre déja existé", HttpStatus.BAD_REQUEST);

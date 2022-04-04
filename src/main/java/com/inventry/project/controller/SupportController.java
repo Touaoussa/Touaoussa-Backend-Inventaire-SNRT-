@@ -2,6 +2,7 @@ package com.inventry.project.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inventry.project.model.*;
@@ -207,6 +209,8 @@ public class SupportController {
 			Fournisseur f2=fournisseurrepository.save(f);
 			supportacquisitiondto.setFournisseur(f);
 			
+			supportacquistion.setMontant_ht(articles.get(0).getMontant_ht());
+			
 			supportacquistion.setReference(supportacquisitiondto.getReference());
 			supportacquistion.setType(supportacquisitiondto.getType());
 			//supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
@@ -263,6 +267,7 @@ public class SupportController {
 		Fournisseur f2=fournisseurrepository.save(f);
 		supportacquisitiondto.setFournisseur(f);
 		
+		supportacquistion.setMontant_ht(articles.get(0).getMontant_ht());
 		supportacquistion.setReference(supportacquisitiondto.getReference());
 		supportacquistion.setType(supportacquisitiondto.getType());
 		supportacquisitiondto.setPath(supportacquisitiondto.getPath().substring(supportacquisitiondto.getPath().lastIndexOf("/") + 1).trim());
@@ -307,10 +312,10 @@ public class SupportController {
 	 /*upload File */
 	 @PreAuthorize("hasRole('ROLE_ACHAT')")
 	 @PostMapping(path = "/uploadfile/support/") 
-	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws Exception{
+	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile file) throws MaxUploadSizeExceededException{
 	     
 		 MediaType mediaType = MediaType.parseMediaType(file.getContentType());
-
+		 System.out.println("hhhhhhhhhhhhh");
 		    System.out.println(file.getContentType());
 		    System.out.println(mediaType);
 		   // System.out.println(mediaType.getType());
@@ -325,10 +330,15 @@ public class SupportController {
 		 
 		 String name=file.getOriginalFilename();
 	        int i= name.lastIndexOf(".");
-	        if (i<0) throw new Exception();
+	        if (i<0) //throw new Exception();
 	        name= Calendar.getInstance().getTimeInMillis()+name.substring(i);
 	       // Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name),file.getBytes());
-	        Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name).normalize(),file.getBytes());
+	        try {
+				Files.write(Paths.get(System.getProperty("user.home")+"/upload/support/"+name).normalize(),file.getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        Map<String,Object> resp=new HashMap<>();
 	        resp.put("path",name);
 	        return resp;
@@ -350,7 +360,7 @@ public class SupportController {
 	        System.out.println(path);
 	        return Files.readAllBytes(path);*/
 		 String FileName=supportacquistion.getPath();
-		 String filepath =System.getProperty("user.dir")+"/upload/support/"+ FileName;
+		 String filepath =System.getProperty("user.home")+"/upload/support/"+ FileName;
 		 File file = new File(filepath);
 		 System.out.println("file="+file);
 		 
@@ -363,7 +373,7 @@ public class SupportController {
 	      try {
 	    	  resource = new InputStreamResource(new FileInputStream(file));
 	      }catch(Exception e) {
-	    	  throw new Exception("Le fichier "+FileName+" est introuvable");
+	    	  throw new IllegalArgumentException("Le fichier "+FileName+" est introuvable");
 	      }
 	        System.out.println("rs="+resource);
 	        //if(resource == null) 

@@ -34,7 +34,7 @@ public class ReceptionController {
 	@Autowired 
 	ReceptionService receptionservice;
 
-	@PreAuthorize("hasRole('ROLE_RESPONSABLE','ROLE_AGENTINVENTAIRE')")
+	@PreAuthorize("hasAnyRole('ROLE_RESPONSABLE','ROLE_AGENTINVENTAIRE')")
 	 @GetMapping("/getreceptions") 
 	    public List<Reception> GetAllReceptions() throws Exception{	
 		 return this.receptionservice.findallreceptions();
@@ -81,7 +81,7 @@ public class ReceptionController {
 		 this.receptionservice.DeleteReception(reception);
 		}
 	 
-	 @PreAuthorize("hasRole('ROLE_RESPONSABLE','ROLE_AGENTINVENTAIRE')")
+	// @PreAuthorize("hasAnyRole('ROLE_RESPONSABLE','ROLE_AGENTINVENTAIRE')")
 	 @PostMapping("/getreceptionsbysupport") 
 	    public List<Reception> GetReceptionbySupport(@RequestBody SupportacquistionDto supportacquisitiondto) throws Exception{	
 		 return this.receptionservice.findabySupport(supportacquisitiondto.getReference());

@@ -27,12 +27,13 @@ public class ArticleController {
 	@GetMapping(path="/getallarticles")
 		public List<IArticle> getallarticles() throws Exception {
 		return this.articleservice.getallarticles();
+		//return null;
 	}
-	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
+	/*@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	@GetMapping(path="/testExceptions")
 	public void getExceptions() throws SQLIntegrityConstraintViolationException  {
 	throw new SQLIntegrityConstraintViolationException();
-}
+}*/
 	@PreAuthorize("hasRole('ROLE_AGENTINVENTAIRE')")
 	 @PostMapping(path = "/updatearticles") 
 	    public void AddPv(@RequestBody List<Article> articles) throws Exception {	

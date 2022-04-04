@@ -39,7 +39,7 @@ public class Pvreception implements Serializable{
 			  inverseJoinColumns = @JoinColumn(name = "agent_id"))
 	private List<Utilisateur> agents;
 	
-	private Double prix_ht;
+	//private Double prix_ht;
 	
 	
 	@ManyToOne
@@ -70,7 +70,7 @@ public class Pvreception implements Serializable{
 		this.date_pv = date_pv;
 		this.utilisateur = utilisateur;
 		this.agents = agents;
-		this.prix_ht = prix_ht;
+		//this.prix_ht = prix_ht;
 		this.support = support;
 		this.site = site;
 		this.bonlivraison = bonlivraison;
@@ -185,7 +185,7 @@ public class Pvreception implements Serializable{
 
 
 
-	public Double getPrix_ht() {
+	/*public Double getPrix_ht() {
 		return prix_ht;
 	}
 
@@ -193,7 +193,7 @@ public class Pvreception implements Serializable{
 
 	public void setPrix_ht(Double prix_ht) {
 		this.prix_ht = prix_ht;
-	}
+	}*/
 	
 	
 	

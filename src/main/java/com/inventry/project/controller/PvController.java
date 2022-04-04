@@ -74,7 +74,7 @@ public class PvController {
 			pvreception.setAgents(pvarticle.getAgents());
 			pvreception.setUtilisateur(pvarticle.getUtilisateur());
 			//pvreception.setArticles(pvarticle.getArticles());
-			pvreception.setPrix_ht(pvarticle.getPrix_ht());
+			//pvreception.setPrix_ht(pvarticle.getPrix_ht());
 			PV = this.pvservice.addpv(pvreception);
 			this.articleservice.updatearticles(pvarticle.getArticles());
 		return PV;

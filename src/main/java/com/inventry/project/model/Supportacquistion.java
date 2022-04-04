@@ -29,6 +29,7 @@ public class Supportacquistion implements Serializable {
 	private String reference;
 	private String type;
 	private String path;
+	private float montant_ht;
 		
 	@OneToMany(mappedBy="support", cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
 	private List<Article> articles;
@@ -43,6 +44,7 @@ public class Supportacquistion implements Serializable {
 	
 	@ManyToMany
 	private List<Site> sites;
+	
 	
 	
 	@OneToMany(mappedBy = "support" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
@@ -69,6 +71,26 @@ public class Supportacquistion implements Serializable {
 	
 	
 	
+
+	public Supportacquistion(String reference, String type, String path, float montant_ht, List<Article> articles,
+			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, List<Pvreception> pvs,
+			Fournisseur fournisseur) {
+		super();
+		this.reference = reference;
+		this.type = type;
+		this.path = path;
+		this.montant_ht = montant_ht;
+		this.articles = articles;
+		this.bonlivraisons = bonlivraisons;
+		this.receptions = receptions;
+		this.sites = sites;
+		this.pvs = pvs;
+		this.fournisseur = fournisseur;
+	}
+
+
+
+
 
 	public Supportacquistion(String reference, String type, String path, List<Article> articles,
 			List<BonLivraison> bonlivraisons, List<Reception> receptions, List<Site> sites, List<Pvreception> pvs,
@@ -256,7 +278,13 @@ public Supportacquistion(String reference, String type) {
 			this.pvs = pvs;
 		}
 		
-		
+		public float getMontant_ht() {
+			return montant_ht;
+		}
+
+		public void setMontant_ht(float montant_ht) {
+			this.montant_ht = montant_ht;
+		}
 		
 
 }

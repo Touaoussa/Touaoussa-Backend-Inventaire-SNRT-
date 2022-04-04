@@ -32,7 +32,7 @@ public class DeatilsArticle implements Serializable{
 	String caracteristiques;
 	String marque;
 	String type;
-	@Column(unique=true)
+	@Column(length=128 ,unique=true)
 	String nsr;
 	String observation;
 	Double lot;

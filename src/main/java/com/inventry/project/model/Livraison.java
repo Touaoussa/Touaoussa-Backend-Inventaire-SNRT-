@@ -21,14 +21,12 @@ public class Livraison implements Serializable{
 	 
 	 @ManyToOne
 	 @MapsId("receptionId")
-	 @JoinColumn(name = "reception_id")
-	
+	 @JoinColumn(name = "reception_id")	
 	 Reception reception;
 	 
 	 @ManyToOne
 	 @MapsId("articleId")
-	 @JoinColumn(name = "article_id")
-	 
+	 @JoinColumn(name = "article_id") 
 	 Article article;
 	
 	 int quantite;

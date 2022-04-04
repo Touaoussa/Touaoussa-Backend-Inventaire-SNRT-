@@ -39,7 +39,7 @@ public class LivraisonService {
 	}
 	
 	public void deleteLivraison(Livraison livraison) {
-		LvraisonKey livraisonkey = new LvraisonKey(livraison.getReception().getId_reception(),livraison.getArticle().getNumarticle());
+		LvraisonKey livraisonkey = new LvraisonKey(livraison.getReception().getId_reception(),livraison.getArticle().getIdarticle());
 		 this.livraisonrpository.deleteById(livraisonkey);
 		//Reception reception= this.receptionrepository.findById(livraison.getReception().getId_reception()).get();
 		//Article article = this.articlerepository.findById(livraison.getArticle().getNumarticle()).get();
